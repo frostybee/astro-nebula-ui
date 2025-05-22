@@ -1,0 +1,48 @@
+---
+title: 'Bento Examples'
+---
+
+import BentoGrid from 'astro-galaxy-components/components/BentoGrid.astro'
+import BentoCard from 'astro-galaxy-components/components/BentoCard.astro'
+import CodeBlock from 'astro-galaxy-components/components/CodeBlock.astro'
+
+<BentoGrid title="CSS Flexbox">
+  <BentoCard title="Basic Container">
+    <CodeBlock
+      lang="css"
+      code={`.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}`}
+    />
+  </BentoCard>
+
+  <BentoCard title="Flex Items" rowSpan={2}>
+    <CodeBlock
+      lang="css"
+      code={`.flex-item {
+  flex: 1 1 auto;
+  /* shorthand for flex-grow, flex-shrink, flex-basis */
+}`}
+    />
+    <p>Individual item properties:</p>
+    <CodeBlock
+      lang="css"
+      code={`.item {
+  align-self: center; /* Override alignment */
+  order: 2; /* Change display order */
+}`}
+    />
+  </BentoCard>
+
+  <BentoCard title="Alignment">
+    <CodeBlock
+      lang="css"
+      code={`.container {
+  justify-content: space-between; /* Main axis */
+  align-items: center; /* Cross axis */
+}`}
+    />
+  </BentoCard>
+</BentoGrid>

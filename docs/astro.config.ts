@@ -14,6 +14,17 @@ export default defineConfig({
           label: 'Start Here',
           items: ['getting-started'],
         },
+
+        {
+          label: 'Components',
+          items: [
+            {
+              label: 'Callouts',
+              autogenerate: { directory: 'components/callouts' }
+            },            
+          ]
+          
+        }
       ],
       social: [
         { href: 'https://github.com/frostybee/astro-galaxy-components', icon: 'github', label: 'GitHub' },

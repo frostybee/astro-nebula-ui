@@ -1,0 +1,96 @@
+---
+interface Props {
+  title: string;
+  id?: string;
+  colSpan?: number; // Number of columns to span (default: 1)
+  rowSpan?: number; // Number of rows to span (default: 1)
+}
+
+const {
+  title,
+  id = title.toLowerCase().replace(/\s+/g, "-"),
+  colSpan = 1,
+  rowSpan = 1,
+} = Astro.props;
+---
+
+<div
+  class="h3-wrap"
+  style={`grid-column: span ${colSpan}; grid-row: span ${rowSpan};`}
+>
+  <h3 id={id}><a class="h-anchor" href={`#${id}`}>#</a>{title}</h3>
+  <div class="section">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .h3-wrap {
+    position: relative;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255/var(--tw-bg-opacity));
+    padding-top: 1.5rem;
+    --tw-shadow: 0 6px 8px rgba(102,119,136,0.03),0 1px 2px rgba(102,119,136,0.3);
+    --tw-shadow-colored: 0 6px 8px var(--tw-shadow-color),0 1px 2px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+    height: 100%;
+  }
+
+  .h3-wrap h3 {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 10;
+    border-bottom-left-radius: 0.5rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(16 185 129/var(--tw-bg-opacity));
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.05em;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255/var(--tw-text-opacity));
+    --tw-shadow: 0 6px 8px rgba(102,119,136,0.03),0 1px 2px rgba(102,119,136,0.3);
+    --tw-shadow-colored: 0 6px 8px var(--tw-shadow-color),0 1px 2px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+    margin: 0;
+  }
+
+  .section {
+    margin-top: 0.5rem;
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  /* Style for code blocks inside cards */
+  .section pre {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  /* Copy button styling similar to example */
+  .section pre button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background-color: var(--sl-color-accent);
+    color: white;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .section pre:hover button {
+    opacity: 1;
+  }
+</style>

@@ -1,0 +1,213 @@
+---
+interface Props {
+  type?: "info" | "alert" | "danger" | "success" | "warning" | "tip";
+}
+//TODO: add border left to each callout type. @see: info type.
+const { type = "info" } = Astro.props;
+
+// SVG icons for each type
+const icons = {
+  info: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="M12 16v-4"></path>
+    <path d="M12 8h.01"></path>
+  </svg>`,
+  
+  alert: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 8v4"></path>
+    <path d="M12 16h.01"></path>
+    <path d="M6.4 20a9 9 0 1 1 11.2 0Z"></path>
+  </svg>`,
+  
+  danger: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m19 5-14 14"></path>
+    <path d="m5 5 14 14"></path>
+  </svg>`,
+  
+  success: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 6 9 17l-5-5"></path>
+  </svg>`,
+  
+  warning: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+    <path d="M12 9v4"></path>
+    <path d="M12 17h.01"></path>
+  </svg>`,
+  
+  tip: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2v8"></path>
+    <path d="m4.93 10.93 1.41 1.41"></path>
+    <path d="M2 18h2"></path>
+    <path d="M20 18h2"></path>
+    <path d="m19.07 10.93-1.41 1.41"></path>
+    <path d="M22 22H2"></path>
+    <path d="M16 6 8 14"></path>
+  </svg>`
+};
+---
+
+<div class={`callout callout-${type}`}>
+  <div class="callout-icon" set:html={icons[type]}></div>
+  <div class="callout-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  @layer galaxy {
+  .callout {
+    display: flex;
+    margin-bottom: 1rem;
+    border-radius: 18px;
+    overflow: hidden;    
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;    
+    background-color: #f0f0f0;
+    border: 1px solid #00b7ff;
+    border-left: 4px solid;
+  }
+
+  .callout-icon {
+    display: flex;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .callout-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .callout-content {
+    flex: 1;
+    margin-top: 0;
+  }
+
+  /* Info callout */
+  .callout-info {
+    background-color: rgba(59, 130, 246, 0.1);
+    border-left-color: #3b82f6;
+    /* border: 1px solid #3b82f6; */
+    border-left: 4px solid #3b82f6;
+    
+  }
+  .callout-info .callout-icon svg {
+    color: #3b82f6;
+  }
+
+  /* Alert callout */
+  .callout-alert {
+    background-color: rgba(168, 85, 247, 0.1);
+    border-left-color: #a855f7;
+  }
+  .callout-alert .callout-icon svg {
+    color: #a855f7;
+  }
+
+  /* Danger callout */
+  .callout-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-left-color: #ef4444;
+  }
+  .callout-danger .callout-icon svg {
+    color: #ef4444;
+  }
+
+  /* Success callout */
+  .callout-success {
+    background-color: rgba(34, 197, 94, 0.1);
+    border-left-color: #22c55e;
+  }
+  .callout-success .callout-icon svg {
+    color: #22c55e;
+  }
+
+  /* Warning callout */
+  .callout-warning {
+    background-color: rgba(234, 179, 8, 0.1);
+    border-left-color: #eab308;
+  }
+  .callout-warning .callout-icon svg {
+    color: #eab308;
+  }
+
+  /* Tip callout */
+  .callout-tip {
+    background-color: rgba(20, 184, 166, 0.1);
+    border-left-color: #14b8a6;
+  }
+  .callout-tip .callout-icon svg {
+    color: #14b8a6;
+  }
+
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    .callout-info {
+      background-color: rgba(59, 130, 246, 0.15);
+      border-left-color: #60a5fa;
+    }
+    .callout-info .callout-icon svg {
+      color: #60a5fa;
+    }
+
+    .callout-alert {
+      background-color: rgba(168, 85, 247, 0.15);
+      border-left-color: #c084fc;
+    }
+    .callout-alert .callout-icon svg {
+      color: #c084fc;
+    }
+
+    .callout-danger {
+      background-color: rgba(239, 68, 68, 0.15);
+      border-left-color: #f87171;
+    }
+    .callout-danger .callout-icon svg {
+      color: #f87171;
+    }
+
+    .callout-success {
+      background-color: rgba(34, 197, 94, 0.15);
+      border-left-color: #4ade80;
+    }
+    .callout-success .callout-icon svg {
+      color: #4ade80;
+    }
+
+    .callout-warning {
+      background-color: rgba(234, 179, 8, 0.15);
+      border-left-color: #facc15;
+    }
+    .callout-warning .callout-icon svg {
+      color: #facc15;
+    }
+
+    .callout-tip {
+      background-color: rgba(20, 184, 166, 0.15);
+      border-left-color: #2dd4bf;
+    }
+    .callout-tip .callout-icon svg {
+      color: #2dd4bf;
+    }
+  }
+  
+  /* Global slot styling */
+  :global(.callout-content a) {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  :global(.callout-content p) {
+    /* margin: 0.25rem 0; */
+  }
+
+  :global(.callout-content p:first-child) {
+    margin-top: 0;
+  }
+
+  :global(.callout-content p:last-child) {
+    margin-bottom: 0;
+  }
+  }  
+</style> 
