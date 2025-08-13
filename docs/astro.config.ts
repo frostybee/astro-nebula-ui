@@ -20,7 +20,7 @@ export default defineConfig({
           items: [
             {
               label: 'Callouts',
-              autogenerate: { directory: 'components/callouts' }
+              autogenerate: { directory: 'components/Callouts' }
             },
             {
               label: 'Slide Viewer',
