@@ -8,7 +8,7 @@ export default defineConfig({
       editLink: {
         baseUrl: 'https://github.com/frostybee/astro-galaxy-components/edit/main/docs/',
       },
-      plugins: [astroGalaxyComponents()],
+      plugins: [astroGalaxyComponents()       ],
       sidebar: [
         {
           label: 'Start Here',
@@ -21,9 +21,12 @@ export default defineConfig({
             {
               label: 'Callouts',
               autogenerate: { directory: 'components/callouts' }
-            },            
-          ]
-          
+            },
+            {
+              label: 'Slide Viewer',
+              autogenerate: { directory: 'components/slides' }
+            }
+          ]          
         }
       ],
       social: [

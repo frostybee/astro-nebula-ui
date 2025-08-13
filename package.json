@@ -1,14 +1,18 @@
 {
   "name": "astro-galaxy-components-monorepo",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "A set of customized Astro Starlight UI components",
   "author": "frostybee",
   "type": "module",
+  "workspaces": [
+    "packages/*",
+    "docs"
+  ],
   "engines": {
     "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
   },
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@10.10.0",
   "private": true,
   "homepage": "https://github.com/frostybee/astro-galaxy-components",
   "repository": {

@@ -3,6 +3,7 @@ title: 'Inline Callout Examples'
 ---
 
 import Callout from 'astro-galaxy-components/components/Callout.astro'
+import CollapsiblePanel from 'astro-galaxy-components/components/CollapsiblePanel.astro'
 
 <Callout type="info">
     This is an informational callout with important details. <a href="#" target="_blank" rel="noopener noreferrer">Learn more</a>
@@ -27,3 +28,15 @@ import Callout from 'astro-galaxy-components/components/Callout.astro'
 <Callout type="note">
     This is a note callout with additional information. <a href="#" target="_blank" rel="noopener noreferrer">View notes</a>
 </Callout>
+
+  <CollapsiblePanel title="Panel Title">
+    Your content goes here
+  </CollapsiblePanel>
+
+  <CollapsiblePanel title="Already Expanded" expanded={true}>
+    This starts open
+  </CollapsiblePanel>
+
+  <CollapsiblePanel title="Outline Style" variant="outline">
+    Different visual style
+  </CollapsiblePanel>

@@ -1,6 +1,6 @@
 {
   "name": "astro-galaxy-components",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "A set of customized Astro Starlight UI components",
   "author": "frostybee",
@@ -9,8 +9,10 @@
   "exports": {
     ".": "./src/index.ts",    
     "./components/*.astro": "./src/components/*.astro",    
+    "./components/SlideViewer/SlideViewer.astro": "./src/components/SlideViewer/SlideViewer.astro",    
+    "./styles/SlideViewer/slide-viewer/slideviewer-index.css": "./src/styles/slide-viewer/slideviewer-index.css",    
     "./package.json": "./package.json"
-  },
+    },
   "devDependencies": {
     "@astrojs/starlight": "^0.34.3",
     "astro": "^5.7.14"
