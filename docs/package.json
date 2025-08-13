@@ -15,7 +15,7 @@
   "dependencies": {
     "@astrojs/starlight": "^0.34.8",
     "astro": "^5.12.9",
-    "astro-galaxy-components": "workspace:*",
+    "astro-nebula-ui": "workspace:*",
     "sharp": "^0.34.3",
     "starlight-theme-galaxy": "0.1.0"
   },

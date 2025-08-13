@@ -40,17 +40,28 @@ const headerId = `header-${panelId}`;
 
 <style>
   @layer galaxy {
+    /* CSS Custom Properties with Starlight integration and fallbacks */
+    .collapsible-panel {
+      --panel-bg: var(--sl-color-bg, #ffffff);
+      --panel-bg-hover: var(--sl-color-gray-6, #f8fafc);
+      --panel-text: var(--sl-color-text, #1e293b);
+      --panel-text-hover: var(--sl-color-text, #0f172a);
+      --panel-border: var(--sl-color-gray-5, rgba(203, 213, 225, 0.3));
+      --panel-accent: var(--sl-color-accent, #3b82f6);
+      --panel-shadow: rgba(0, 0, 0, 0.12);
+      --panel-shadow-hover: rgba(0, 0, 0, 0.15);
+    }
     .collapsible-panel {
       border-radius: 10px;
       overflow: hidden;
       margin-bottom: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      box-shadow: 0 1px 3px var(--panel-shadow), 0 1px 2px var(--panel-shadow);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       backdrop-filter: blur(10px);
     }
 
     .collapsible-panel:hover {
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 3px 6px var(--panel-shadow-hover), 0 2px 4px var(--panel-shadow);
       transform: translateY(-1px);
     }
 
@@ -59,7 +70,7 @@ const headerId = `header-${panelId}`;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 1.25rem;
+      padding: 0.375rem 1rem;
       background: none;
       border: none;
       cursor: pointer;
@@ -73,7 +84,7 @@ const headerId = `header-${panelId}`;
     }
 
     .panel-header:focus-visible {
-      outline: 2px solid #3b82f6;
+      outline: 2px solid var(--panel-accent);
       outline-offset: -2px;
     }
 
@@ -104,15 +115,13 @@ const headerId = `header-${panelId}`;
 
     .panel-content {
       overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                  opacity 0.3s ease,
-                  padding 0.3s ease;
-      max-height: 0;
+      transition: height 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                  opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 0;
       opacity: 0;
     }
 
     .panel-content[data-expanded="true"] {
-      max-height: 1000px;
       opacity: 1;
     }
 
@@ -121,42 +130,42 @@ const headerId = `header-${panelId}`;
       line-height: 1.6;
     }
 
-    /* Default variant */
+    /* Default variant - uses Starlight variables with fallbacks */
     .panel-default {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
-      border: 1px solid rgba(203, 213, 225, 0.3);
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
     }
 
     .panel-default .panel-header {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%);
-      color: #1e293b;
-      border-bottom: 1px solid rgba(203, 213, 225, 0.2);
+      background: var(--sl-color-gray-6, #f1f5f9);
+      color: var(--panel-text);
+      border-bottom: 1px solid var(--panel-border);
     }
 
     .panel-default .panel-header:hover {
-      background: linear-gradient(135deg, rgba(248, 250, 252, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%);
-      color: #0f172a;
+      background: var(--panel-bg-hover);
+      color: var(--panel-text-hover);
     }
 
-    /* Outline variant */
+    /* Outline variant - uses Starlight variables with fallbacks */
     .panel-outline {
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(148, 163, 184, 0.3);
+      background: color-mix(in srgb, var(--panel-bg) 10%, transparent);
+      border: 2px solid var(--panel-border);
       backdrop-filter: blur(5px);
     }
 
     .panel-outline .panel-header {
-      background: rgba(255, 255, 255, 0.05);
-      color: #475569;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      background: var(--sl-color-gray-6, #f1f5f9);
+      color: var(--panel-text);
+      border-bottom: 1px solid var(--panel-border);
     }
 
     .panel-outline .panel-header:hover {
-      background: rgba(248, 250, 252, 0.15);
-      color: #334155;
+      background: color-mix(in srgb, var(--panel-bg-hover) 15%, transparent);
+      color: var(--panel-text-hover);
     }
 
-    /* Ghost variant */
+    /* Ghost variant - uses Starlight variables with fallbacks */
     .panel-ghost {
       background: transparent;
       border: none;
@@ -165,125 +174,41 @@ const headerId = `header-${panelId}`;
 
     .panel-ghost .panel-header {
       background: transparent;
-      color: #64748b;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      color: var(--sl-color-gray-3, #64748b);
+      border-bottom: 1px solid color-mix(in srgb, var(--panel-border) 50%, transparent);
       font-weight: 500;
     }
 
     .panel-ghost .panel-header:hover {
-      background: rgba(248, 250, 252, 0.1);
-      color: #475569;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+      background: color-mix(in srgb, var(--panel-bg-hover) 10%, transparent);
+      color: var(--panel-text);
+      border-bottom: 1px solid var(--panel-border);
     }
 
-    /* Explicit dark theme */
+    /* Fallback for non-Starlight environments - Dark theme support */
     .theme-dark .collapsible-panel {
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.15);
+      --panel-bg: #1e293b;
+      --panel-bg-hover: #334155;
+      --panel-text: #f1f5f9;
+      --panel-text-hover: #ffffff;
+      --panel-border: rgba(71, 85, 105, 0.3);
+      --panel-accent: #60a5fa;
+      --panel-shadow: rgba(0, 0, 0, 0.3);
+      --panel-shadow-hover: rgba(0, 0, 0, 0.4);
     }
 
-    .theme-dark .collapsible-panel:hover {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .theme-dark .panel-default {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
-      border: 1px solid rgba(71, 85, 105, 0.3);
-    }
-
-    .theme-dark .panel-default .panel-header {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(51, 65, 85, 0.95) 100%);
-      color: #f1f5f9;
-      border-bottom: 1px solid rgba(71, 85, 105, 0.2);
-    }
-
-    .theme-dark .panel-default .panel-header:hover {
-      background: linear-gradient(135deg, rgba(51, 65, 85, 0.98) 0%, rgba(71, 85, 105, 0.95) 100%);
-      color: #ffffff;
-    }
-
-    .theme-dark .panel-outline {
-      background: rgba(15, 23, 42, 0.1);
-      border: 2px solid rgba(71, 85, 105, 0.4);
-    }
-
-    .theme-dark .panel-outline .panel-header {
-      background: rgba(30, 41, 59, 0.1);
-      color: #cbd5e1;
-      border-bottom: 1px solid rgba(71, 85, 105, 0.3);
-    }
-
-    .theme-dark .panel-outline .panel-header:hover {
-      background: rgba(30, 41, 59, 0.2);
-      color: #e2e8f0;
-    }
-
-    .theme-dark .panel-ghost .panel-header {
-      color: #94a3b8;
-      border-bottom: 1px solid rgba(71, 85, 105, 0.2);
-    }
-
-    .theme-dark .panel-ghost .panel-header:hover {
-      background: rgba(30, 41, 59, 0.15);
-      color: #cbd5e1;
-      border-bottom: 1px solid rgba(71, 85, 105, 0.3);
-    }
-
-    .theme-dark :global(.panel-body a) {
-      color: #60a5fa;
-    }
-
-    /* Auto theme (system preference) - Dark mode */
-    .theme-auto @media (prefers-color-scheme: dark),
+    .theme-auto .collapsible-panel,
     @media (prefers-color-scheme: dark) {
+      .theme-auto .collapsible-panel,
       .collapsible-panel {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.15);
-      }
-
-      .collapsible-panel:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.2);
-      }
-
-      .panel-default {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
-        border: 1px solid rgba(71, 85, 105, 0.3);
-      }
-
-      .panel-default .panel-header {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(51, 65, 85, 0.95) 100%);
-        color: #f1f5f9;
-        border-bottom: 1px solid rgba(71, 85, 105, 0.2);
-      }
-
-      .panel-default .panel-header:hover {
-        background: linear-gradient(135deg, rgba(51, 65, 85, 0.98) 0%, rgba(71, 85, 105, 0.95) 100%);
-        color: #ffffff;
-      }
-
-      .panel-outline {
-        background: rgba(15, 23, 42, 0.1);
-        border: 2px solid rgba(71, 85, 105, 0.4);
-      }
-
-      .panel-outline .panel-header {
-        background: rgba(30, 41, 59, 0.1);
-        color: #cbd5e1;
-        border-bottom: 1px solid rgba(71, 85, 105, 0.3);
-      }
-
-      .panel-outline .panel-header:hover {
-        background: rgba(30, 41, 59, 0.2);
-        color: #e2e8f0;
-      }
-
-      .panel-ghost .panel-header {
-        color: #94a3b8;
-        border-bottom: 1px solid rgba(71, 85, 105, 0.2);
-      }
-
-      .panel-ghost .panel-header:hover {
-        background: rgba(30, 41, 59, 0.15);
-        color: #cbd5e1;
-        border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+        --panel-bg: var(--sl-color-bg, #1e293b);
+        --panel-bg-hover: var(--sl-color-gray-6, #334155);
+        --panel-text: var(--sl-color-text, #f1f5f9);
+        --panel-text-hover: var(--sl-color-text, #ffffff);
+        --panel-border: var(--sl-color-gray-5, rgba(71, 85, 105, 0.3));
+        --panel-accent: var(--sl-color-accent, #60a5fa);
+        --panel-shadow: rgba(0, 0, 0, 0.3);
+        --panel-shadow-hover: rgba(0, 0, 0, 0.4);
       }
     }
 
@@ -297,15 +222,9 @@ const headerId = `header-${panelId}`;
     }
 
     :global(.panel-body a) {
-      color: #3b82f6;
+      color: var(--panel-accent);
       text-decoration: underline;
       text-underline-offset: 2px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :global(.panel-body a) {
-        color: #60a5fa;
-      }
     }
   }
 </style>
@@ -322,13 +241,43 @@ const headerId = `header-${panelId}`;
         const content = document.getElementById(contentId);
         
         if (content) {
-          header.setAttribute('aria-expanded', (!isExpanded).toString());
-          content.setAttribute('data-expanded', (!isExpanded).toString());
+          const panelBody = content.querySelector('.panel-body');
+          
+          if (!isExpanded) {
+            // Opening - measure content height
+            content.style.height = 'auto';
+            const height = panelBody.offsetHeight;
+            content.style.height = '0px';
+            
+            // Force reflow then animate to target height
+            content.offsetHeight;
+            content.style.height = height + 'px';
+            
+            header.setAttribute('aria-expanded', 'true');
+            content.setAttribute('data-expanded', 'true');
+          } else {
+            // Closing - animate to 0
+            content.style.height = panelBody.offsetHeight + 'px';
+            
+            // Force reflow then animate to 0
+            content.offsetHeight;
+            content.style.height = '0px';
+            
+            header.setAttribute('aria-expanded', 'false');
+            content.setAttribute('data-expanded', 'false');
+          }
         }
         
         // Remove focus after click to prevent outline
         header.blur();
       });
+    });
+    
+    // Initialize heights for expanded panels
+    const expandedPanels = document.querySelectorAll('.panel-content[data-expanded="true"]');
+    expandedPanels.forEach(content => {
+      const panelBody = content.querySelector('.panel-body');
+      content.style.height = panelBody.offsetHeight + 'px';
     });
   });
 </script>

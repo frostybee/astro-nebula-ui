@@ -1,0 +1,180 @@
+---
+title: NewCallout Examples
+description: Comprehensive examples of the enhanced NewCallout component with all variants and features.
+---
+
+import { NewCallout } from 'astro-nebula-ui'
+
+# NewCallout Component Examples
+
+The `NewCallout` component is an enhanced version of the basic callout with additional features like collapsible content, multiple variants, custom titles, and improved Starlight theme integration.
+
+## Basic Usage
+
+### Default Callouts
+
+<NewCallout type="info">
+This is an **info** callout with some content. It supports [links](https://example.com) and `inline code`.
+</NewCallout>
+
+<NewCallout type="note">
+This is a **note** callout. Perfect for additional information that readers should be aware of.
+</NewCallout>
+
+<NewCallout type="success">
+This is a **success** callout. Great for highlighting positive outcomes or completed tasks.
+</NewCallout>
+
+<NewCallout type="warning">
+This is a **warning** callout. Use it to alert users about potential issues or important considerations.
+</NewCallout>
+
+<NewCallout type="danger">
+This is a **danger** callout. Reserve this for critical information or serious warnings.
+</NewCallout>
+
+<NewCallout type="tip">
+This is a **tip** callout. Perfect for sharing helpful advice or best practices.
+</NewCallout>
+
+<NewCallout type="quote">
+This is a **quote** callout. Use it for important quotes, testimonials, or highlighted text.
+</NewCallout>
+
+## With Custom Titles
+
+<NewCallout type="info" title="Quick Start Guide">
+Adding a custom title makes your callouts more descriptive and easier to scan.
+</NewCallout>
+
+<NewCallout type="success" title="Installation Complete">
+Your package has been successfully installed and is ready to use!
+</NewCallout>
+
+<NewCallout type="warning" title="Breaking Changes in v2.0">
+Please review the migration guide before upgrading to avoid compatibility issues.
+</NewCallout>
+
+## Variants
+
+### Default Variant
+The default variant provides a subtle background with accent border:
+
+<NewCallout type="info" title="Default Variant" variant="default">
+This is the standard callout appearance with gradient background and left accent border.
+</NewCallout>
+
+### Minimal Variant
+A clean, minimal design with just a left border:
+
+<NewCallout type="success" title="Minimal Variant" variant="minimal">
+Clean and minimal design that doesn't distract from your content.
+</NewCallout>
+
+### Filled Variant
+Bold and attention-grabbing with full accent color background:
+
+<NewCallout type="danger" title="Critical Alert" variant="filled">
+High-contrast variant perfect for critical information that needs immediate attention.
+</NewCallout>
+
+### Outline Variant
+Outlined design with no background fill:
+
+<NewCallout type="tip" title="Pro Tip" variant="outline">
+Clean outline variant that integrates well with any background.
+</NewCallout>
+
+## Collapsible Callouts
+
+### Expanded by Default
+
+<NewCallout type="info" title="Click to collapse this section" collapsible={true} expanded={true}>
+This callout starts expanded but can be collapsed by clicking the header. Perfect for optional reading material or detailed explanations that might clutter the main content.
+
+You can include:
+- Lists and bullet points
+- **Bold text** and *italic text*
+- [External links](https://example.com)
+- `Code snippets` and blocks
+- Multiple paragraphs with detailed explanations
+</NewCallout>
+
+### Collapsed by Default
+
+<NewCallout type="warning" title="Advanced Configuration (Click to expand)" collapsible={true} expanded={false}>
+This content is hidden by default. Users can choose to expand it when they need more detailed information.
+
+```javascript
+// Example configuration
+const config = {
+  theme: 'auto',
+  variant: 'default',
+  collapsible: true
+};
+```
+</NewCallout>
+
+## Mixed Content Examples
+
+### Documentation Section
+
+<NewCallout type="note" title="About This Section" collapsible={true}>
+This section demonstrates how callouts can contain rich content including code blocks, lists, and formatted text.
+
+#### Code Example
+```astro
+---
+// Component usage
+---
+<NewCallout type="success" title="Success!">
+  Your operation completed successfully.
+</NewCallout>
+```
+
+#### Features List
+- ✅ Starlight theme integration
+- ✅ Multiple variants (default, minimal, filled, outline)
+- ✅ Collapsible content with smooth animations
+- ✅ Custom titles and icons
+- ✅ Accessibility support (ARIA attributes)
+- ✅ Responsive design
+</NewCallout>
+
+### API Reference
+
+<NewCallout type="info" title="Component Props" collapsible={true} expanded={false}>
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `string` | `"info"` | Callout type: info, note, danger, success, warning, tip, quote |
+| `title` | `string` | `undefined` | Optional title displayed in the header |
+| `icon` | `string` | `undefined` | Custom SVG icon (overrides default type icon) |
+| `variant` | `string` | `"default"` | Visual variant: default, minimal, filled, outline |
+| `collapsible` | `boolean` | `false` | Whether the callout can be collapsed |
+| `expanded` | `boolean` | `true` | Initial expanded state (only applies if collapsible) |
+
+</NewCallout>
+
+## Best Practices
+
+<NewCallout type="tip" title="Usage Guidelines">
+- Use **info** callouts for supplementary information
+- Reserve **danger** callouts for critical warnings only
+- Keep callout content concise and focused
+- Use collapsible callouts for optional or detailed content
+- Choose variants that match your design system
+</NewCallout>
+
+<NewCallout type="warning" title="Accessibility Considerations">
+- Always provide meaningful titles for collapsible callouts
+- Ensure sufficient color contrast in custom themes
+- Test keyboard navigation with collapsible content
+- Use semantic HTML structure within callout content
+</NewCallout>
+
+## Integration with Starlight
+
+<NewCallout type="success" title="Automatic Theme Integration">
+The NewCallout component automatically integrates with Starlight's theme system, adapting to light and dark modes seamlessly. All colors are derived from Starlight's CSS custom properties with sensible fallbacks for standalone use.
+</NewCallout>

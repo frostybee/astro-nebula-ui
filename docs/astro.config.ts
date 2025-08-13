@@ -1,14 +1,12 @@
 import starlight from '@astrojs/starlight'
 import { defineConfig } from 'astro/config'
-import astroGalaxyComponents from 'astro-galaxy-components'
 
 export default defineConfig({
   integrations: [
     starlight({
       editLink: {
         baseUrl: 'https://github.com/frostybee/astro-galaxy-components/edit/main/docs/',
-      },
-      plugins: [astroGalaxyComponents()       ],
+      },      
       sidebar: [
         {
           label: 'Start Here',

@@ -1,16 +1,13 @@
 {
-  "name": "astro-galaxy-components",
+  "name": "astro-nebula-ui",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "A set of customized Astro Starlight UI components",
+  "description": "A collection of beautiful UI components for Astro projects with built-in Starlight theme support",
   "author": "frostybee",
   "type": "module",
   "main": "./index.js",
   "exports": {
-    ".": "./src/index.ts",    
-    "./components/*.astro": "./src/components/*.astro",    
-    "./components/SlideViewer/SlideViewer.astro": "./src/components/SlideViewer/SlideViewer.astro",    
-    "./styles/SlideViewer/slide-viewer/slideviewer-index.css": "./src/styles/slide-viewer/slideviewer-index.css",    
+    ".": "./src/index.ts",        
     "./package.json": "./package.json"
     },
   "devDependencies": {
@@ -18,7 +15,7 @@
     "astro": "^5.7.14"
   },
   "peerDependencies": {
-    "@astrojs/starlight": ">=0.34"
+    "astro": ">=4.0.0"
   },
   "engines": {
     "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
