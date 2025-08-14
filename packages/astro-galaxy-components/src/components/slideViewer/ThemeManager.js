@@ -96,13 +96,6 @@ export class ThemeManager {
     const themeToggleManager = this.slideViewer.themeToggleManager;
     const isLightMode = themeToggleManager?.getCurrentTheme() === 'light';
 
-    // Debug logging
-    console.log('🔍 Theme Debug:', {
-      currentTheme: this.currentTheme,
-      toggleState: themeToggleManager?.getCurrentTheme(),
-      isLightMode: isLightMode
-    });
-
     // All themes now have light/dark variants
     const themesWithVariants = ['default', 'dracula', 'github', 'discord', 'onedark', 'ocean'];
     
@@ -110,8 +103,6 @@ export class ThemeManager {
       let effectiveTheme;
       // All themes now follow the same pattern: base = dark, -light = light
       effectiveTheme = isLightMode ? `${this.currentTheme}-light` : this.currentTheme;
-      
-      console.log('🎨 Effective theme:', effectiveTheme);
       return effectiveTheme;
     }
 

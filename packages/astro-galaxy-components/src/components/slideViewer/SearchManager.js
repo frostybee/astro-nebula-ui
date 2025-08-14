@@ -122,7 +122,7 @@ export class SearchManager {
       }
     });
 
-    console.log(`Found ${matchingSlides.length} slides matching "${query}":`, matchingSlides);
+    // console.log(`Found ${matchingSlides.length} slides matching "${query}":`, matchingSlides);
 
     // Update TOC to show only matching slides.
     this.updateTOCWithSearchResults(matchingSlides, query);
@@ -136,7 +136,7 @@ export class SearchManager {
   updateTOCWithSearchResults(matchingSlides, query) {
     // Filter TOC items.
     const tocItems = this.slideViewer.tocContent.querySelectorAll('.fb-slide__toc-item-container');
-    console.log('Found TOC items for filtering:', tocItems.length);
+    // console.log('Found TOC items for filtering:', tocItems.length);
 
     tocItems.forEach((item, index) => {
       const isMatch = matchingSlides.includes(index);
@@ -166,12 +166,12 @@ export class SearchManager {
     // Find thumbnail grid (usually in the first slide if it's a preview slide).
     const thumbnailGrid = this.slideViewer.slideContent.querySelector('.fb-slide__preview-grid');
     if (!thumbnailGrid) {
-      console.log('No thumbnail grid found to filter');
+      // console.log('No thumbnail grid found to filter');
       return;
     }
 
     const thumbnails = thumbnailGrid.querySelectorAll('.fb-slide__thumbnail');
-    console.log('Found thumbnails for filtering:', thumbnails.length);
+    // console.log('Found thumbnails for filtering:', thumbnails.length);
 
     thumbnails.forEach((thumbnail, index) => {
       // Note: thumbnail index might be offset by 1 if there's a preview slide.
@@ -183,12 +183,12 @@ export class SearchManager {
         // Show matching thumbnail and add search match class.
         thumbnail.style.display = '';
         thumbnail.classList.add('fb-slide__search-match');
-        console.log(`Thumbnail ${index} highlighted as match`);
+        // console.log(`Thumbnail ${index} highlighted as match`);
       } else {
         // Hide non-matching thumbnail.
         thumbnail.style.display = 'none';
         thumbnail.classList.remove('fb-slide__search-match');
-        console.log(`Thumbnail ${index} hidden`);
+        // console.log(`Thumbnail ${index} hidden`);
       }
     });
   }

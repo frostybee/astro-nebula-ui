@@ -11,9 +11,9 @@ export class ReadingModeManager {
   bindEvents() {
     // Reading mode toggle event (inside modal).
     if (this.toggleReadingModeBtn) {
-      console.log('Binding click event to reading mode toggle button');
+      // console.log('Binding click event to reading mode toggle button');
       this.toggleReadingModeBtn.addEventListener('click', (e) => {
-        console.log('Reading mode toggle clicked!', e);
+        // console.log('Reading mode toggle clicked!', e);
         e.preventDefault();
         e.stopPropagation();
         this.toggleReadingMode();
@@ -32,9 +32,9 @@ export class ReadingModeManager {
   }
 
     toggleReadingMode() {
-    console.log('toggleReadingMode called, current mode:', this.slideViewer.isReadingMode);
+    // console.log('toggleReadingMode called, current mode:', this.slideViewer.isReadingMode);
     this.slideViewer.isReadingMode = !this.slideViewer.isReadingMode;
-    console.log('new mode:', this.slideViewer.isReadingMode);
+    // console.log('new mode:', this.slideViewer.isReadingMode);
 
     // Clear heading cache when switching modes.
     if (this.slideViewer.searchManager) {

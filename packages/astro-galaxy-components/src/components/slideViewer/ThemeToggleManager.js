@@ -33,7 +33,7 @@ export class ThemeToggleManager {
     this.mobileText = document.getElementById('mobile-independent-theme-text');
 
     if (!this.toggleBtn && !this.toggleBtnMobile) {
-      console.warn('Theme toggle buttons not found');
+      // console.warn('Theme toggle buttons not found');
       return;
     }
 

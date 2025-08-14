@@ -14,7 +14,7 @@ import {SlideViewer} from 'astro-nebula-ui';
 
 # Slide Viewer Component
 
-The **Slide Viewer** is an Astro component that automatically converts your page content into an interactive slide presentation system. It provides a rich set of features for navigation, customization, and content interaction through a modular architecture.
+The **Slide Viewer** is an Astro component that automatically converts a website's page content into an interactive slide presentation system. It provides a rich set of features for navigation, customization, and content interaction through a modular architecture.
 
 ---
 ## Getting Started
@@ -23,10 +23,128 @@ The **Slide Viewer** is an Astro component that automatically converts your page
 Simply add the component to any MDX page:
 
 ```astro
-import SlideViewer from '../../../components/slides/SlideViewer.astro';
+import {SlideViewer} from 'astro-nebula-ui';
 
-<SlideViewer triggerText="Open Slides" title = "Content Slides"/>
+<SlideViewer triggerText="Open Slides" title="Content Slides"/>
 ```
+
+---
+
+## Configuration Options
+
+The SlideViewer component supports extensive configuration for different Astro site layouts and content structures beyond Starlight.
+
+### Container Selection
+
+Control which part of your page gets converted into slides:
+
+```astro
+<!-- Default: Works with Starlight and common layouts -->
+<SlideViewer />
+
+<!-- Custom container selector -->
+<SlideViewer containerSelector=".my-content-area" />
+
+<!-- Multiple possible containers -->
+<SlideViewer containerSelector=".main-content, .article-body, #content" />
+
+<!-- Custom Astro site layout -->
+<SlideViewer 
+  containerSelector=".post-content"
+  includeStarlight={false}
+/>
+```
+---
+
+### Slide Breaking Configuration
+
+Customize which elements create new slides:
+
+```astro
+<!-- Default: HR elements and H1-H3 headings -->
+<SlideViewer />
+
+<!-- Only H2 headings create slides -->
+<SlideViewer slideBreakers="h2" />
+
+<!-- Custom class-based breaks -->
+<SlideViewer slideBreakers="h2, .slide-break, .new-slide" />
+
+<!-- Multiple element types -->
+<SlideViewer slideBreakers="hr, h1, h2, .chapter-break" />
+```
+
+---
+
+### Content Filtering
+
+Exclude unwanted elements from slides:
+
+```astro
+<!-- Default: Excludes scripts, styles, noscript -->
+<SlideViewer />
+
+<!-- Custom exclusions -->
+<SlideViewer excludeElements="script, style, .sidebar, .navigation" />
+
+<!-- Exclude ads and widgets -->
+<SlideViewer excludeElements="script, style, .ads, .widget, .social-share" />
+
+<!-- Minimal exclusions -->
+<SlideViewer excludeElements="script, style" />
+```
+
+---
+
+### Complete Configuration Examples
+
+#### Astro Blog Layout
+```astro
+<SlideViewer 
+  containerSelector=".post-content, .article-content"
+  slideBreakers="h2, h3"
+  excludeElements="script, style, .share-buttons, .related-posts"
+  includeStarlight={false}
+  triggerText="View as Presentation"
+/>
+```
+
+---
+
+
+#### Custom Astro Documentation Site
+```astro
+<SlideViewer 
+  containerSelector=".docs-content, .documentation-body"
+  slideBreakers="h2, .section-break"
+  excludeElements="script, style, .sidebar, .toc, .edit-page"
+  includeStarlight={false}
+/>
+```
+
+#### Astro Content Collection Layout
+```astro
+<SlideViewer 
+  containerSelector=".content-wrapper, .markdown-content"
+  slideBreakers="h1, h2, hr, .slide-separator"
+  excludeElements="script, style, .navigation, .footer"
+  contentFilter=""
+  includeStarlight={true}
+/>
+```
+---
+
+### Configuration Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `triggerText` | string | `"View as Slides"` | Text for the trigger button |
+| `title` | string | `"Content Slides"` | Title for the slideshow |
+| `containerSelector` | string | `".sl-markdown-content, main .content, article"` | CSS selector for content container |
+| `slideBreakers` | string | `"hr, h1, h2, h3"` | Elements that create slide breaks |
+| `excludeElements` | string | `"script, style, noscript"` | Elements to exclude from slides |
+| `includeStarlight` | boolean | `true` | Whether to include Starlight fallback selectors |
+| `contentFilter` | string | `""` | Additional content filtering (future use) |
 
 ---
 

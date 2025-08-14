@@ -8,7 +8,7 @@ export class FullscreenManager {
 
   bindEvents() {
     this.fullscreenBtn.addEventListener('click', (e) => {
-      console.log('Fullscreen button clicked');
+      // console.log('Fullscreen button clicked');
       // Prevent if this was triggered by ESC key somehow.
       if (e.detail === 0 && (e.key === 'Escape' || e.code === 'Escape')) {
         return;

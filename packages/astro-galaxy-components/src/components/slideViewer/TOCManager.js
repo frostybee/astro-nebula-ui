@@ -48,7 +48,7 @@ export class TOCManager {
   }
 
   createTableOfContents() {
-    console.log('Creating table of contents...');
+    // console.log('Creating table of contents...');
     this.tocContent.innerHTML = '';
 
     if (this.slideViewer.isReadingMode) {
@@ -175,10 +175,10 @@ export class TOCManager {
       tocItemContainer.appendChild(tocItem);
 
       this.tocContent.appendChild(tocItemContainer);
-      console.log('Added TOC item:', title, 'with classes:', tocItemContainer.className);
+      // console.log('Added TOC item:', title, 'with classes:', tocItemContainer.className);
     });
 
-    console.log('TOC items created, total:', this.slideViewer.slides.length);
+    // console.log('TOC items created, total:', this.slideViewer.slides.length);
     this.updateTocSelection();
     // Update bookmark indicators after TOC creation.
     setTimeout(() => this.updateBookmarkIndicators(), 100);
@@ -193,7 +193,7 @@ export class TOCManager {
     }
 
     const headings = readingContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
-    console.log('Found headings in reading mode:', headings.length);
+    // console.log('Found headings in reading mode:', headings.length);
 
     headings.forEach((heading, index) => {
       const title = heading.textContent.trim();
@@ -209,7 +209,7 @@ export class TOCManager {
         heading.id = `reading-${cleanTitle}-${index}`;
       }
 
-      console.log('Processing heading:', title, 'with ID:', heading.id);
+      // console.log('Processing heading:', title, 'with ID:', heading.id);
 
       // Create container for number + item.
       const tocItemContainer = document.createElement('div');
@@ -282,18 +282,18 @@ export class TOCManager {
 
       tocItemContainer.appendChild(tocItem);
       this.tocContent.appendChild(tocItemContainer);
-      console.log('Added reading mode TOC item:', title, 'with ID:', heading.id);
+      // console.log('Added reading mode TOC item:', title, 'with ID:', heading.id);
     });
 
-    console.log('Reading mode TOC items created, total:', headings.length);
+    // console.log('Reading mode TOC items created, total:', headings.length);
   }
 
   scrollToHeading(headingId) {
-    console.log('Attempting to scroll to heading:', headingId);
+    // console.log('Attempting to scroll to heading:', headingId);
     const heading = document.getElementById(headingId);
 
     if (heading) {
-      console.log('Found heading element:', heading);
+      // console.log('Found heading element:', heading);
 
       // Find the scrollable container (the slide content area).
       const slideContent = document.querySelector('.fb-slide__content');
@@ -304,7 +304,7 @@ export class TOCManager {
         const isFirstItem = firstTocItem && firstTocItem.getAttribute('data-heading-id') === headingId;
 
         if (isFirstItem) {
-          console.log('First TOC item clicked, scrolling to top');
+          // console.log('First TOC item clicked, scrolling to top');
           slideContent.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -314,9 +314,9 @@ export class TOCManager {
           const headingOffsetTop = this.getElementOffsetTop(heading, slideContent);
           const targetPosition = headingOffsetTop - 20; // 20px offset from top.
 
-          console.log('Current scroll position:', slideContent.scrollTop);
-          console.log('Target scroll position:', targetPosition);
-          console.log('Heading offset from container:', headingOffsetTop);
+          // console.log('Current scroll position:', slideContent.scrollTop);
+          // console.log('Target scroll position:', targetPosition);
+          // console.log('Heading offset from container:', headingOffsetTop);
 
           slideContent.scrollTo({
             top: Math.max(0, targetPosition), // Ensure we don't scroll to negative position.
@@ -325,7 +325,7 @@ export class TOCManager {
         }
       } else {
         // Fallback to default scrollIntoView.
-        console.log('Using fallback scrollIntoView');
+        // console.log('Using fallback scrollIntoView');
         heading.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
@@ -335,7 +335,7 @@ export class TOCManager {
       // Update active state.
       this.updateReadingModeTocSelection(headingId);
     } else {
-      console.warn('Heading not found with ID:', headingId);
+      //  console.warn('Heading not found with ID:', headingId);
     }
   }
 

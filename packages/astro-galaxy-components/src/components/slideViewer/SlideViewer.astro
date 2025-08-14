@@ -5,9 +5,22 @@ import '../../styles/slide-viewer/slideviewer-index.css';
 interface Props {
   triggerText?: string;
   title?: string;
+  containerSelector?: string;
+  slideBreakers?: string;
+  excludeElements?: string;
+  includeStarlight?: boolean;
+  contentFilter?: string;
 }
 
-const { triggerText = "View as Slides", title = "Content Slides" } = Astro.props;
+const { 
+  triggerText = "View as Slides", 
+  title = "Content Slides",
+  containerSelector = ".sl-markdown-content, main .content, article",
+  slideBreakers = "hr, h1, h2, h3",
+  excludeElements = "script, style, noscript",
+  includeStarlight = true,
+  contentFilter = ""
+} = Astro.props;
 
 ---
 
@@ -17,7 +30,12 @@ const { triggerText = "View as Slides", title = "Content Slides" } = Astro.props
   </button>
 </div>
 
-<div id="slide-viewer-modal" class="fb-slide__modal hidden">
+<div id="slide-viewer-modal" class="fb-slide__modal hidden"
+  data-container-selector={containerSelector}
+  data-slide-breakers={slideBreakers}
+  data-exclude-elements={excludeElements}
+  data-include-starlight={includeStarlight}
+  data-content-filter={contentFilter}>
   <div class="fb-slide__container">
     <!-- Progress Bar -->
     <div class="fb-slide__progress-container">

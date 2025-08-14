@@ -10,9 +10,9 @@ export class ThumbnailManager {
   bindEvents() {
     // Show thumbnails button event.
     if (this.showThumbnailsBtn) {
-      console.log('Binding click event to show thumbnails button');
+      // console.log('Binding click event to show thumbnails button');
       this.showThumbnailsBtn.addEventListener('click', (e) => {
-        console.log('Show thumbnails button clicked!', e);
+        // console.log('Show thumbnails button clicked!', e);
         e.preventDefault();
         e.stopPropagation();
         this.slideViewer.goToSlide(0); // Go to the first slide (thumbnails overview).
@@ -39,7 +39,7 @@ export class ThumbnailManager {
     
     // For now, let's hardcode the correct title to test
     let titleText = 'Slide Viewer Component';
-    console.log('ThumbnailManager - using hardcoded titleText:', titleText);
+    // console.log('ThumbnailManager - using hardcoded titleText:', titleText);
     
     title.textContent = titleText;
     previewContainer.appendChild(title);
