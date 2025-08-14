@@ -1,0 +1,180 @@
+---
+interface Props {
+  targetSelector?: string;
+}
+
+const { targetSelector = '.sl-markdown-content' } = Astro.props;
+---
+
+<div class="font-size-adjuster" data-target-selector={targetSelector}>
+  <button id="decrease-font" aria-label="Decrease font size" title="Decrease font size">A-</button>
+  <button id="reset-font" aria-label="Reset font size" title="Reset font size">A</button>
+  <button id="increase-font" aria-label="Increase font size" title="Increase font size">A+</button>
+</div>
+
+<script>
+  // Font size adjustment logic (unchanged)
+  const FONT_SIZE_KEY = 'starlight-font-size';
+  const DEFAULT_FONT_SIZE = 100; // 100% as baseline
+  const STEP_SIZE = 20; // Percent change per click
+  const MIN_SIZE = 50; // Minimum font size (50%)
+  const MAX_SIZE = 270; // Maximum font size (270%)
+
+  // Get the target selector from data attribute
+  const adjusterElement = document.querySelector('.font-size-adjuster');
+  const jsTargetSelector = adjusterElement?.getAttribute('data-target-selector') || '.sl-markdown-content';
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    initFontSizeAdjuster();
+  });
+
+  // Re-initialize on page navigation (for SPA-like behavior)
+  document.addEventListener('astro:page-load', () => {
+    initFontSizeAdjuster();
+  });
+
+  let eventListeners = [];
+
+  function initFontSizeAdjuster() {
+    // Update target selector each time in case it changed
+    const adjusterElement = document.querySelector('.font-size-adjuster');
+    const currentTargetSelector = adjusterElement?.getAttribute('data-target-selector') || '.sl-markdown-content';
+    
+    const decreaseBtn = document.getElementById('decrease-font');
+    const resetBtn = document.getElementById('reset-font');
+    const increaseBtn = document.getElementById('increase-font');
+
+    if (!decreaseBtn || !resetBtn || !increaseBtn) return;
+
+    // Clean up existing listeners
+    cleanupEventListeners();
+
+    // Apply saved font size on load
+    applyFontSize(getSavedFontSize(), currentTargetSelector);
+
+    // Set up event listeners and store references for cleanup
+    const decreaseHandler = () => adjustFontSize(-STEP_SIZE, currentTargetSelector);
+    const resetHandler = () => resetFontSize(currentTargetSelector);
+    const increaseHandler = () => adjustFontSize(STEP_SIZE, currentTargetSelector);
+
+    decreaseBtn.addEventListener('click', decreaseHandler);
+    resetBtn.addEventListener('click', resetHandler);
+    increaseBtn.addEventListener('click', increaseHandler);
+
+    // Store for cleanup
+    eventListeners = [
+      { element: decreaseBtn, event: 'click', handler: decreaseHandler },
+      { element: resetBtn, event: 'click', handler: resetHandler },
+      { element: increaseBtn, event: 'click', handler: increaseHandler }
+    ];
+  }
+
+  function cleanupEventListeners() {
+    eventListeners.forEach(({ element, event, handler }) => {
+      element.removeEventListener(event, handler);
+    });
+    eventListeners = [];
+  }
+
+  function adjustFontSize(change, targetSelector) {
+    const currentSize = getSavedFontSize();
+    const newSize = Math.max(MIN_SIZE, Math.min(MAX_SIZE, currentSize + change));
+    applyFontSize(newSize, targetSelector);
+    saveFontSize(newSize);
+  }
+
+  function resetFontSize(targetSelector) {
+    applyFontSize(DEFAULT_FONT_SIZE, targetSelector);
+    saveFontSize(DEFAULT_FONT_SIZE);
+  }
+
+  function applyFontSize(sizePercent, targetSelector) {
+    const container = document.querySelector(targetSelector || '.sl-markdown-content');
+    if (container) {
+      container.style.fontSize = `${sizePercent}%`;
+    }
+  }
+
+  function saveFontSize(size) {
+    try {
+      localStorage.setItem(FONT_SIZE_KEY, size.toString());
+    } catch (e) {
+      console.warn('Could not save font size to localStorage:', e);
+    }
+  }
+
+  function getSavedFontSize() {
+    try {
+      const saved = localStorage.getItem(FONT_SIZE_KEY);
+      return saved ? parseInt(saved, 10) : DEFAULT_FONT_SIZE;
+    } catch (e) {
+      console.warn('Could not read font size from localStorage:', e);
+      return DEFAULT_FONT_SIZE;
+    }
+  }
+</script>
+
+<style>
+  .font-size-adjuster {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+    align-items: center;
+  }
+
+  .font-size-adjuster button {
+    background-color: var(--sl-color-gray-5);
+    border: none;
+    border-radius: 0.25rem;
+    color: var(--sl-color-white);
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+    transition: background-color 0.2s;
+    position: relative; /* Required for positioning the tooltip */
+  }
+
+  .font-size-adjuster button:hover {
+    background-color: var(--sl-color-gray-4);
+  }
+
+  /* Tooltip styles */
+  .font-size-adjuster button::after {
+    content: attr(title);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--sl-color-gray-6, #333);
+    color: var(--sl-color-white, #fff);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    pointer-events: none;
+    z-index: 10;
+    margin-top: 0.625rem;
+  }
+
+  .font-size-adjuster button:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #decrease-font {
+    font-size: 0.8rem;
+  }
+
+  #reset-font {
+    font-size: 1rem;
+  }
+
+  #increase-font {
+    font-size: 1.2rem;
+  }
+</style>
+

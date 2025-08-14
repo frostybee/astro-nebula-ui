@@ -8,7 +8,7 @@ interface Props {
 
 const { title, expanded = false, variant = "default", theme = "auto" } = Astro.props;
 
-// Generate unique ID for accessibility
+// Generate unique ID for accessibility.
 const panelId = `panel-${Math.random().toString(36).substr(2, 9)}`;
 const headerId = `header-${panelId}`;
 ---
@@ -40,7 +40,7 @@ const headerId = `header-${panelId}`;
 
 <style>
   @layer galaxy {
-    /* CSS Custom Properties with Starlight integration and fallbacks */
+    /* CSS Custom Properties with Starlight integration and fallbacks. */
     .collapsible-panel {
       --panel-bg: var(--sl-color-bg, #ffffff);
       --panel-bg-hover: var(--sl-color-gray-6, #f8fafc);
@@ -130,7 +130,7 @@ const headerId = `header-${panelId}`;
       line-height: 1.6;
     }
 
-    /* Default variant - uses Starlight variables with fallbacks */
+    /* Default variant - uses Starlight variables with fallbacks. */
     .panel-default {
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
@@ -147,7 +147,7 @@ const headerId = `header-${panelId}`;
       color: var(--panel-text-hover);
     }
 
-    /* Outline variant - uses Starlight variables with fallbacks */
+    /* Outline variant - uses Starlight variables with fallbacks. */
     .panel-outline {
       background: color-mix(in srgb, var(--panel-bg) 10%, transparent);
       border: 2px solid var(--panel-border);
@@ -165,7 +165,7 @@ const headerId = `header-${panelId}`;
       color: var(--panel-text-hover);
     }
 
-    /* Ghost variant - uses Starlight variables with fallbacks */
+    /* Ghost variant - uses Starlight variables with fallbacks. */
     .panel-ghost {
       background: transparent;
       border: none;
@@ -185,7 +185,7 @@ const headerId = `header-${panelId}`;
       border-bottom: 1px solid var(--panel-border);
     }
 
-    /* Fallback for non-Starlight environments - Dark theme support */
+    /* Fallback for non-Starlight environments - Dark theme support.   */
     .theme-dark .collapsible-panel {
       --panel-bg: #1e293b;
       --panel-bg-hover: #334155;
@@ -212,7 +212,7 @@ const headerId = `header-${panelId}`;
       }
     }
 
-    /* Content styling */
+    /* Content styling.    */
     :global(.panel-body p:first-child) {
       margin-top: 0;
     }
@@ -230,7 +230,7 @@ const headerId = `header-${panelId}`;
 </style>
 
 <script>
-  // Add click event listeners for collapsible functionality
+  // Add click event listeners for collapsible functionality.
   document.addEventListener('DOMContentLoaded', () => {
     const headers = document.querySelectorAll('.panel-header');
     
@@ -244,22 +244,22 @@ const headerId = `header-${panelId}`;
           const panelBody = content.querySelector('.panel-body');
           
           if (!isExpanded) {
-            // Opening - measure content height
+            // Opening - measure content height.
             content.style.height = 'auto';
             const height = panelBody.offsetHeight;
             content.style.height = '0px';
             
-            // Force reflow then animate to target height
+            // Force reflow then animate to target height.
             content.offsetHeight;
             content.style.height = height + 'px';
             
             header.setAttribute('aria-expanded', 'true');
             content.setAttribute('data-expanded', 'true');
           } else {
-            // Closing - animate to 0
+            // Closing - animate to 0.
             content.style.height = panelBody.offsetHeight + 'px';
             
-            // Force reflow then animate to 0
+            // Force reflow then animate to 0.
             content.offsetHeight;
             content.style.height = '0px';
             
@@ -268,12 +268,12 @@ const headerId = `header-${panelId}`;
           }
         }
         
-        // Remove focus after click to prevent outline
+        // Remove focus after click to prevent outline.
         header.blur();
       });
     });
     
-    // Initialize heights for expanded panels
+    // Initialize heights for expanded panels.
     const expandedPanels = document.querySelectorAll('.panel-content[data-expanded="true"]');
     expandedPanels.forEach(content => {
       const panelBody = content.querySelector('.panel-body');

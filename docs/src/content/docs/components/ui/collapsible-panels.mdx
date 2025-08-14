@@ -1,0 +1,56 @@
+---
+title:  Collapsible Panels
+description: Comprehensive examples of the enhanced Collapsible Panels component with all variants and features.
+---
+
+import {CollapsiblePanel} from 'astro-nebula-ui'
+
+## Usage
+
+### Basic Collapsible Panel
+
+```astro
+---
+import {CollapsiblePanel} from 'astro-nebula-ui'
+---
+
+<CollapsiblePanel title="Panel Title">
+  Your content goes here
+</CollapsiblePanel>
+```
+
+<CollapsiblePanel title="Panel Title">
+  Your content goes here
+</CollapsiblePanel>
+
+### Pre-expanded Panel
+
+```astro
+---
+import {CollapsiblePanel} from 'astro-nebula-ui'
+---
+
+<CollapsiblePanel title="Already Expanded" expanded={true}>
+  This starts open
+</CollapsiblePanel>
+```
+
+<CollapsiblePanel title="Already Expanded" expanded={true}>
+  This starts open
+</CollapsiblePanel>
+
+### Outline Variant
+
+```astro
+---
+import {CollapsiblePanel} from 'astro-nebula-ui'
+---
+
+<CollapsiblePanel title="Outline Style" variant="outline">
+  Different visual style
+</CollapsiblePanel>
+```
+
+<CollapsiblePanel title="Outline Style" variant="outline">
+  Different visual style
+</CollapsiblePanel>

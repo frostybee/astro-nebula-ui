@@ -23,6 +23,10 @@ export default defineConfig({
             {
               label: 'Slide Viewer',
               autogenerate: { directory: 'components/slides' }
+            },
+            {
+              label: 'UI Components',
+              autogenerate: { directory: 'components/ui' }
             }
           ]          
         }

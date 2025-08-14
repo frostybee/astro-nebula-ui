@@ -1,0 +1,70 @@
+---
+title: Text Scaler
+description: Comprehensive examples of the enhanced Text Scaler component with all variants and features.
+---
+
+import {TextScaler} from 'astro-nebula-ui'
+
+<TextScaler />
+
+## Overview
+
+The **TextScaler** component provides users with the ability to dynamically adjust the font size of content for better accessibility and reading preferences. It features three intuitive buttons (A-, A, A+) for decreasing, resetting, and increasing font size with automatic localStorage persistence.
+
+The component is configurable, allowing you to target any CSS selector on your page. By default, it targets Starlight's markdown content area (`.sl-markdown-content`), but you can customize it to work with any content container. Font size changes are applied in real-time and remembered across page visits.
+
+## Usage
+
+:::note
+The **TextScaler** component is designed to be flexible and **can be embedded** within other Astro or Starlight components such as headers, sidebars, table of contents, or navigation bars. 
+
+This allows you to place font scaling controls wherever they make the most sense for your site's layout and user experience.
+:::
+
+
+### Basic Usage
+```astro
+---
+import {TextScaler} from 'astro-nebula-ui'
+---
+<TextScaler />
+```
+
+### Custom Target Selector
+```astro
+---
+import {TextScaler} from 'astro-nebula-ui'
+---
+
+<!-- Target a specific content area -->
+<TextScaler targetSelector=".custom-content" />
+
+<!-- Target the entire page body -->
+<TextScaler targetSelector="body" />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `targetSelector` | `string` | `'.sl-markdown-content'` | CSS selector for the element to apply font scaling to |
+
+## Configuration
+
+The component uses the following default settings:
+
+- **Default Font Size**: 100% (baseline)
+- **Step Size**: 20% change per click
+- **Minimum Size**: 50%
+- **Maximum Size**: 270%
+
+## Button Functions
+
+### Decrease (A-)
+Reduces font size by 20% down to a minimum of 80%. Visual indicator uses smaller text.
+
+### Reset (A)
+Restores font size to the default 100%. Visual indicator uses normal text size.
+
+### Increase (A+)
+Increases font size by 20% up to a maximum of 200%. Visual indicator uses larger text.
