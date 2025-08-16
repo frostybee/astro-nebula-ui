@@ -1,0 +1,360 @@
+---
+import BentoItem from './BentoItem.astro';
+
+interface Props {
+  /**
+   * Card title
+   */
+  title?: string;
+  /**
+   * Subtitle or description
+   */
+  subtitle?: string;
+  /**
+   * Card variant style
+   */
+  variant?: 'default' | 'highlighted' | 'minimal' | 'media';
+  /**
+   * Header background color or gradient
+   */
+  headerBackground?: string;
+  /**
+   * Icon to display in the header (can be emoji or icon class)
+   */
+  icon?: string;
+  /**
+   * Link URL to make the entire card clickable
+   */
+  href?: string;
+  /**
+   * Link target
+   */
+  target?: string;
+  /**
+   * Loading state
+   */
+  loading?: boolean;
+  /**
+   * Card size preset
+   */
+  size?: 'auto' | 'small' | 'medium' | 'large' | 'xl';
+  /**
+   * Column span
+   */
+  colSpan?: number;
+  /**
+   * Row span
+   */
+  rowSpan?: number;
+  /**
+   * Additional CSS classes
+   */
+  class?: string;
+  /**
+   * Enable hover effects
+   */
+  interactive?: boolean;
+  /**
+   * Image source for media variant
+   */
+  imageSrc?: string;
+  /**
+   * Image alt text
+   */
+  imageAlt?: string;
+  /**
+   * Priority for grid positioning
+   */
+  priority?: number;
+}
+
+const {
+  title,
+  subtitle,
+  variant = 'default',
+  headerBackground,
+  icon,
+  href,
+  target = '_self',
+  loading = false,
+  size = 'auto',
+  colSpan,
+  rowSpan,
+  class: className = '',
+  interactive = !!href,
+  imageSrc,
+  imageAlt = '',
+  priority = 0,
+} = Astro.props;
+
+const isClickable = !!href;
+const Component = isClickable ? 'a' : 'div';
+
+// Pass through props to BentoItem for grid positioning
+const bentoItemProps = {
+  size,
+  colSpan,
+  rowSpan,
+  priority,
+  class: `bento-card-item ${className}`,
+};
+---
+
+<BentoItem {...bentoItemProps}>
+  <Component
+    {...(isClickable && { href, target })}
+    class={`bento-card bento-card--${variant}`}
+    data-interactive={interactive}
+    data-loading={loading}
+    data-clickable={isClickable}
+  >
+    {imageSrc && variant === 'media' && (
+      <div class="bento-card__image">
+        <img src={imageSrc} alt={imageAlt} loading="lazy" />
+      </div>
+    )}
+    
+    {(title || subtitle || icon) && (
+      <header 
+        class="bento-card__header"
+        style={headerBackground ? `background: ${headerBackground}` : undefined}
+      >
+        {icon && <span class="bento-card__icon" aria-hidden="true">{icon}</span>}
+        <div class="bento-card__header-text">
+          {title && <h3 class="bento-card__title">{title}</h3>}
+          {subtitle && <p class="bento-card__subtitle">{subtitle}</p>}
+        </div>
+      </header>
+    )}
+    
+    <div class="bento-card__content">
+      <slot />
+    </div>
+    
+    {loading && (
+      <div class="bento-card__loading" aria-label="Loading content">
+        <div class="loading-spinner"></div>
+      </div>
+    )}
+    
+    {isClickable && (
+      <div class="bento-card__link-indicator" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8.22 2.97a.75.75 0 0 1 1.06 0L14.53 8a.75.75 0 0 1 0 1.06l-5.25 5.03a.75.75 0 0 1-1.06-1.04L12.44 8.5H2.75a.75.75 0 0 1 0-1.5h9.69L8.22 4.03a.75.75 0 0 1 0-1.06z"/>
+        </svg>
+      </div>
+    )}
+  </Component>
+</BentoItem>
+
+<style>
+  .bento-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+
+  .bento-card[data-interactive="true"] {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .bento-card[data-interactive="true"]:hover {
+    transform: translateY(-1px);
+  }
+
+  .bento-card[data-clickable="true"]:focus {
+    outline: 2px solid var(--sl-color-accent, #3b82f6);
+    outline-offset: 2px;
+  }
+
+  /* Card variants */
+  .bento-card--highlighted {
+    background: linear-gradient(135deg, 
+      var(--sl-color-accent-low, #dbeafe) 0%, 
+      var(--sl-color-accent-low, #dbeafe) 100%);
+  }
+
+  .bento-card--minimal {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .bento-card--media .bento-card__content {
+    padding-top: 0;
+  }
+
+  /* Image handling for media variant */
+  .bento-card__image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .bento-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .bento-card[data-interactive="true"]:hover .bento-card__image img {
+    transform: scale(1.05);
+  }
+
+  /* Header styles */
+  .bento-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 1.25rem 0;
+    flex-shrink: 0;
+  }
+
+  .bento-card__icon {
+    font-size: 1.25rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .bento-card__header-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .bento-card__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--sl-color-white, #ffffff);
+  }
+
+  .bento-card__subtitle {
+    margin: 0.25rem 0 0 0;
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-1, #f1f5f9);
+    line-height: 1.4;
+  }
+
+  /* Content area */
+  .bento-card__content {
+    flex: 1;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .bento-card__content :global(> *:first-child) {
+    margin-top: 0;
+  }
+
+  .bento-card__content :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Loading state */
+  .bento-card__loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--sl-color-gray-4, #d1d5db);
+    border-top-color: var(--sl-color-accent, #3b82f6);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Link indicator */
+  .bento-card__link-indicator {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    color: var(--sl-color-accent, #3b82f6);
+  }
+
+  .bento-card[data-clickable="true"]:hover .bento-card__link-indicator {
+    opacity: 1;
+  }
+
+  /* Container query adjustments */
+  @container (max-width: 300px) {
+    .bento-card__header,
+    .bento-card__content {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .bento-card__title {
+      font-size: 1rem;
+    }
+    
+    .bento-card__image {
+      height: 150px;
+    }
+  }
+
+  @container (min-width: 400px) {
+    .bento-card__header,
+    .bento-card__content {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    
+    .bento-card__title {
+      font-size: 1.25rem;
+    }
+    
+    .bento-card__image {
+      height: 250px;
+    }
+  }
+
+  /* Dark mode adjustments */
+  :global(.sl-theme-dark) .bento-card__loading {
+    background: rgba(30, 41, 59, 0.8);
+  }
+
+  :global(.sl-theme-dark) .bento-card--highlighted {
+    background: linear-gradient(135deg, 
+      var(--sl-color-accent-high, #1e40af) 0%, 
+      var(--sl-color-accent-high, #1e40af) 100%);
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .bento-card,
+    .bento-card__image img,
+    .bento-card__link-indicator,
+    .loading-spinner {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>

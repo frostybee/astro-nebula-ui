@@ -1,0 +1,170 @@
+---
+interface Props {
+  /**
+   * Number of columns in the masonry layout
+   */
+  columns?: number;
+  /**
+   * Gap between masonry items
+   */
+  gap?: string;
+  /**
+   * Responsive column configuration
+   */
+  responsive?: {
+    sm?: number;
+    md?: number;
+    lg?: number;
+    xl?: number;
+  };
+  /**
+   * Minimum column width (alternative to fixed columns)
+   */
+  minColumnWidth?: string;
+  /**
+   * Additional CSS classes
+   */
+  class?: string;
+  /**
+   * Enable balanced column heights
+   */
+  balanced?: boolean;
+}
+
+const {
+  columns = 3,
+  gap = '1rem',
+  responsive = { sm: 1, md: 2, lg: 3, xl: 4 },
+  minColumnWidth,
+  class: className = '',
+  balanced = true,
+} = Astro.props;
+
+// Generate responsive column counts
+const columnCounts = {
+  sm: responsive.sm || 1,
+  md: responsive.md || 2,
+  lg: responsive.lg || columns,
+  xl: responsive.xl || columns,
+};
+---
+
+<div 
+  class={`bento-masonry ${className}`}
+  data-balanced={balanced}
+  style={{
+    '--columns-sm': columnCounts.sm.toString(),
+    '--columns-md': columnCounts.md.toString(),
+    '--columns-lg': columnCounts.lg.toString(),
+    '--columns-xl': columnCounts.xl.toString(),
+    '--gap': gap,
+    '--min-column-width': minColumnWidth || 'auto',
+  }}
+>
+  <slot />
+</div>
+
+<style>
+  .bento-masonry {
+    container-type: inline-size;
+    column-count: var(--columns-lg);
+    column-gap: var(--gap);
+    column-fill: balance;
+  }
+
+  /* Use minimum column width if specified */
+  .bento-masonry[style*="--min-column-width"]:not([style*="--min-column-width: auto"]) {
+    column-count: auto;
+    column-width: var(--min-column-width);
+  }
+
+  /* Balanced layout */
+  .bento-masonry[data-balanced="true"] {
+    column-fill: balance;
+  }
+
+  .bento-masonry[data-balanced="false"] {
+    column-fill: auto;
+  }
+
+  /* Child item styles */
+  .bento-masonry > :global(*) {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: var(--gap);
+    display: block;
+  }
+
+  /* Last item in each column shouldn't have bottom margin */
+  .bento-masonry > :global(*:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Container query responsive breakpoints */
+  @container (max-width: 600px) {
+    .bento-masonry {
+      column-count: var(--columns-sm);
+    }
+  }
+
+  @container (min-width: 601px) and (max-width: 900px) {
+    .bento-masonry {
+      column-count: var(--columns-md);
+    }
+  }
+
+  @container (min-width: 901px) and (max-width: 1200px) {
+    .bento-masonry {
+      column-count: var(--columns-lg);
+    }
+  }
+
+  @container (min-width: 1201px) {
+    .bento-masonry {
+      column-count: var(--columns-xl);
+    }
+  }
+
+  /* Fallback for browsers without container query support */
+  @supports not (container-type: inline-size) {
+    .bento-masonry {
+      column-count: var(--columns-lg);
+    }
+
+    @media (max-width: 600px) {
+      .bento-masonry {
+        column-count: var(--columns-sm);
+      }
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+      .bento-masonry {
+        column-count: var(--columns-md);
+      }
+    }
+
+    @media (min-width: 1201px) {
+      .bento-masonry {
+        column-count: var(--columns-xl);
+      }
+    }
+  }
+
+  /* Animation for column changes */
+  .bento-masonry > :global(*) {
+    transition: transform 0.3s ease;
+  }
+
+  /* Print styles */
+  @media print {
+    .bento-masonry {
+      column-count: 2;
+      column-gap: 1rem;
+    }
+    
+    .bento-masonry > :global(*) {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+  }
+</style>

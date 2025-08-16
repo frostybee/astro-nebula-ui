@@ -1,0 +1,356 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  variant?: "default" | "outline" | "minimal" | "compact";
+  printable?: boolean;
+  collapsible?: boolean;
+  id?: string;
+}
+
+const { 
+  title, 
+  description,
+  variant = "default",
+  printable = true,
+  collapsible = false,
+  id = `cheatsheet-${Math.random().toString(36).substr(2, 9)}`
+} = Astro.props;
+---
+
+<div class={`cheatsheet cheatsheet--${variant} ${printable ? 'cheatsheet--printable' : ''} ${collapsible ? 'cheatsheet--collapsible' : ''}`} id={id}>
+  <div class="cheatsheet__header">
+    <div class="cheatsheet__title-wrapper">
+      <svg class="cheatsheet__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14,2 14,8 20,8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+        <polyline points="10,9 9,9 8,9"></polyline>
+      </svg>
+      <div class="cheatsheet__title-content">
+        <h2 class="cheatsheet__title">{title}</h2>
+        {description && (
+          <p class="cheatsheet__description">{description}</p>
+        )}
+      </div>
+    </div>
+    <div class="cheatsheet__actions">
+      {printable && (
+        <button 
+          class="cheatsheet__print-btn" 
+          onclick="window.print()" 
+          aria-label="Print cheatsheet"
+          title="Print this cheatsheet"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6,9 6,2 18,2 18,9"></polyline>
+            <path d="m6 18 1.5-1.5h9L18 18"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+            <line x1="6" y1="14" x2="18" y2="14"></line>
+          </svg>
+        </button>
+      )}
+      {collapsible && (
+        <button 
+          class="cheatsheet__collapse-btn" 
+          aria-label="Toggle cheatsheet sections"
+          title="Collapse/Expand all sections"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 15-6-6-6 6"></path>
+          </svg>
+        </button>
+      )}
+    </div>
+  </div>
+  
+  <div class="cheatsheet__content">
+    <div class="cheatsheet__sections">
+      <slot />
+    </div>
+    
+    <div class="cheatsheet__resources">
+      <slot name="resources" />
+    </div>
+  </div>
+</div>
+
+{collapsible && (
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize collapsible functionality for all cheatsheets
+      const cheatsheets = document.querySelectorAll('.cheatsheet--collapsible');
+      
+      cheatsheets.forEach(cheatsheet => {
+        const collapseBtn = cheatsheet.querySelector('.cheatsheet__collapse-btn');
+        const sections = cheatsheet.querySelectorAll('.cheatsheet-section');
+        let isCollapsed = false;
+        
+        if (collapseBtn) {
+          collapseBtn.addEventListener('click', () => {
+            isCollapsed = !isCollapsed;
+            
+            sections.forEach(section => {
+              if (isCollapsed) {
+                section.classList.add('collapsed');
+              } else {
+                section.classList.remove('collapsed');
+              }
+            });
+            
+            // Update button icon
+            const icon = collapseBtn.querySelector('svg path');
+            if (icon) {
+              if (isCollapsed) {
+                icon.setAttribute('d', 'm6 9 6 6 6-6'); // Down arrow
+                collapseBtn.setAttribute('aria-label', 'Expand all sections');
+                collapseBtn.setAttribute('title', 'Expand all sections');
+              } else {
+                icon.setAttribute('d', 'm18 15-6-6-6 6'); // Up arrow
+                collapseBtn.setAttribute('aria-label', 'Collapse all sections');
+                collapseBtn.setAttribute('title', 'Collapse all sections');
+              }
+            }
+            
+            cheatsheet.setAttribute('data-collapsed', isCollapsed.toString());
+          });
+        }
+      });
+    });
+  </script>
+)}
+
+<style>
+  .cheatsheet {
+    background: var(--sl-color-bg-nav);
+    border: 2px solid var(--sl-color-gray-5);
+    border-radius: 12px;
+    margin: 2rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cheatsheet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sl-color-accent), var(--sl-color-accent-high));
+  }
+
+  .cheatsheet--outline {
+    background: transparent;
+    border: 2px solid var(--sl-color-accent);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .cheatsheet--minimal {
+    background: transparent;
+    border: 1px solid var(--sl-color-gray-4);
+    box-shadow: none;
+  }
+
+  .cheatsheet--compact {
+    margin: 1rem 0;
+    border-radius: 8px;
+  }
+
+  .cheatsheet__header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-bg-sidebar);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .cheatsheet__title-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .cheatsheet__icon {
+    color: var(--sl-color-accent);
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  .cheatsheet__title-content {
+    flex: 1;
+  }
+
+  .cheatsheet__title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--sl-color-white);
+    line-height: 1.2;
+  }
+
+  .cheatsheet__description {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--sl-color-gray-2);
+    line-height: 1.4;
+  }
+
+  .cheatsheet__actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .cheatsheet__print-btn,
+  .cheatsheet__collapse-btn {
+    background: transparent;
+    border: 1px solid var(--sl-color-gray-4);
+    border-radius: 6px;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--sl-color-gray-2);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cheatsheet__print-btn:hover,
+  .cheatsheet__collapse-btn:hover {
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+    border-color: var(--sl-color-gray-3);
+  }
+
+  .cheatsheet__content {
+    position: relative;
+  }
+
+  .cheatsheet__sections {
+    padding: 0;
+  }
+
+  .cheatsheet__resources {
+    border-top: 2px solid var(--sl-color-gray-5);
+    background: var(--sl-color-bg-sidebar);
+    margin-top: 0;
+  }
+
+  /* Print Styles */
+  .cheatsheet--printable {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  @media print {
+    .cheatsheet {
+      background: white !important;
+      border: 2px solid #333 !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+      page-break-inside: avoid;
+    }
+
+    .cheatsheet::before {
+      background: #333 !important;
+    }
+
+    .cheatsheet__header {
+      background: #f8f9fa !important;
+      border-bottom: 1px solid #333 !important;
+    }
+
+    .cheatsheet__title {
+      color: #000 !important;
+    }
+
+    .cheatsheet__description {
+      color: #333 !important;
+    }
+
+    .cheatsheet__actions {
+      display: none !important;
+    }
+
+    .cheatsheet__resources {
+      background: #f8f9fa !important;
+      border-top: 2px solid #333 !important;
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .cheatsheet__header {
+      padding: 1rem 1.5rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .cheatsheet__title-wrapper {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .cheatsheet__title {
+      font-size: 1.25rem;
+    }
+
+    .cheatsheet__description {
+      font-size: 0.9rem;
+    }
+
+    .cheatsheet__actions {
+      align-self: flex-end;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cheatsheet {
+      margin: 1rem -1rem;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+    }
+
+    .cheatsheet__header {
+      padding: 1rem;
+    }
+
+    .cheatsheet--compact .cheatsheet__header {
+      padding: 0.75rem 1rem;
+    }
+
+    .cheatsheet__title {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* High Contrast Mode Support */
+  @media (prefers-contrast: high) {
+    .cheatsheet {
+      border-width: 3px;
+    }
+
+    .cheatsheet__print-btn,
+    .cheatsheet__collapse-btn {
+      border-width: 2px;
+    }
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .cheatsheet,
+    .cheatsheet__print-btn,
+    .cheatsheet__collapse-btn {
+      transition: none;
+    }
+  }
+</style>

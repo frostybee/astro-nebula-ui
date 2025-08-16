@@ -1,0 +1,222 @@
+---
+title: Learning Objectives
+description: A component for displaying clear learning goals at the start of lessons with optional progress tracking.
+---
+
+import { LearningObjectives } from 'astro-nebula-ui';
+
+The Learning Objectives component helps educators clearly communicate what students will achieve in a lesson. It features a clean, professional design with optional interactive progress tracking.
+
+## Basic Usage
+
+Here's a simple learning objectives panel:
+
+<LearningObjectives
+  objectives={[
+    "Understand the fundamentals of web development",
+    "Learn how to create responsive layouts",
+    "Master CSS Grid and Flexbox",
+    "Build accessible web applications"
+  ]}
+/>
+
+```astro
+---
+import { LearningObjectives } from 'astro-galaxy-components';
+---
+
+<LearningObjectives
+  objectives={[
+    "Understand the fundamentals of web development",
+    "Learn how to create responsive layouts",
+    "Master CSS Grid and Flexbox",
+    "Build accessible web applications"
+  ]}
+/>
+```
+
+## Interactive Mode
+
+Enable interactive mode to allow students to check off completed objectives:
+
+<LearningObjectives
+  title="JavaScript Fundamentals"
+  objectives={[
+    "Declare and use variables effectively",
+    "Write and call functions",
+    "Work with arrays and objects",
+    "Handle events and user interactions"
+  ]}
+  interactive={true}
+  showProgress={true}
+/>
+
+```astro
+<LearningObjectives
+  title="JavaScript Fundamentals"
+  objectives={[
+    "Declare and use variables effectively",
+    "Write and call functions",
+    "Work with arrays and objects",
+    "Handle events and user interactions"
+  ]}
+  interactive={true}
+  showProgress={true}
+/>
+```
+
+## Variants
+
+The component supports different visual styles:
+
+### Default Variant
+<LearningObjectives
+  title="Default Style"
+  objectives={["First objective", "Second objective", "Third objective"]}
+/>
+
+### Outline Variant
+<LearningObjectives
+  title="Outline Style"
+  objectives={["First objective", "Second objective", "Third objective"]}
+  variant="outline"
+/>
+
+### Minimal Variant
+<LearningObjectives
+  title="Minimal Style"
+  objectives={["First objective", "Second objective", "Third objective"]}
+  variant="minimal"
+/>
+
+```astro
+<!-- Default variant -->
+<LearningObjectives
+  title="Default Style"
+  objectives={["First objective", "Second objective"]}
+/>
+
+<!-- Outline variant -->
+<LearningObjectives
+  title="Outline Style"
+  objectives={["First objective", "Second objective"]}
+  variant="outline"
+/>
+
+<!-- Minimal variant -->
+<LearningObjectives
+  title="Minimal Style"
+  objectives={["First objective", "Second objective"]}
+  variant="minimal"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `"Learning Objectives"` | The title displayed at the top of the component |
+| `objectives` | `string[]` | `[]` | Array of learning objective strings |
+| `interactive` | `boolean` | `false` | Enable checkboxes for progress tracking |
+| `variant` | `"default" \| "outline" \| "minimal"` | `"default"` | Visual style variant |
+| `showProgress` | `boolean` | `false` | Show progress indicator (only when interactive=true) |
+| `id` | `string` | auto-generated | Custom ID for the component |
+
+## Features
+
+### ✅ Progress Tracking
+When `interactive` is enabled, student progress is automatically saved to localStorage and restored on page reload.
+
+### ✅ Accessibility
+- Full ARIA support for screen readers
+- Keyboard navigation
+- High contrast mode support
+- Semantic HTML structure
+
+### ✅ Responsive Design
+- Mobile-friendly layout
+- Flexible spacing and typography
+- Touch-friendly interaction targets
+
+### ✅ Visual Feedback
+- Smooth animations and transitions
+- Completion celebration animation
+- Visual progress indicators
+
+## Advanced Examples
+
+### Course Introduction
+<LearningObjectives
+  title="Course Introduction - What You'll Master"
+  objectives={[
+    "Navigate the learning platform effectively",
+    "Understand course structure and expectations",
+    "Connect with classmates and instructors",
+    "Set up your development environment",
+    "Complete your first coding exercise"
+  ]}
+  interactive={true}
+  showProgress={true}
+  variant="default"
+/>
+
+### Technical Lesson
+<LearningObjectives
+  title="Database Design Principles"
+  objectives={[
+    "Design normalized database schemas",
+    "Implement primary and foreign key relationships",
+    "Write efficient SQL queries",
+    "Optimize database performance",
+    "Handle data integrity constraints"
+  ]}
+  interactive={true}
+  showProgress={true}
+  variant="outline"
+/>
+
+### Quick Reference
+<LearningObjectives
+  title="Key Takeaways"
+  objectives={[
+    "Remember the main concept",
+    "Apply the technique in practice",
+    "Identify common pitfalls"
+  ]}
+  variant="minimal"
+/>
+
+## Multiple Instances
+
+The component supports multiple instances on the same page, each with independent progress tracking:
+
+<LearningObjectives
+  title="Week 1 Goals"
+  objectives={["Learn HTML basics", "Understand CSS selectors"]}
+  interactive={true}
+  id="week-1"
+/>
+
+<LearningObjectives
+  title="Week 2 Goals"
+  objectives={["Master JavaScript variables", "Create interactive elements"]}
+  interactive={true}
+  id="week-2"
+/>
+
+```astro
+<LearningObjectives
+  title="Week 1 Goals"
+  objectives={["Learn HTML basics", "Understand CSS selectors"]}
+  interactive={true}
+  id="week-1"
+/>
+
+<LearningObjectives
+  title="Week 2 Goals"
+  objectives={["Master JavaScript variables", "Create interactive elements"]}
+  interactive={true}
+  id="week-2"
+/>
+```
+

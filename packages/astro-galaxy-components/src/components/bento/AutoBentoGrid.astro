@@ -1,0 +1,156 @@
+---
+interface Props {
+  /**
+   * Grid size variant - controls minimum column width and gaps
+   */
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  /**
+   * Minimum width for each column before wrapping
+   */
+  minColumnWidth?: string;
+  /**
+   * Gap between grid items
+   */
+  gap?: string;
+  /**
+   * Maximum number of columns (optional constraint)
+   */
+  maxColumns?: number;
+  /**
+   * Enable dense packing to fill gaps automatically
+   */
+  dense?: boolean;
+  /**
+   * Grid container class for additional styling
+   */
+  class?: string;
+  /**
+   * Container queries breakpoint for responsive behavior
+   */
+  containerQueries?: boolean;
+}
+
+const {
+  size = 'md',
+  minColumnWidth,
+  gap,
+  maxColumns,
+  dense = true,
+  class: className = '',
+  containerQueries = true,
+} = Astro.props;
+
+// Size-based defaults
+const sizeConfig = {
+  sm: { minWidth: '200px', gap: '0.75rem' },
+  md: { minWidth: '280px', gap: '1rem' },
+  lg: { minWidth: '320px', gap: '1.25rem' },
+  xl: { minWidth: '400px', gap: '1.5rem' },
+};
+
+const config = sizeConfig[size];
+const finalMinWidth = minColumnWidth || config.minWidth;
+const finalGap = gap || config.gap;
+
+// Generate grid template columns
+let gridColumns = `repeat(auto-fit, minmax(min(100%, ${finalMinWidth}), 1fr))`;
+if (maxColumns) {
+  gridColumns = `repeat(auto-fit, minmax(min(100%, ${finalMinWidth}), 1fr))`;
+}
+---
+
+<div 
+  class={`auto-bento-grid ${className}`}
+  data-size={size}
+  data-container-queries={containerQueries}
+  style={{
+    '--grid-min-width': finalMinWidth,
+    '--grid-gap': finalGap,
+    '--grid-columns': gridColumns,
+    '--max-columns': maxColumns || 'none',
+  }}
+>
+  <slot />
+</div>
+
+<style>
+  .auto-bento-grid {
+    container-type: inline-size;
+    display: grid;
+    grid-template-columns: var(--grid-columns);
+    grid-auto-flow: dense;
+    gap: var(--grid-gap);
+    width: 100%;
+  }
+
+  /* Dense packing enabled by default */
+  .auto-bento-grid[data-dense="true"] {
+    grid-auto-flow: dense;
+  }
+
+  /* Container query responsive adjustments */
+  .auto-bento-grid[data-container-queries="true"] {
+    container-type: inline-size;
+  }
+
+  /* Small container adjustments */
+  @container (max-width: 600px) {
+    .auto-bento-grid[data-container-queries="true"] {
+      grid-template-columns: 1fr;
+      gap: calc(var(--grid-gap) * 0.75);
+    }
+  }
+
+  /* Medium container adjustments */
+  @container (min-width: 601px) and (max-width: 900px) {
+    .auto-bento-grid[data-container-queries="true"] {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--grid-min-width) * 0.85)), 1fr));
+    }
+  }
+
+  /* Large container adjustments */
+  @container (min-width: 901px) and (max-width: 1200px) {
+    .auto-bento-grid[data-container-queries="true"] {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min-width)), 1fr));
+    }
+  }
+
+  /* Extra large container adjustments */
+  @container (min-width: 1201px) {
+    .auto-bento-grid[data-container-queries="true"] {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--grid-min-width) * 1.1)), 1fr));
+    }
+  }
+
+  /* Fallback for browsers without container query support */
+  @supports not (container-type: inline-size) {
+    .auto-bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min-width)), 1fr));
+      gap: var(--grid-gap);
+    }
+
+    /* Media query fallbacks */
+    @media (max-width: 600px) {
+      .auto-bento-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+      .auto-bento-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+      }
+    }
+  }
+
+  /* Animation for layout changes */
+  .auto-bento-grid > * {
+    transition: grid-column 0.3s ease, grid-row 0.3s ease;
+  }
+
+  /* Prevent layout shift during loading */
+  .auto-bento-grid:empty {
+    min-height: 200px;
+  }
+</style>

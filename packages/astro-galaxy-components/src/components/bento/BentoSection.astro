@@ -1,0 +1,336 @@
+---
+interface Props {
+  /**
+   * Section title
+   */
+  title?: string;
+  /**
+   * Section description
+   */
+  description?: string;
+  /**
+   * Section ID for anchoring
+   */
+  id?: string;
+  /**
+   * Number of columns this section should span
+   */
+  colSpan?: number;
+  /**
+   * Whether the section is collapsible
+   */
+  collapsible?: boolean;
+  /**
+   * Initial collapsed state (only applies if collapsible is true)
+   */
+  collapsed?: boolean;
+  /**
+   * Section variant
+   */
+  variant?: 'default' | 'highlighted' | 'bordered' | 'minimal';
+  /**
+   * Additional CSS classes
+   */
+  class?: string;
+  /**
+   * Header background color
+   */
+  headerBackground?: string;
+  /**
+   * Enable semantic HTML structure
+   */
+  semantic?: boolean;
+}
+
+const {
+  title,
+  description,
+  id = title?.toLowerCase().replace(/\s+/g, '-') || undefined,
+  colSpan,
+  collapsible = false,
+  collapsed = false,
+  variant = 'default',
+  class: className = '',
+  headerBackground,
+  semantic = true,
+} = Astro.props;
+
+const Component = semantic ? 'section' : 'div';
+const HeadingComponent = semantic ? 'h2' : 'div';
+
+// Generate grid styles
+const gridStyles: Record<string, string> = {};
+if (colSpan) {
+  gridStyles['grid-column'] = `span ${colSpan}`;
+}
+---
+
+<Component
+  class={`bento-section bento-section--${variant} ${className}`}
+  {...(id && { id })}
+  data-collapsible={collapsible}
+  data-collapsed={collapsed}
+  style={gridStyles}
+>
+  {(title || description) && (
+    <header 
+      class="bento-section__header"
+      style={headerBackground ? `background: ${headerBackground}` : undefined}
+    >
+      {title && (
+        <HeadingComponent class="bento-section__title">
+          {id && <a class="bento-section__anchor" href={`#${id}`} aria-label={`Link to ${title} section`}>#</a>}
+          {title}
+          {collapsible && (
+            <button 
+              class="bento-section__toggle"
+              aria-expanded={!collapsed}
+              aria-controls={id ? `${id}-content` : undefined}
+              type="button"
+            >
+              <span class="bento-section__toggle-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"/>
+                </svg>
+              </span>
+              <span class="sr-only">{collapsed ? 'Expand' : 'Collapse'} section</span>
+            </button>
+          )}
+        </HeadingComponent>
+      )}
+      {description && (
+        <p class="bento-section__description">{description}</p>
+      )}
+    </header>
+  )}
+  
+  <div 
+    class="bento-section__content"
+    {...(collapsible && id && { id: `${id}-content` })}
+    {...(collapsible && { 'aria-hidden': collapsed })}
+  >
+    <slot />
+  </div>
+</Component>
+
+<style>
+  .bento-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    container-type: inline-size;
+  }
+
+  /* Section variants */
+  .bento-section--default {
+    /* Default styling is inherited from parent */
+  }
+
+  .bento-section--highlighted {
+    background: var(--sl-color-bg-sidebar, #f8fafc);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+
+  .bento-section--bordered {
+    border: 2px solid var(--sl-color-gray-5, #e5e7eb);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+
+  .bento-section--minimal {
+    gap: 0.5rem;
+  }
+
+  /* Header styles */
+  .bento-section__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--sl-color-gray-4, #d1d5db);
+  }
+
+  .bento-section--minimal .bento-section__header {
+    border-bottom: none;
+    padding-bottom: 0.25rem;
+  }
+
+  .bento-section__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--sl-color-text, #1e293b);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .bento-section__anchor {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    text-decoration: none;
+    color: var(--sl-color-accent, #3b82f6);
+    font-weight: normal;
+  }
+
+  .bento-section__title:hover .bento-section__anchor {
+    opacity: 1;
+  }
+
+  .bento-section__description {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-1, #64748b);
+    line-height: 1.5;
+  }
+
+  /* Collapsible toggle */
+  .bento-section__toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    color: var(--sl-color-gray-1, #64748b);
+    transition: color 0.2s ease, background-color 0.2s ease;
+    margin-left: auto;
+  }
+
+  .bento-section__toggle:hover {
+    color: var(--sl-color-text, #1e293b);
+    background-color: var(--sl-color-gray-6, #f1f5f9);
+  }
+
+  .bento-section__toggle:focus {
+    outline: 2px solid var(--sl-color-accent, #3b82f6);
+    outline-offset: 2px;
+  }
+
+  .bento-section__toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+
+  .bento-section[data-collapsed="false"] .bento-section__toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Content area */
+  .bento-section__content {
+    flex: 1;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    overflow: hidden;
+  }
+
+  .bento-section[data-collapsed="true"] .bento-section__content {
+    opacity: 0;
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .bento-section[data-collapsed="false"] .bento-section__content,
+  .bento-section:not([data-collapsible="true"]) .bento-section__content {
+    opacity: 1;
+    max-height: none;
+  }
+
+  /* Container query adjustments */
+  @container (max-width: 400px) {
+    .bento-section--highlighted,
+    .bento-section--bordered {
+      padding: 1rem;
+    }
+    
+    .bento-section__title {
+      font-size: 1.125rem;
+    }
+  }
+
+  @container (min-width: 600px) {
+    .bento-section--highlighted,
+    .bento-section--bordered {
+      padding: 2rem;
+    }
+    
+    .bento-section__title {
+      font-size: 1.375rem;
+    }
+  }
+
+  /* Dark mode support */
+  :global(.sl-theme-dark) .bento-section--highlighted {
+    background: var(--sl-color-bg-sidebar, #0f172a);
+  }
+
+  :global(.sl-theme-dark) .bento-section--bordered {
+    border-color: var(--sl-color-gray-6, #4b5563);
+  }
+
+  :global(.sl-theme-dark) .bento-section__header {
+    border-bottom-color: var(--sl-color-gray-5, #6b7280);
+  }
+
+  /* Screen reader only class */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .bento-section__content,
+    .bento-section__toggle-icon {
+      transition: none !important;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .bento-section[data-collapsed="true"] .bento-section__content {
+      opacity: 1;
+      max-height: none;
+    }
+    
+    .bento-section__toggle {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Client-side interactivity for collapsible sections
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButtons = document.querySelectorAll('.bento-section__toggle');
+    
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const section = button.closest('.bento-section');
+        if (!section) return;
+        
+        const isCollapsed = section.getAttribute('data-collapsed') === 'true';
+        const newState = !isCollapsed;
+        
+        section.setAttribute('data-collapsed', newState.toString());
+        button.setAttribute('aria-expanded', (!newState).toString());
+        
+        // Update screen reader text
+        const srText = button.querySelector('.sr-only');
+        if (srText) {
+          srText.textContent = newState ? 'Expand section' : 'Collapse section';
+        }
+      });
+    });
+  });
+</script>

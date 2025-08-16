@@ -1,0 +1,392 @@
+/**
+ * Bento Grid Utilities
+ * CSS custom properties, utilities, and animation keyframes
+ */
+
+/* ===== CSS Custom Properties ===== */
+:root {
+  /* Grid Configuration */
+  --bento-grid-gap: 1rem;
+  --bento-grid-min-width: 280px;
+  --bento-grid-max-columns: none;
+  
+  /* Container Queries Breakpoints */
+  --bento-bp-sm: 600px;
+  --bento-bp-md: 900px;
+  --bento-bp-lg: 1200px;
+  --bento-bp-xl: 1600px;
+  
+  /* Spacing */
+  --bento-padding-sm: 0.875rem;
+  --bento-padding-md: 1.25rem;
+  --bento-padding-lg: 1.5rem;
+  --bento-padding-xl: 2rem;
+  
+  /* Border Radius */
+  --bento-radius-sm: 0.5rem;
+  --bento-radius-md: 0.75rem;
+  --bento-radius-lg: 1rem;
+  --bento-radius-xl: 1.25rem;
+  
+  /* Shadows */
+  --bento-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --bento-shadow-md: 
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --bento-shadow-lg: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --bento-shadow-xl: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Transitions */
+  --bento-transition-fast: 0.15s ease;
+  --bento-transition-normal: 0.2s ease;
+  --bento-transition-slow: 0.3s ease;
+  
+  /* Z-index Stack */
+  --bento-z-dropdown: 1000;
+  --bento-z-sticky: 1020;
+  --bento-z-fixed: 1030;
+  --bento-z-modal: 1040;
+  --bento-z-tooltip: 1050;
+}
+
+/* ===== Animation Keyframes ===== */
+@keyframes bento-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bento-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bento-slide-down {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: var(--max-height, 1000px);
+    transform: translateY(0);
+  }
+}
+
+@keyframes bento-slide-up {
+  from {
+    opacity: 1;
+    max-height: var(--max-height, 1000px);
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bento-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bento-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bento-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== Utility Classes ===== */
+
+/* Grid Utilities */
+.bento-col-1 { grid-column: span 1; }
+.bento-col-2 { grid-column: span 2; }
+.bento-col-3 { grid-column: span 3; }
+.bento-col-4 { grid-column: span 4; }
+.bento-col-5 { grid-column: span 5; }
+.bento-col-6 { grid-column: span 6; }
+
+.bento-row-1 { grid-row: span 1; }
+.bento-row-2 { grid-row: span 2; }
+.bento-row-3 { grid-row: span 3; }
+.bento-row-4 { grid-row: span 4; }
+.bento-row-5 { grid-row: span 5; }
+.bento-row-6 { grid-row: span 6; }
+
+/* Aspect Ratio Utilities */
+.bento-aspect-square { aspect-ratio: 1 / 1; }
+.bento-aspect-video { aspect-ratio: 16 / 9; }
+.bento-aspect-photo { aspect-ratio: 4 / 3; }
+.bento-aspect-golden { aspect-ratio: 1.618 / 1; }
+
+/* Spacing Utilities */
+.bento-p-sm { padding: var(--bento-padding-sm); }
+.bento-p-md { padding: var(--bento-padding-md); }
+.bento-p-lg { padding: var(--bento-padding-lg); }
+.bento-p-xl { padding: var(--bento-padding-xl); }
+
+.bento-gap-sm { gap: 0.5rem; }
+.bento-gap-md { gap: var(--bento-grid-gap); }
+.bento-gap-lg { gap: 1.5rem; }
+.bento-gap-xl { gap: 2rem; }
+
+/* Border Radius Utilities */
+.bento-rounded-sm { border-radius: var(--bento-radius-sm); }
+.bento-rounded-md { border-radius: var(--bento-radius-md); }
+.bento-rounded-lg { border-radius: var(--bento-radius-lg); }
+.bento-rounded-xl { border-radius: var(--bento-radius-xl); }
+.bento-rounded-full { border-radius: 9999px; }
+
+/* Shadow Utilities */
+.bento-shadow-sm { box-shadow: var(--bento-shadow-sm); }
+.bento-shadow-md { box-shadow: var(--bento-shadow-md); }
+.bento-shadow-lg { box-shadow: var(--bento-shadow-lg); }
+.bento-shadow-xl { box-shadow: var(--bento-shadow-xl); }
+.bento-shadow-none { box-shadow: none; }
+
+/* Animation Utilities */
+.bento-animate-fade-in {
+  animation: bento-fade-in var(--bento-transition-normal) ease;
+}
+
+.bento-animate-scale-in {
+  animation: bento-scale-in var(--bento-transition-normal) ease;
+}
+
+.bento-animate-pulse {
+  animation: bento-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.bento-animate-spin {
+  animation: bento-spin 1s linear infinite;
+}
+
+/* Transition Utilities */
+.bento-transition-fast {
+  transition-duration: var(--bento-transition-fast);
+  transition-timing-function: ease;
+}
+
+.bento-transition-normal {
+  transition-duration: var(--bento-transition-normal);
+  transition-timing-function: ease;
+}
+
+.bento-transition-slow {
+  transition-duration: var(--bento-transition-slow);
+  transition-timing-function: ease;
+}
+
+/* Interactive States */
+.bento-hover-lift {
+  transition: transform var(--bento-transition-normal);
+}
+
+.bento-hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.bento-hover-scale {
+  transition: transform var(--bento-transition-normal);
+}
+
+.bento-hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* Layout Utilities */
+.bento-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bento-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bento-flex-start {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.bento-grid-center {
+  display: grid;
+  place-items: center;
+}
+
+/* Visibility Utilities */
+.bento-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.bento-hidden {
+  display: none;
+}
+
+/* Focus Utilities */
+.bento-focus-ring:focus {
+  outline: 2px solid var(--sl-color-accent, #3b82f6);
+  outline-offset: 2px;
+}
+
+.bento-focus-ring:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ===== Responsive Utilities ===== */
+
+/* Container Query Based */
+@container (max-width: 400px) {
+  .bento-sm\:hidden { display: none; }
+  .bento-sm\:col-1 { grid-column: span 1; }
+  .bento-sm\:p-sm { padding: var(--bento-padding-sm); }
+}
+
+@container (min-width: 401px) {
+  .bento-md\:block { display: block; }
+  .bento-md\:col-2 { grid-column: span 2; }
+  .bento-md\:p-md { padding: var(--bento-padding-md); }
+}
+
+@container (min-width: 600px) {
+  .bento-lg\:col-3 { grid-column: span 3; }
+  .bento-lg\:p-lg { padding: var(--bento-padding-lg); }
+}
+
+/* ===== Theme Support ===== */
+
+/* Light Theme Variables */
+.bento-theme-light {
+  --bento-bg-primary: #ffffff;
+  --bento-bg-secondary: #f8fafc;
+  --bento-bg-tertiary: #f1f5f9;
+  --bento-text-primary: #1e293b;
+  --bento-text-secondary: #64748b;
+  --bento-border-color: #e2e8f0;
+  --bento-accent-color: #3b82f6;
+}
+
+/* Dark Theme Variables */
+.bento-theme-dark {
+  --bento-bg-primary: #0f172a;
+  --bento-bg-secondary: #1e293b;
+  --bento-bg-tertiary: #334155;
+  --bento-text-primary: #f1f5f9;
+  --bento-text-secondary: #94a3b8;
+  --bento-border-color: #475569;
+  --bento-accent-color: #60a5fa;
+}
+
+/* Auto Theme (follows system preference) */
+@media (prefers-color-scheme: dark) {
+  .bento-theme-auto {
+    --bento-bg-primary: #0f172a;
+    --bento-bg-secondary: #1e293b;
+    --bento-bg-tertiary: #334155;
+    --bento-text-primary: #f1f5f9;
+    --bento-text-secondary: #94a3b8;
+    --bento-border-color: #475569;
+    --bento-accent-color: #60a5fa;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .bento-theme-auto {
+    --bento-bg-primary: #ffffff;
+    --bento-bg-secondary: #f8fafc;
+    --bento-bg-tertiary: #f1f5f9;
+    --bento-text-primary: #1e293b;
+    --bento-text-secondary: #64748b;
+    --bento-border-color: #e2e8f0;
+    --bento-accent-color: #3b82f6;
+  }
+}
+
+/* ===== Reduced Motion Support ===== */
+@media (prefers-reduced-motion: reduce) {
+  .bento-animate-fade-in,
+  .bento-animate-scale-in,
+  .bento-animate-pulse,
+  .bento-animate-spin {
+    animation: none !important;
+  }
+  
+  .bento-transition-fast,
+  .bento-transition-normal,
+  .bento-transition-slow,
+  .bento-hover-lift,
+  .bento-hover-scale {
+    transition: none !important;
+  }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  .bento-hidden-print { display: none !important; }
+  .bento-block-print { display: block !important; }
+  
+  /* Remove animations and transitions in print */
+  * {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Ensure good contrast in print */
+  .bento-theme-dark,
+  .bento-theme-auto {
+    --bento-bg-primary: #ffffff;
+    --bento-bg-secondary: #ffffff;
+    --bento-bg-tertiary: #ffffff;
+    --bento-text-primary: #000000;
+    --bento-text-secondary: #333333;
+    --bento-border-color: #cccccc;
+  }
+}

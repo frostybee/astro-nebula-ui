@@ -1,0 +1,286 @@
+---
+interface Props {
+  title?: string;
+  collapsible?: boolean;
+  defaultCollapsed?: boolean;
+  id?: string;
+}
+
+const { 
+  title = "Resources & References",
+  collapsible = false,
+  defaultCollapsed = false,
+  id = `cheatsheet-resources-${Math.random().toString(36).substr(2, 9)}`
+} = Astro.props;
+---
+
+<div class={`cheatsheet-resources ${collapsible ? 'cheatsheet-resources--collapsible' : ''} ${defaultCollapsed ? 'collapsed' : ''}`} id={id}>
+  <div class="cheatsheet-resources__header">
+    {collapsible ? (
+      <button 
+        class="cheatsheet-resources__toggle"
+        aria-expanded={!defaultCollapsed}
+        aria-controls={`${id}-content`}
+      >
+        <svg class="cheatsheet-resources__toggle-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m4 6 4 4 4-4"></path>
+        </svg>
+        <svg class="cheatsheet-resources__header-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+        </svg>
+        <h3 class="cheatsheet-resources__title">{title}</h3>
+      </button>
+    ) : (
+      <div class="cheatsheet-resources__header-content">
+        <svg class="cheatsheet-resources__header-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+        </svg>
+        <h3 class="cheatsheet-resources__title">{title}</h3>
+      </div>
+    )}
+  </div>
+  
+  <div 
+    class="cheatsheet-resources__content"
+    id={`${id}-content`}
+    aria-labelledby={id}
+  >
+    <div class="cheatsheet-resources__body">
+      <slot />
+    </div>
+  </div>
+</div>
+
+{collapsible && (
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize collapsible functionality for resources section
+      const resourcesSections = document.querySelectorAll('.cheatsheet-resources--collapsible');
+      
+      resourcesSections.forEach(section => {
+        const toggle = section.querySelector('.cheatsheet-resources__toggle');
+        const content = section.querySelector('.cheatsheet-resources__content');
+        const icon = section.querySelector('.cheatsheet-resources__toggle-icon path');
+        
+        if (toggle && content) {
+          // Set initial state
+          const isCollapsed = section.classList.contains('collapsed');
+          if (isCollapsed) {
+            content.style.maxHeight = '0';
+            if (icon) icon.setAttribute('d', 'm6 9 4 4 4-4'); // Right arrow
+          } else {
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+          
+          toggle.addEventListener('click', () => {
+            const isCurrentlyCollapsed = section.classList.contains('collapsed');
+            
+            if (isCurrentlyCollapsed) {
+              // Expand
+              section.classList.remove('collapsed');
+              content.style.maxHeight = content.scrollHeight + 'px';
+              toggle.setAttribute('aria-expanded', 'true');
+              if (icon) icon.setAttribute('d', 'm4 6 4 4 4-4'); // Down arrow
+            } else {
+              // Collapse
+              section.classList.add('collapsed');
+              content.style.maxHeight = '0';
+              toggle.setAttribute('aria-expanded', 'false');
+              if (icon) icon.setAttribute('d', 'm6 9 4 4 4-4'); // Right arrow
+            }
+          });
+          
+          // Handle window resize
+          window.addEventListener('resize', () => {
+            if (!section.classList.contains('collapsed')) {
+              content.style.maxHeight = content.scrollHeight + 'px';
+            }
+          });
+        }
+      });
+    });
+  </script>
+)}
+
+<style>
+  .cheatsheet-resources {
+    background: var(--sl-color-bg-sidebar);
+    border-top: 2px solid var(--sl-color-gray-5);
+  }
+
+  .cheatsheet-resources__header {
+    padding: 0;
+    background: var(--sl-color-bg-sidebar);
+  }
+
+  .cheatsheet-resources__header-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem 1rem 2rem;
+  }
+
+  .cheatsheet-resources__toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.25rem 2rem 1rem 2rem;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--sl-color-white);
+    transition: all 0.2s ease;
+  }
+
+  .cheatsheet-resources__toggle:hover {
+    background: var(--sl-color-gray-6);
+  }
+
+  .cheatsheet-resources__toggle:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: -2px;
+  }
+
+  .cheatsheet-resources__toggle-icon {
+    color: var(--sl-color-gray-2);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .cheatsheet-resources.collapsed .cheatsheet-resources__toggle-icon {
+    transform: rotate(-90deg);
+  }
+
+  .cheatsheet-resources__header-icon {
+    color: var(--sl-color-accent);
+    flex-shrink: 0;
+  }
+
+  .cheatsheet-resources__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--sl-color-white);
+    line-height: 1.3;
+    flex: 1;
+  }
+
+  .cheatsheet-resources__content {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .cheatsheet-resources--collapsible .cheatsheet-resources__content {
+    max-height: none;
+  }
+
+  .cheatsheet-resources.collapsed .cheatsheet-resources__content {
+    max-height: 0;
+  }
+
+  .cheatsheet-resources__body {
+    padding: 0 0 1rem 0;
+  }
+
+  /* Empty state message */
+  .cheatsheet-resources__body:empty::before {
+    content: "No resources available";
+    display: block;
+    padding: 2rem;
+    text-align: center;
+    color: var(--sl-color-gray-3);
+    font-style: italic;
+  }
+
+  /* Print Styles */
+  @media print {
+    .cheatsheet-resources {
+      background: #f8f9fa !important;
+      border-top: 2px solid #333 !important;
+      break-inside: avoid;
+    }
+
+    .cheatsheet-resources__header {
+      background: #f8f9fa !important;
+    }
+
+    .cheatsheet-resources__toggle {
+      background: transparent !important;
+    }
+
+    .cheatsheet-resources__title {
+      color: #000 !important;
+    }
+
+    .cheatsheet-resources__header-icon {
+      color: #333 !important;
+    }
+
+    /* Ensure collapsed resources section is visible when printed */
+    .cheatsheet-resources.collapsed .cheatsheet-resources__content {
+      max-height: none !important;
+    }
+
+    .cheatsheet-resources__toggle-icon {
+      display: none !important;
+    }
+
+    /* Add "Resources" prefix to printed content */
+    .cheatsheet-resources::before {
+      content: "📚 ";
+      font-size: 1.2rem;
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .cheatsheet-resources__header-content,
+    .cheatsheet-resources__toggle {
+      padding: 1rem 1.5rem 0.75rem 1.5rem;
+    }
+
+    .cheatsheet-resources__title {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cheatsheet-resources__header-content,
+    .cheatsheet-resources__toggle {
+      padding: 0.75rem 1rem 0.5rem 1rem;
+    }
+
+    .cheatsheet-resources__header-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cheatsheet-resources__title {
+      font-size: 0.95rem;
+    }
+  }
+
+  /* High Contrast Mode Support */
+  @media (prefers-contrast: high) {
+    .cheatsheet-resources {
+      border-top-width: 3px;
+    }
+
+    .cheatsheet-resources__toggle:focus {
+      outline-width: 3px;
+    }
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .cheatsheet-resources__content,
+    .cheatsheet-resources__toggle,
+    .cheatsheet-resources__toggle-icon {
+      transition: none;
+    }
+  }
+</style>

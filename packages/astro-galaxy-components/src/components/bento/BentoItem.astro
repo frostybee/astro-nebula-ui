@@ -1,0 +1,246 @@
+---
+interface Props {
+  /**
+   * Number of columns to span (explicit)
+   */
+  colSpan?: number;
+  /**
+   * Number of rows to span (explicit)
+   */
+  rowSpan?: number;
+  /**
+   * Auto-sizing mode based on content
+   */
+  size?: 'auto' | 'small' | 'medium' | 'large' | 'xl';
+  /**
+   * Aspect ratio for the item (e.g., '16/9', '1/1', '4/3')
+   */
+  aspectRatio?: string;
+  /**
+   * Priority for positioning (higher numbers get positioned first)
+   */
+  priority?: number;
+  /**
+   * Minimum height for the item
+   */
+  minHeight?: string;
+  /**
+   * Maximum height for the item
+   */
+  maxHeight?: string;
+  /**
+   * Additional CSS classes
+   */
+  class?: string;
+  /**
+   * Enable content-aware sizing
+   */
+  contentAware?: boolean;
+  /**
+   * Background color or gradient
+   */
+  background?: string;
+  /**
+   * Border radius override
+   */
+  borderRadius?: string;
+}
+
+const {
+  colSpan,
+  rowSpan,
+  size = 'auto',
+  aspectRatio,
+  priority = 0,
+  minHeight,
+  maxHeight,
+  class: className = '',
+  contentAware = true,
+  background,
+  borderRadius,
+} = Astro.props;
+
+// Size-based span defaults
+const sizeSpanMap = {
+  auto: { col: undefined, row: undefined },
+  small: { col: 1, row: 1 },
+  medium: { col: 1, row: 2 },
+  large: { col: 2, row: 2 },
+  xl: { col: 2, row: 3 },
+};
+
+const autoSpan = sizeSpanMap[size];
+const finalColSpan = colSpan ?? autoSpan.col;
+const finalRowSpan = rowSpan ?? autoSpan.row;
+
+// Generate grid position styles
+const gridStyles: Record<string, string> = {};
+
+if (finalColSpan) {
+  gridStyles['grid-column'] = `span ${finalColSpan}`;
+}
+if (finalRowSpan) {
+  gridStyles['grid-row'] = `span ${finalRowSpan}`;
+}
+if (aspectRatio) {
+  gridStyles['aspect-ratio'] = aspectRatio;
+}
+if (minHeight) {
+  gridStyles['min-height'] = minHeight;
+}
+if (maxHeight) {
+  gridStyles['max-height'] = maxHeight;
+}
+if (background) {
+  gridStyles['background'] = background;
+}
+if (borderRadius) {
+  gridStyles['border-radius'] = borderRadius;
+}
+
+// Priority-based ordering (higher priority = lower order value)
+if (priority > 0) {
+  gridStyles['order'] = (-priority).toString();
+}
+---
+
+<div 
+  class={`bento-item ${className}`}
+  data-size={size}
+  data-priority={priority}
+  data-content-aware={contentAware}
+  style={{
+    ...gridStyles,
+    '--col-span': finalColSpan?.toString() || 'auto',
+    '--row-span': finalRowSpan?.toString() || 'auto',
+    '--aspect-ratio': aspectRatio || 'auto',
+  }}
+>
+  <div class="bento-item-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .bento-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: var(--sl-color-bg-card, #ffffff);
+    border: 1px solid var(--sl-color-gray-5, #e5e7eb);
+    box-shadow: 
+      0 1px 3px 0 rgba(0, 0, 0, 0.1),
+      0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: 
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      grid-column 0.3s ease,
+      grid-row 0.3s ease;
+  }
+
+  .bento-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .bento-item-content {
+    padding: 1.25rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Content-aware sizing adjustments */
+  .bento-item[data-content-aware="true"] {
+    container-type: size;
+  }
+
+  /* Auto-sizing based on content */
+  .bento-item[data-size="auto"] {
+    min-height: fit-content;
+  }
+
+  .bento-item[data-size="small"] {
+    min-height: 120px;
+  }
+
+  .bento-item[data-size="medium"] {
+    min-height: 200px;
+  }
+
+  .bento-item[data-size="large"] {
+    min-height: 280px;
+  }
+
+  .bento-item[data-size="xl"] {
+    min-height: 360px;
+  }
+
+  /* Container query adjustments for item content */
+  @container (max-width: 250px) {
+    .bento-item-content {
+      padding: 0.875rem;
+      gap: 0.5rem;
+    }
+  }
+
+  @container (min-width: 400px) {
+    .bento-item-content {
+      padding: 1.5rem;
+      gap: 1rem;
+    }
+  }
+
+  /* Priority-based visual indication (optional) */
+  .bento-item[data-priority]:not([data-priority="0"]) {
+    border-left: 4px solid var(--sl-color-accent, #3b82f6);
+  }
+
+  /* Responsive column spanning for container queries */
+  @container (max-width: 300px) {
+    .bento-item {
+      grid-column: span 1 !important;
+    }
+  }
+
+  /* Dark mode support */
+  :global(.sl-theme-dark) .bento-item {
+    background: var(--sl-color-bg-card, #1e293b);
+    border-color: var(--sl-color-gray-6, #4b5563);
+  }
+
+  /* Focus styles for accessibility */
+  .bento-item:focus-within {
+    outline: 2px solid var(--sl-color-accent, #3b82f6);
+    outline-offset: 2px;
+  }
+
+  /* Special handling for media content */
+  .bento-item-content :global(img),
+  .bento-item-content :global(video) {
+    border-radius: 0.5rem;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Typography adjustments */
+  .bento-item-content :global(h1),
+  .bento-item-content :global(h2),
+  .bento-item-content :global(h3) {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .bento-item-content :global(p) {
+    margin-bottom: 0.75rem;
+  }
+
+  .bento-item-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

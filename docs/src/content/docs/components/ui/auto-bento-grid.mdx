@@ -1,0 +1,408 @@
+---
+title: Auto Bento Grid
+description: Modern, auto-reorganizing grid layouts with container query support and automatic gap filling
+---
+
+import { AutoBentoGrid, BentoCard, BentoItem, BentoMasonry, BentoContainer, BentoSection } from 'astro-nebula-ui';
+
+# Auto Bento Grid
+
+The Auto Bento Grid system provides modern, automatically reorganizing grid layouts that adapt to container size and fill gaps intelligently using CSS Grid's dense packing algorithm.
+
+## Key Features
+
+- **🔄 Automatic Reorganization**: Uses `grid-auto-flow: dense` to fill gaps automatically
+- **📱 Container Queries**: Adapts to container size, not just viewport
+- **⚡ Priority Positioning**: High-priority items get positioned first
+- **🎯 Content-Aware**: Auto-sizing based on content dimensions
+- **🎨 Rich Components**: Cards, sections, masonry layouts, and more
+
+## Basic Auto Bento Grid
+
+The simplest implementation automatically organizes items based on available space:
+
+<AutoBentoGrid size="md">
+  <BentoCard title="Automatic" size="small">
+    This card automatically finds the best position in the grid
+  </BentoCard>
+  
+  <BentoCard title="Gap Filling" size="medium">
+    The grid uses `grid-auto-flow: dense` to fill gaps automatically as the container resizes
+  </BentoCard>
+  
+  <BentoCard title="Responsive" size="large">
+     ```javascript
+    $a1 = ["hello", "world", "!"]
+    $a2 = array("hello", "world", "!");
+    $a3 = explode(",", "apple,pear,peach");    
+    ```
+    Mixed integer and string values.
+    1. a
+    2. b
+    
+    ```javascript
+    $array = array(
+    "foo" => "bar",
+    "bar" => "foo",
+    100   => -100,
+    -100  => 100,
+    );
+    console.log($array);
+    ```
+  </BentoCard>
+  
+  <BentoCard title="Priority" priority={10} size="small">
+    High priority items (priority=10) get positioned first
+  </BentoCard>
+  
+  <BentoCard title="Content Aware" size="auto">
+    Auto-sized cards adjust their dimensions based on content
+  </BentoCard>
+</AutoBentoGrid>
+
+```astro
+<AutoBentoGrid size="md">
+  <BentoCard title="Automatic" size="small">
+    This card automatically finds the best position
+  </BentoCard>
+  
+  <BentoCard title="Gap Filling" size="medium">
+    Uses grid-auto-flow: dense for automatic gap filling
+  </BentoCard>
+  
+  <BentoCard title="Priority" priority={10} size="small">
+    High priority items get positioned first
+  </BentoCard>
+</AutoBentoGrid>
+```
+
+## Size Variants
+
+Different grid sizes automatically adjust minimum column widths and gaps:
+
+### Small Grid
+<AutoBentoGrid size="sm">
+  <BentoCard title="Compact" size="small">Tight spacing</BentoCard>
+  <BentoCard title="Efficient" size="medium">Perfect for dashboards</BentoCard>
+  <BentoCard title="Dense" size="small">More items visible</BentoCard>
+</AutoBentoGrid>
+
+### Large Grid
+<AutoBentoGrid size="lg">
+  <BentoCard title="Spacious" size="medium">Generous spacing</BentoCard>
+  <BentoCard title="Comfortable" size="large">Easy to read</BentoCard>
+  <BentoCard title="Elegant" size="medium">Clean layout</BentoCard>
+</AutoBentoGrid>
+
+```astro
+<!-- Compact layout -->
+<AutoBentoGrid size="sm">
+  <BentoCard title="Compact">Dense spacing</BentoCard>
+</AutoBentoGrid>
+
+<!-- Spacious layout -->
+<AutoBentoGrid size="lg">
+  <BentoCard title="Spacious">Generous spacing</BentoCard>
+</AutoBentoGrid>
+```
+
+## Rich Card Variants
+
+Cards support different variants with rich content and interactive features:
+
+<AutoBentoGrid size="md">
+  <BentoCard 
+    title="Highlighted Card"
+    subtitle="Special emphasis"
+    variant="highlighted"
+    icon="⭐"
+    size="medium"
+  >
+    Highlighted variant with gradient background and icon
+  </BentoCard>
+  
+  <BentoCard 
+    title="Media Card"
+    variant="media"
+    imageSrc="https://images.unsplash.com/photo-1557683311-eac922347aa1?w=400&h=200&fit=crop"
+    imageAlt="Technology"
+    href="/learn-more"
+    size="large"
+  >
+    Media cards support images and clickable links
+  </BentoCard>
+  
+  <BentoCard 
+    title="Interactive"
+    interactive={true}
+    headerBackground="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+    size="medium"
+  >
+    Hover effects and smooth transitions
+  </BentoCard>
+  
+  <BentoCard 
+    title="Minimal"
+    variant="minimal"
+    size="small"
+  >
+    Clean, minimal styling
+  </BentoCard>
+</AutoBentoGrid>
+
+```astro
+<BentoCard 
+  title="Highlighted Card"
+  variant="highlighted"
+  icon="⭐"
+  size="medium"
+>
+  Special emphasis with gradient background
+</BentoCard>
+
+<BentoCard 
+  title="Media Card"
+  variant="media"
+  imageSrc="/image.jpg"
+  href="/details"
+  size="large"
+>
+  Cards can include images and links
+</BentoCard>
+```
+
+## Priority-Based Positioning
+
+Items with higher priority values get positioned first in the grid:
+
+<AutoBentoGrid size="md">
+  <BentoCard title="Priority 1" priority={1} size="small">Low priority</BentoCard>
+  <BentoCard title="Priority 10" priority={10} size="medium">High priority - positioned first</BentoCard>
+  <BentoCard title="Priority 5" priority={5} size="small">Medium priority</BentoCard>
+  <BentoCard title="No Priority" size="small">Default priority (0)</BentoCard>
+  <BentoCard title="Priority 8" priority={8} size="large">High priority</BentoCard>
+  <BentoCard title="Priority 3" priority={3} size="medium">Low-medium priority</BentoCard>
+</AutoBentoGrid>
+
+```astro
+<AutoBentoGrid>
+  <BentoCard title="Important" priority={10}>Positioned first</BentoCard>
+  <BentoCard title="Normal" priority={5}>Medium priority</BentoCard>
+  <BentoCard title="Less Important">Default priority (0)</BentoCard>
+</AutoBentoGrid>
+```
+
+## Manual Spanning Control
+
+You can still manually control spans when needed:
+
+<AutoBentoGrid size="md">
+  <BentoCard title="1×1" size="small">
+    Default single cell
+  </BentoCard>
+  
+  <BentoCard title="2×1 Wide" colSpan={2} size="small">
+    Spans 2 columns, 1 row
+  </BentoCard>
+  
+  <BentoCard title="1×2 Tall" rowSpan={2} size="small">
+    Spans 1 column, 2 rows with more content to demonstrate the height
+  </BentoCard>
+  
+  <BentoCard title="2×2 Large" colSpan={2} rowSpan={2} size="small">
+    Spans 2 columns and 2 rows for maximum impact
+  </BentoCard>
+  
+  <BentoCard title="Auto Fill" size="small">
+    Fills remaining space automatically
+  </BentoCard>
+</AutoBentoGrid>
+
+```astro
+<AutoBentoGrid>
+  <BentoCard title="Wide" colSpan={2}>Spans 2 columns</BentoCard>
+  <BentoCard title="Tall" rowSpan={2}>Spans 2 rows</BentoCard>
+  <BentoCard title="Large" colSpan={2} rowSpan={2}>Spans 2×2</BentoCard>
+</AutoBentoGrid>
+```
+
+## Masonry Alternative
+
+For content with varying heights, use the masonry layout:
+
+<BentoMasonry columns={3} gap="1rem">
+  <BentoCard title="Short">
+    Brief content
+  </BentoCard>
+  
+  <BentoCard title="Medium Length">
+    This card has more content that makes it taller than the others, demonstrating how masonry layout handles varying heights gracefully.
+  </BentoCard>
+  
+  <BentoCard title="Very Long Content">
+    This card contains significantly more content to show how the masonry layout automatically balances the columns. The content flows naturally without gaps, creating a Pinterest-style layout that's perfect for content of varying lengths. The layout automatically rebalances as the container width changes.
+  </BentoCard>
+  
+  <BentoCard title="Another Short">
+    Quick info
+  </BentoCard>
+  
+  <BentoCard title="Extended Content">
+    Medium-length content that demonstrates the natural flow of the masonry layout system.
+  </BentoCard>
+</BentoMasonry>
+
+```astro
+<BentoMasonry columns={3} gap="1rem">
+  <BentoCard title="Short">Brief content</BentoCard>
+  <BentoCard title="Long">Much longer content...</BentoCard>
+  <BentoCard title="Medium">Medium content</BentoCard>
+</BentoMasonry>
+```
+
+## Sections and Organization
+
+Use sections to group related content:
+
+<AutoBentoGrid size="md">
+  <BentoSection 
+    title="Features" 
+    description="Core functionality"
+    colSpan={3}
+    variant="highlighted"
+  >
+    <AutoBentoGrid size="sm">
+      <BentoCard title="Auto Layout" size="small">
+        Intelligent positioning
+      </BentoCard>
+      <BentoCard title="Responsive" size="small">
+        Container queries
+      </BentoCard>
+      <BentoCard title="Accessible" size="small">
+        ARIA support
+      </BentoCard>
+    </AutoBentoGrid>
+  </BentoSection>
+  
+  <BentoSection 
+    title="Configuration"
+    collapsible={true}
+    variant="bordered"
+  >
+    <BentoCard title="Customizable" size="auto">
+      Flexible configuration options
+    </BentoCard>
+  </BentoSection>
+</AutoBentoGrid>
+
+```astro
+<BentoSection title="Features" colSpan={3} variant="highlighted">
+  <AutoBentoGrid>
+    <BentoCard title="Feature 1">Description</BentoCard>
+    <BentoCard title="Feature 2">Description</BentoCard>
+  </AutoBentoGrid>
+</BentoSection>
+```
+
+## Container Wrapper
+
+Wrap grids in containers for consistent spacing and theming:
+
+<BentoContainer size="lg" background="elevated" padding="2rem">
+  <AutoBentoGrid size="md">
+    <BentoCard title="Contained" size="medium">
+      This grid is wrapped in a container with elevated background
+    </BentoCard>
+    <BentoCard title="Consistent" size="small">
+      Unified spacing
+    </BentoCard>
+    <BentoCard title="Themed" size="small">
+      Coordinated styling
+    </BentoCard>
+  </AutoBentoGrid>
+</BentoContainer>
+
+```astro
+<BentoContainer size="lg" background="elevated">
+  <AutoBentoGrid>
+    <BentoCard title="Card">Content</BentoCard>
+  </AutoBentoGrid>
+</BentoContainer>
+```
+
+## Advanced Example
+
+A complete example showcasing all features:
+
+<BentoContainer size="xl" background="subtle">
+  <BentoSection title="Dashboard" description="Auto-organizing content showcase">
+    <AutoBentoGrid size="md" maxColumns={4}>
+      <BentoCard 
+        title="Analytics"
+        icon="📊"
+        priority={10}
+        size="large"
+        variant="highlighted"
+      >
+        High-priority analytics dashboard with automatic positioning
+      </BentoCard>
+      
+      <BentoCard 
+        title="Quick Stats"
+        priority={8}
+        size="medium"
+        headerBackground="linear-gradient(45deg, #f093fb 0%, #f5576c 100%)"
+      >
+        Important metrics positioned early
+      </BentoCard>
+      
+      <BentoCard 
+        title="Recent Activity"
+        size="auto"
+        interactive={true}
+      >
+        Auto-sized based on content length and container queries
+      </BentoCard>
+      
+      <BentoCard 
+        title="Settings"
+        size="small"
+        variant="minimal"
+      >
+        Compact settings panel
+      </BentoCard>
+      
+      <BentoCard 
+        title="Featured Content"
+        variant="media"
+        imageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop"
+        imageAlt="Analytics"
+        href="/featured"
+        colSpan={2}
+      >
+        Media card with manual spanning
+      </BentoCard>
+      
+      <BentoCard 
+        title="Notifications"
+        size="medium"
+        priority={6}
+      >
+        Medium priority notifications
+      </BentoCard>
+    </AutoBentoGrid>
+  </BentoSection>
+</BentoContainer>
+
+## Browser Support
+
+- **Modern browsers** with CSS Grid Level 2 and Container Queries
+- **Fallbacks included** for older browsers using media queries  
+- **Progressive enhancement** - core functionality works without JavaScript
+
+## Performance Benefits
+
+- Uses native CSS Grid for optimal performance
+- Container queries reduce JavaScript calculations
+- Dense packing algorithm runs in CSS engine
+- Smooth animations with hardware acceleration

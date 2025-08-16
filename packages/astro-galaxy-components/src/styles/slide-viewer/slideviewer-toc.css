@@ -5,27 +5,27 @@
   .fb-slide__toc-item {
     background: transparent !important;
     border: 2px solid var(--fb-component-toc-border);
-    border-radius: 12px;
-    margin: 8px;
-    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 4px;
+    padding: 10px 14px;
     display: flex;
     align-items: flex-start;
-    width: calc(100% - 16px);
+    width: calc(100% - 8px);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     color: var(--fb-component-toc-text) !important;
     text-decoration: none;
     text-align: left;
-    font-size: 1rem;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    line-height: 1.3;
     font-weight: 500;
-    gap: 16px;
+    gap: 12px;
     min-height: auto;
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   /* Glassmorphism effect */
@@ -113,9 +113,9 @@
   .fb-slide__toc-item.h1 {
     background: var(--fb-interactive-primary-light);
     border-color: var(--fb-interactive-primary);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
-    padding: 20px 24px;
+    padding: 14px 16px;
   }
 
   .fb-slide__toc-h1-icon {
@@ -145,7 +145,7 @@
   .fb-slide__toc-item.h2 {
     background: color-mix(in srgb, var(--fb-semantic-success) 10%, transparent);
     border-color: var(--fb-semantic-success);
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
   }
 
@@ -162,18 +162,18 @@
   .fb-slide__toc-item.h3 {
     background: color-mix(in srgb, var(--fb-semantic-warning) 10%, transparent);
     border-color: var(--fb-semantic-warning);
-    font-size: 0.9rem;
-    margin-left: 2rem;
-    padding: 14px 18px;
+    font-size: 0.8rem;
+    margin-left: 1.5rem;
+    padding: 8px 12px;
     font-weight: 500;
   }
 
   .fb-slide__toc-item.h4 {
     background: color-mix(in srgb, var(--fb-semantic-error) 10%, transparent);
     border-color: var(--fb-semantic-error);
-    font-size: 0.85rem;
-    margin-left: 3rem;
-    padding: 12px 16px;
+    font-size: 0.75rem;
+    margin-left: 2.5rem;
+    padding: 6px 10px;
     font-weight: 500;
   }
 
@@ -315,19 +315,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     background: var(--fb-interactive-primary);
     border-radius: 50%;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--fb-component-btn-primary-text);
     flex-shrink: 0;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 16px var(--fb-interactive-primary-light), 
-                0 0 0 2px rgba(255, 255, 255, 0.1),
+    box-shadow: 0 2px 8px var(--fb-interactive-primary-light), 
+                0 0 0 1px rgba(255, 255, 255, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
   }
@@ -389,7 +389,7 @@
   }
 
   .fb-slide__toc-item-main-title {
-    font-size: inherit;
+    font-size: 1rem;
     font-weight: inherit;
     line-height: 1.3;
     margin: 0;
@@ -515,14 +515,14 @@
   }
 
   .fb-slide__toc-content .fb-slide__toc-item-container.h3 {
-    margin-left: 2rem !important;
+    margin-left: 1.5rem !important;
     background: none !important;
     border-color: var(--fb-component-toc-border) !important;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04) !important;
   }
 
   .fb-slide__toc-content .fb-slide__toc-item-container.h3 .fb-slide__toc-item {
-    font-size: 0.85rem !important;
+    font-size: 0.8rem !important;
   }
 
   .fb-slide__toc-content .fb-slide__toc-item-container.h3:hover {
@@ -533,11 +533,11 @@
   }
 
   .fb-slide__toc-item-container.h3 .fb-slide__toc-item-number {
-    width: 24px;
-    height: 24px;
-    font-size: 0.7rem;
+    width: 20px;
+    height: 20px;
+    font-size: 0.65rem;
     background: var(--fb-interactive-primary);
-    box-shadow: 0 2px 8px var(--fb-interactive-primary-light);
+    box-shadow: 0 1px 4px var(--fb-interactive-primary-light);
   }
 
   .fb-slide__toc-item-container.h3:hover .fb-slide__toc-item-number {
