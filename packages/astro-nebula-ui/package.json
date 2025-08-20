@@ -1,15 +1,15 @@
 {
   "name": "astro-nebula-ui",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "MIT",
-  "description": "A collection of beautiful UI components for Astro projects with built-in Starlight theme support",
+  "description": "A collection of customized UI components for Astro and Starlight projects with built-in Starlight theme support",
   "author": "frostybee",
   "type": "module",
   "main": "./index.js",
   "exports": {
-    ".": "./src/index.ts",        
+    ".": "./src/index.ts",
     "./package.json": "./package.json"
-    },
+  },
   "devDependencies": {
     "@astrojs/starlight": "^0.34.3",
     "astro": "^5.7.14"
@@ -20,15 +20,14 @@
   "engines": {
     "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
   },
-  
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/frostybee/astro-galaxy-components",
+  "homepage": "https://github.com/frostybee/astro-nebula-ui",
   "repository": {
     "type": "git",
-    "url": "https://github.com/frostybee/astro-galaxy-components.git",
-    "directory": "packages/astro-galaxy-components"
+    "url": "https://github.com/frostybee/astro-nebula-ui.git",
+    "directory": "packages/astro-nebula-ui"
   },
-  "bugs": "https://github.com/frostybee/astro-galaxy-components/issues"
+  "bugs": "https://github.com/frostybee/astro-nebula-ui/issues"
 }

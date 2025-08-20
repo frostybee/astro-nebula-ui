@@ -1,4 +1,4 @@
-# `astro-galaxy-components`
+# `astro-nebula-ui`
 
 A set of customized Astro Starlight UI components
 

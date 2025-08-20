@@ -1,5 +1,5 @@
 {
-  "name": "astro-galaxy-components-docs",
+  "name": "astro-nebula-ui-docs",
   "version": "0.1.0",
   "license": "MIT",
   "description": "A set of customized Astro Starlight UI components",
@@ -23,11 +23,11 @@
     "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
   },
   "private": true,
-  "homepage": "https://github.com/frostybee/astro-galaxy-components",
+  "homepage": "https://github.com/frostybee/astro-nebula-ui",
   "repository": {
     "type": "git",
-    "url": "https://github.com/frostybee/astro-galaxy-components.git",
+    "url": "https://github.com/frostybee/astro-nebula-ui.git",
     "directory": "docs"
   },
-  "bugs": "https://github.com/frostybee/astro-galaxy-components/issues"
+  "bugs": "https://github.com/frostybee/astro-nebula-ui/issues"
 }

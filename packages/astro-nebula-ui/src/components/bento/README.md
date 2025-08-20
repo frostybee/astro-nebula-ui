@@ -6,7 +6,7 @@ Modern, auto-reorganizing grid layouts with container query support and automati
 
 ```astro
 ---
-import { AutoBentoGrid, BentoCard } from 'astro-galaxy-components';
+import { AutoBentoGrid, BentoCard } from 'astro-nebula-ui';
 ---
 
 <AutoBentoGrid size="md" dense={true}>

@@ -1,5 +1,5 @@
 {
-  "name": "astro-galaxy-components-monorepo",
+  "name": "astro-nebula-ui-monorepo",
   "version": "0.1.0",
   "license": "MIT",
   "description": "A set of customized Astro Starlight UI components",
@@ -10,7 +10,7 @@
     "docs"
   ],
   "scripts": {
-    "start:docs": "pnpm -F astro-galaxy-components-docs start"
+    "start:docs": "pnpm -F astro-nebula-ui-docs start"
   },
 
   "engines": {
@@ -18,10 +18,10 @@
   },
   "packageManager": "pnpm@10.10.0",
   "private": true,
-  "homepage": "https://github.com/frostybee/astro-galaxy-components",
+  "homepage": "https://github.com/frostybee/astro-nebula-ui",
   "repository": {
     "type": "git",
-    "url": "https://github.com/frostybee/astro-galaxy-components.git"
+    "url": "https://github.com/frostybee/astro-nebula-ui.git"
   },
-  "bugs": "https://github.com/frostybee/astro-galaxy-components/issues"
+  "bugs": "https://github.com/frostybee/astro-nebula-ui/issues"
 }

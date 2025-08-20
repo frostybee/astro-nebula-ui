@@ -5,7 +5,7 @@ export default defineConfig({
   integrations: [
     starlight({
       editLink: {
-        baseUrl: 'https://github.com/frostybee/astro-galaxy-components/edit/main/docs/',
+        baseUrl: 'https://github.com/frostybee/astro-nebula-ui/edit/main/docs/',
       },      
       sidebar: [
         {
@@ -32,9 +32,9 @@ export default defineConfig({
         }
       ],
       social: [
-        { href: 'https://github.com/frostybee/astro-galaxy-components', icon: 'github', label: 'GitHub' },
+        { href: 'https://github.com/frostybee/astro-nebula-ui', icon: 'github', label: 'GitHub' },
       ],
-      title: 'astro-galaxy-components',
+      title: 'astro-nebula-ui',
     }),
   ],
 })
