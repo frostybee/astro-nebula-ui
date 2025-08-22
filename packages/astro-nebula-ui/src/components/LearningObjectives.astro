@@ -1,7 +1,7 @@
 ---
 interface Props {
   title?: string;
-  objectives: string[];
+  objectives?: string[];
   interactive?: boolean;
   variant?: "default" | "outline" | "minimal";
   showProgress?: boolean;
@@ -17,8 +17,43 @@ const {
   id = `learning-objectives-${Math.random().toString(36).substr(2, 9)}`
 } = Astro.props;
 
+// Function to parse HTML list content from slot (markdown is already processed to HTML)
+function parseHTMLObjectives(slotContent: string): string[] {
+  if (!slotContent || slotContent.trim() === '') return [];
+  
+  // Extract content from <li> tags using regex
+  const listItemRegex = /<li[^>]*>(.*?)<\/li>/gs;
+  const matches = [];
+  let match;
+  
+  while ((match = listItemRegex.exec(slotContent)) !== null) {
+    // Extract the innerHTML of the <li> tag
+    let item = match[1].trim();
+    if (item) {
+      // Clean up any extra whitespace but preserve HTML formatting
+      item = item.replace(/\s+/g, ' ').trim();
+      matches.push(item);
+    }
+  }
+  
+  return matches;
+}
+
+// Get slot content and parse it if available
+let slotContent = '';
+let htmlObjectives: string[] = [];
+
+if (Astro.slots.has('default')) {
+  slotContent = await Astro.slots.render('default');
+  htmlObjectives = parseHTMLObjectives(slotContent);
+}
+
+// Use HTML objectives if provided, otherwise use objectives array
+const finalObjectives = htmlObjectives.length > 0 ? htmlObjectives : objectives;
+
+
 // Generate unique IDs for each objective for accessibility
-const objectiveIds = objectives.map((_, index) => `objective-${id}-${index}`);
+const objectiveIds = finalObjectives.map((_, index) => `objective-${id}-${index}`);
 ---
 
 <div class={`learning-objectives learning-objectives--${variant}`} id={id}>
@@ -31,7 +66,7 @@ const objectiveIds = objectives.map((_, index) => `objective-${id}-${index}`);
     </div>
     {showProgress && (
       <div class="learning-objectives__progress">
-        <span class="learning-objectives__progress-text" id={`${id}-progress`}>0 of {objectives.length}</span>
+        <span class="learning-objectives__progress-text" id={`${id}-progress`}>0 of {finalObjectives.length}</span>
         <div class="learning-objectives__progress-bar">
           <div class="learning-objectives__progress-fill" style="width: 0%"></div>
         </div>
@@ -41,7 +76,7 @@ const objectiveIds = objectives.map((_, index) => `objective-${id}-${index}`);
   
   <div class="learning-objectives__content">
     <ul class="learning-objectives__list" role="list" aria-labelledby={`${id}-title`}>
-      {objectives.map((objective, index) => (
+      {finalObjectives.map((objective, index) => (
         <li class="learning-objectives__item" key={index}>
           {interactive ? (
             <label class="learning-objectives__checkbox-wrapper" for={objectiveIds[index]}>
@@ -56,16 +91,14 @@ const objectiveIds = objectives.map((_, index) => `objective-${id}-${index}`);
                   <path d="M13.5 4.5L6 12L2.5 8.5"></path>
                 </svg>
               </span>
-              <span class="learning-objectives__text">{objective}</span>
+              <span class="learning-objectives__text" set:html={objective}></span>
             </label>
           ) : (
             <div class="learning-objectives__item-wrapper">
               <span class="learning-objectives__bullet">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="8" cy="8" r="2"></circle>
-                </svg>
+                ➤
               </span>
-              <span class="learning-objectives__text">{objective}</span>
+              <span class="learning-objectives__text" set:html={objective}></span>
             </div>
           )}
         </li>
@@ -243,7 +276,7 @@ const objectiveIds = objectives.map((_, index) => `objective-${id}-${index}`);
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0;
   }
 
   .learning-objectives__item {
@@ -336,7 +369,7 @@ const objectiveIds = objectives.map((_, index) => `objective-${id}-${index}`);
 
   .learning-objectives__text {
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.2;
     color: var(--sl-color-white);
     transition: all 0.3s ease;
   }

@@ -5,218 +5,233 @@ description: A component for displaying clear learning goals at the start of les
 
 import { LearningObjectives } from 'astro-nebula-ui';
 
-The Learning Objectives component helps educators clearly communicate what students will achieve in a lesson. It features a clean, professional design with optional interactive progress tracking.
+The Learning Objectives component helps educators clearly communicate what students will achieve in a lesson. It features a clean, professional design with optional interactive progress tracking and supports both traditional array syntax and modern markdown syntax.
 
-## Basic Usage
+## Quick Start
 
-Here's a simple learning objectives panel:
+### Markdown Syntax (Recommended)
 
-<LearningObjectives
-  objectives={[
-    "Understand the fundamentals of web development",
-    "Learn how to create responsive layouts",
-    "Master CSS Grid and Flexbox",
-    "Build accessible web applications"
-  ]}
-/>
+The easiest way to use the component is with markdown syntax:
+
+<LearningObjectives title="Getting Started">
+- Install the **Astro Nebula UI** package
+- Import the `LearningObjectives` component
+- Write your objectives using *markdown* lists
+- Add `interactive` mode for student progress tracking
+</LearningObjectives>
 
 ```astro
 ---
 import { LearningObjectives } from 'astro-nebula-ui';
 ---
 
+<LearningObjectives title="Getting Started">
+- Install the **Astro Nebula UI** package
+- Import the `LearningObjectives` component  
+- Write your objectives using *markdown* lists
+- Add `interactive` mode for student progress tracking
+</LearningObjectives>
+```
+
+### Array Syntax (Traditional)
+
+You can also pass objectives as an array prop:
+
 <LearningObjectives
+  title="Web Development Basics"
   objectives={[
-    "Understand the fundamentals of web development",
-    "Learn how to create responsive layouts",
-    "Master CSS Grid and Flexbox",
-    "Build accessible web applications"
+    "Understand HTML structure and semantics",
+    "Style websites with CSS",
+    "Add interactivity with JavaScript",
+    "Deploy your first website"
+  ]}
+/>
+
+```astro
+<LearningObjectives
+  title="Web Development Basics"
+  objectives={[
+    "Understand HTML structure and semantics",
+    "Style websites with CSS", 
+    "Add interactivity with JavaScript",
+    "Deploy your first website"
   ]}
 />
 ```
 
 ## Interactive Mode
 
-Enable interactive mode to allow students to check off completed objectives:
+Enable interactive mode to allow students to check off completed objectives and track their progress:
 
-<LearningObjectives
-  title="JavaScript Fundamentals"
-  objectives={[
-    "Declare and use variables effectively",
-    "Write and call functions",
-    "Work with arrays and objects",
-    "Handle events and user interactions"
-  ]}
-  interactive={true}
-  showProgress={true}
-/>
+<LearningObjectives title="JavaScript Fundamentals" interactive showProgress>
+- Learn about **variables** and data types
+- Understand *function* declarations and expressions
+- Master `array` and `object` manipulation
+- Handle DOM events and user interactions
+- Debug code using browser developer tools
+</LearningObjectives>
 
 ```astro
-<LearningObjectives
-  title="JavaScript Fundamentals"
-  objectives={[
-    "Declare and use variables effectively",
-    "Write and call functions",
-    "Work with arrays and objects",
-    "Handle events and user interactions"
-  ]}
-  interactive={true}
-  showProgress={true}
-/>
+<LearningObjectives title="JavaScript Fundamentals" interactive showProgress>
+- Learn about **variables** and data types
+- Understand *function* declarations and expressions
+- Master `array` and `object` manipulation  
+- Handle DOM events and user interactions
+- Debug code using browser developer tools
+</LearningObjectives>
 ```
 
-## Variants
+## Visual Variants
 
-The component supports different visual styles:
+The component supports three different visual styles to match your content design:
 
-### Default Variant
-<LearningObjectives
-  title="Default Style"
-  objectives={["First objective", "Second objective", "Third objective"]}
-/>
+### Default Variant (Recommended)
+<LearningObjectives title="Course Overview">
+- Complete the foundational modules
+- Practice with hands-on exercises  
+- Build a capstone project
+</LearningObjectives>
 
 ### Outline Variant
-<LearningObjectives
-  title="Outline Style"
-  objectives={["First objective", "Second objective", "Third objective"]}
-  variant="outline"
-/>
+<LearningObjectives title="Advanced Topics" variant="outline">
+- Implement **advanced patterns**
+- Optimize for *performance*
+- Deploy to `production` environments
+</LearningObjectives>
 
 ### Minimal Variant
-<LearningObjectives
-  title="Minimal Style"
-  objectives={["First objective", "Second objective", "Third objective"]}
-  variant="minimal"
-/>
+<LearningObjectives title="Quick Reference" variant="minimal">
+- Review key concepts
+- Practice core skills
+- Apply knowledge
+</LearningObjectives>
 
 ```astro
-<!-- Default variant -->
-<LearningObjectives
-  title="Default Style"
-  objectives={["First objective", "Second objective"]}
-/>
+<!-- Default variant - Full styling with background -->
+<LearningObjectives title="Course Overview">
+- Complete the foundational modules
+- Practice with hands-on exercises  
+- Build a capstone project
+</LearningObjectives>
 
-<!-- Outline variant -->
-<LearningObjectives
-  title="Outline Style"
-  objectives={["First objective", "Second objective"]}
-  variant="outline"
-/>
+<!-- Outline variant - Accent border, transparent background -->
+<LearningObjectives title="Advanced Topics" variant="outline">
+- Implement **advanced patterns**
+- Optimize for *performance*
+- Deploy to `production` environments
+</LearningObjectives>
 
-<!-- Minimal variant -->
-<LearningObjectives
-  title="Minimal Style"
-  objectives={["First objective", "Second objective"]}
-  variant="minimal"
-/>
+<!-- Minimal variant - Clean, minimal styling -->
+<LearningObjectives title="Quick Reference" variant="minimal">
+- Review key concepts
+- Practice core skills
+- Apply knowledge
+</LearningObjectives>
 ```
 
-## Props
+## Component API
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `title` | `string` | `"Learning Objectives"` | The title displayed at the top of the component |
-| `objectives` | `string[]` | `[]` | Array of learning objective strings |
+| `objectives` | `string[]` | `[]` | Array of objective strings (optional when using markdown) |
 | `interactive` | `boolean` | `false` | Enable checkboxes for progress tracking |
 | `variant` | `"default" \| "outline" \| "minimal"` | `"default"` | Visual style variant |
-| `showProgress` | `boolean` | `false` | Show progress indicator (only when interactive=true) |
-| `id` | `string` | auto-generated | Custom ID for the component |
+| `showProgress` | `boolean` | `false` | Show progress bar (requires `interactive={true}`) |
+| `id` | `string` | auto-generated | Custom ID for localStorage and accessibility |
 
-## Features
+## Input Methods
 
-### ✅ Progress Tracking
-When `interactive` is enabled, student progress is automatically saved to localStorage and restored on page reload.
+The component supports two flexible ways to provide objectives:
 
-### ✅ Accessibility
-- Full ARIA support for screen readers
-- Keyboard navigation
-- High contrast mode support
-- Semantic HTML structure
-
-### ✅ Responsive Design
-- Mobile-friendly layout
-- Flexible spacing and typography
-- Touch-friendly interaction targets
-
-### ✅ Visual Feedback
-- Smooth animations and transitions
-- Completion celebration animation
-- Visual progress indicators
-
-## Advanced Examples
-
-### Course Introduction
-<LearningObjectives
-  title="Course Introduction - What You'll Master"
-  objectives={[
-    "Navigate the learning platform effectively",
-    "Understand course structure and expectations",
-    "Connect with classmates and instructors",
-    "Set up your development environment",
-    "Complete your first coding exercise"
-  ]}
-  interactive={true}
-  showProgress={true}
-  variant="default"
-/>
-
-### Technical Lesson
-<LearningObjectives
-  title="Database Design Principles"
-  objectives={[
-    "Design normalized database schemas",
-    "Implement primary and foreign key relationships",
-    "Write efficient SQL queries",
-    "Optimize database performance",
-    "Handle data integrity constraints"
-  ]}
-  interactive={true}
-  showProgress={true}
-  variant="outline"
-/>
-
-### Quick Reference
-<LearningObjectives
-  title="Key Takeaways"
-  objectives={[
-    "Remember the main concept",
-    "Apply the technique in practice",
-    "Identify common pitfalls"
-  ]}
-  variant="minimal"
-/>
-
-## Multiple Instances
-
-The component supports multiple instances on the same page, each with independent progress tracking:
-
-<LearningObjectives
-  title="Week 1 Goals"
-  objectives={["Learn HTML basics", "Understand CSS selectors"]}
-  interactive={true}
-  id="week-1"
-/>
-
-<LearningObjectives
-  title="Week 2 Goals"
-  objectives={["Master JavaScript variables", "Create interactive elements"]}
-  interactive={true}
-  id="week-2"
-/>
+### 1. Markdown Syntax (Recommended)
+Write objectives as a markdown list inside the component body:
 
 ```astro
-<LearningObjectives
-  title="Week 1 Goals"
-  objectives={["Learn HTML basics", "Understand CSS selectors"]}
-  interactive={true}
-  id="week-1"
-/>
+<LearningObjectives title="My Lesson">
+- First objective with **bold** text
+- Second objective with *emphasis*
+- Third objective with `code` snippets
+</LearningObjectives>
+```
 
-<LearningObjectives
-  title="Week 2 Goals"
-  objectives={["Master JavaScript variables", "Create interactive elements"]}
-  interactive={true}
-  id="week-2"
+**Supported Formatting:**
+- `**text**` → **Bold text**
+- `*text*` → *Italic text*
+- `` `text` `` → `Code text`
+
+### 2. Array Syntax (Traditional)
+Pass objectives as an array prop (useful for dynamic content):
+
+```astro
+<LearningObjectives 
+  title="My Lesson"
+  objectives={["First objective", "Second objective", "Third objective"]}
 />
 ```
 
+:::tip
+**When to use each method:**
+- **Markdown**: Best for static content, easier to write and maintain
+- **Array**: Best for dynamic content generated from data or CMS
+:::
+
+
+## Real-World Examples
+
+### Course Introduction
+<LearningObjectives title="Course Introduction - What You'll Master" interactive showProgress>
+- Navigate the learning platform **effectively**
+- Understand course *structure* and expectations  
+- Connect with classmates and instructors
+- Set up your `development environment`
+- Complete your first coding exercise
+</LearningObjectives>
+
+### Technical Deep Dive
+<LearningObjectives title="Database Design Principles" variant="outline" interactive showProgress>
+- Design **normalized** database schemas
+- Implement primary and foreign key *relationships*
+- Write efficient `SQL` queries with proper indexing
+- Optimize database performance and query execution
+- Handle data integrity constraints and transactions
+</LearningObjectives>
+
+### Quick Reference Card
+<LearningObjectives title="React Hooks - Key Takeaways" variant="minimal">
+- Use `useState` for component state management
+- Apply `useEffect` for side effects and cleanup
+- Optimize with `useMemo` and `useCallback` when needed
+- Create custom hooks for reusable logic
+</LearningObjectives>
+
+## Multiple Learning Modules
+
+The component supports multiple instances on the same page with independent progress tracking:
+
+<LearningObjectives title="Module 1: HTML Foundations" interactive id="module-1">
+- Learn **semantic** HTML structure
+- Master form elements and validation
+- Understand `accessibility` best practices
+</LearningObjectives>
+
+<LearningObjectives title="Module 2: CSS Styling" interactive id="module-2">
+- Style layouts with **Flexbox** and **Grid**
+- Create *responsive* designs with media queries
+- Implement `CSS animations` and transitions
+</LearningObjectives>
+
+```astro
+<!-- Each module has independent progress tracking -->
+<LearningObjectives title="Module 1: HTML Foundations" interactive id="module-1">
+- Learn **semantic** HTML structure
+- Master form elements and validation  
+- Understand `accessibility` best practices
+</LearningObjectives>
+
+<LearningObjectives title="Module 2: CSS Styling" interactive id="module-2">
+- Style layouts with **Flexbox** and **Grid**
+- Create *responsive* designs with media queries
+- Implement `CSS animations` and transitions  
+</LearningObjectives>
+```

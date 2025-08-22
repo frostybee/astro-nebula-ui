@@ -54,3 +54,209 @@ import {CollapsiblePanel} from 'astro-nebula-ui'
 <CollapsiblePanel title="Outline Style" variant="outline">
   Different visual style
 </CollapsiblePanel>
+
+### Ghost Variant
+
+```astro
+---
+import {CollapsiblePanel} from 'astro-nebula-ui'
+---
+
+<CollapsiblePanel title="Ghost Style" variant="ghost">
+  Minimal styling
+</CollapsiblePanel>
+```
+
+<CollapsiblePanel title="Ghost Style" variant="ghost">
+  Minimal styling
+</CollapsiblePanel>
+
+
+## Component Properties
+
+The CollapsiblePanel component accepts the following properties:
+
+| Property | Type | Default | Description | Example |
+|----------|------|---------|-------------|---------|
+| `title` | `string` | **Required** | The title text displayed in the panel header | `"Getting Started"` |
+| `expanded` | `boolean` | `false` | Whether the panel starts in an expanded state | `true` |
+| `variant` | `"default" \| "outline" \| "ghost"` | `"default"` | Visual style variant of the panel | `"outline"` |
+| `theme` | `"auto" \| "light" \| "dark"` | `"auto"` | Force a specific theme (overrides auto-detection) | `"dark"` |
+
+### Property Examples
+
+Here are examples showing each property in use:
+
+#### Basic Required Property
+```astro
+<CollapsiblePanel title="Basic Panel">
+  Content goes here
+</CollapsiblePanel>
+```
+
+#### All Properties Combined
+```astro
+<CollapsiblePanel 
+  title="Advanced Configuration"
+  expanded={true}
+  variant="outline"
+  theme="dark"
+>
+  This panel starts expanded, uses outline styling, and forces dark theme
+</CollapsiblePanel>
+```
+
+<CollapsiblePanel 
+  title="Advanced Configuration"
+  expanded={true}
+  variant="outline"
+  theme="dark"
+>
+  This panel starts expanded, uses outline styling, and forces dark theme
+</CollapsiblePanel>
+
+### Variant Comparison
+
+| Variant | Description | Best Used For |
+|---------|-------------|---------------|
+| `default` | Full styling with background and shadow | Primary content, main sections |
+| `outline` | Transparent background with accent border | Secondary content, nested sections |
+| `ghost` | Minimal styling, clean appearance | Subtle organization, FAQ sections |
+
+### Theme Options
+
+| Theme | Behavior |
+|-------|----------|
+| `auto` | Automatically adapts to user's system preference or Starlight theme |
+| `light` | Forces light theme colors regardless of system preference |
+| `dark` | Forces dark theme colors regardless of system preference |
+
+:::tip
+**Recommendation:** Use `theme="auto"` (default) in most cases to respect user preferences and integrate with Starlight's theming system.
+:::
+
+
+
+
+## Markdown Content Support
+
+The component supports rich Markdown content, including lists, formatting, and code blocks:
+
+### Simple Markdown List
+
+```astro
+---
+import {CollapsiblePanel} from 'astro-nebula-ui'
+---
+
+<CollapsiblePanel title="Getting Started">
+- Install the package
+- Import the component
+- Add to your Astro file
+- Customize as needed
+</CollapsiblePanel>
+```
+
+<CollapsiblePanel title="Getting Started">
+- Install the package
+- Import the component
+- Add to your Astro file
+- Customize as needed
+</CollapsiblePanel>
+
+### Rich Markdown with Formatting
+
+```astro
+---
+import {CollapsiblePanel} from 'astro-nebula-ui'
+---
+
+<CollapsiblePanel title="Advanced Features" variant="outline">
+- **Bold text** for emphasis
+- *Italic text* for subtlety
+- `Code snippets` for technical terms
+- [Links](https://example.com) to external resources
+- Multiple paragraphs with detailed explanations
+
+You can also include regular paragraphs alongside lists for more comprehensive content.
+</CollapsiblePanel>
+```
+
+<CollapsiblePanel title="Advanced Features" variant="outline">
+- **Bold text** for emphasis
+- *Italic text* for subtlety
+- `Code snippets` for technical terms
+- [Links](https://example.com) to external resources
+- Multiple paragraphs with detailed explanations
+
+You can also include regular paragraphs alongside lists for more comprehensive content.
+</CollapsiblePanel>
+
+### Nested Lists and Complex Content
+
+```astro
+---
+import {CollapsiblePanel} from 'astro-nebula-ui'
+---
+
+<CollapsiblePanel title="Project Structure" variant="ghost">
+## Frontend Development
+- **React Components**
+  - Functional components
+  - Class components
+  - Custom hooks
+- **Styling Options**
+  - CSS Modules
+  - Styled Components
+  - Tailwind CSS
+
+## Backend Development
+- **API Design**
+  - RESTful endpoints
+  - GraphQL schemas
+  - Authentication
+- **Database**
+  - Schema design
+  - Query optimization
+  - Data migrations
+
+### Code Example
+\`\`\`js
+const component = () => {
+  return <div>Hello World</div>;
+}
+\`\`\`
+</CollapsiblePanel>
+```
+
+
+
+<CollapsiblePanel title="Project Structure" variant="ghost">
+## Frontend Development
+- **React Components**
+  - Functional components
+  - Class components
+  - Custom hooks
+- **Styling Options**
+  - CSS Modules
+  - Styled Components
+  - Tailwind CSS
+
+## Backend Development
+- **API Design**
+  - RESTful endpoints
+  - GraphQL schemas
+  - Authentication
+- **Database**
+  - Schema design
+  - Query optimization
+  - Data migrations
+
+### Code Example
+```js
+const component = () => {
+  return <div>Hello World</div>;
+}
+```
+</CollapsiblePanel>
+

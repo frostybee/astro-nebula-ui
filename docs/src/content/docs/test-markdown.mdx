@@ -1,0 +1,21 @@
+---
+title: Test Markdown Objectives
+description: Testing the new markdown syntax for learning objectives
+---
+
+import { LearningObjectives } from 'astro-nebula-ui';
+
+## Test Markdown Syntax
+
+<LearningObjectives title="Test Objectives">
+- Learn basic concepts
+- Understand advanced topics
+- Apply knowledge
+</LearningObjectives>
+
+## Test Array Syntax (Should still work)
+
+<LearningObjectives 
+  title="Array Test"
+  objectives={["Array item 1", "Array item 2", "Array item 3"]}
+/>

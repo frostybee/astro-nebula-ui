@@ -22,7 +22,7 @@ const headerId = `header-${panelId}`;
     id={headerId}
   >
     <span class="panel-title">{title}</span>
-    <svg class="panel-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg class="panel-icon" width="24" height="24" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="m4 6 4 4 4-4"></path>
     </svg>
   </button>
@@ -43,9 +43,9 @@ const headerId = `header-${panelId}`;
     /* CSS Custom Properties with Starlight integration and fallbacks. */
     .collapsible-panel {
       --panel-bg: var(--sl-color-bg, #ffffff);
-      --panel-bg-hover: var(--sl-color-gray-6, #f8fafc);
+      --panel-bg-hover: #e2e8f0;
       --panel-text: var(--sl-color-text, #1e293b);
-      --panel-text-hover: var(--sl-color-text, #0f172a);
+      --panel-text-hover: #1e293b;
       --panel-border: var(--sl-color-gray-5, rgba(203, 213, 225, 0.2));
       --panel-accent: var(--sl-color-accent, #3b82f6);
       --panel-shadow: rgba(0, 0, 0, 0.05);
@@ -67,13 +67,6 @@ const headerId = `header-${panelId}`;
       position: relative;
     }
 
-    .collapsible-panel:hover {
-      box-shadow: 
-        0 2px 4px var(--panel-shadow),
-        0 8px 25px var(--panel-shadow-hover),
-        0 0 0 1px color-mix(in srgb, var(--panel-border) 80%, var(--panel-accent) 20%);
-      transform: translateY(-2px);
-    }
 
     .panel-header {
       width: 100%;
@@ -105,6 +98,18 @@ const headerId = `header-${panelId}`;
       outline: none;
     }
 
+    .panel-header:hover {
+      background: var(--panel-bg-hover);
+    }
+
+    .panel-header:hover .panel-title {
+      color: var(--panel-text-hover);
+    }
+
+    .panel-header:hover .panel-icon {
+      opacity: 1;
+    }
+
     .panel-title {
       flex: 1;
       margin: 0;
@@ -124,19 +129,12 @@ const headerId = `header-${panelId}`;
       filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
     }
 
-    .panel-header:hover .panel-icon {
-      opacity: 1;
-      transform: scale(1.1);
-    }
 
     .panel-header[aria-expanded="true"] .panel-icon {
       transform: rotate(180deg);
       opacity: 1;
     }
 
-    .panel-header[aria-expanded="true"]:hover .panel-icon {
-      transform: rotate(180deg) scale(1.1);
-    }
 
     .panel-content {
       overflow: hidden;
@@ -178,11 +176,14 @@ const headerId = `header-${panelId}`;
     }
 
     .panel-default .panel-header {
-      background: linear-gradient(135deg, 
-        color-mix(in srgb, var(--panel-bg) 98%, var(--panel-accent) 2%) 0%, 
-        color-mix(in srgb, var(--panel-bg) 96%, var(--panel-accent) 4%) 100%);
+      background: var(--sl-color-gray-6, #f8f9fa);
       color: var(--panel-text);
       position: relative;
+    }
+
+    .panel-default .panel-header:hover {
+      background: var(--panel-bg-hover) !important;
+      color: var(--panel-text-hover) !important;
     }
 
     .panel-default .panel-header::before {
@@ -198,12 +199,6 @@ const headerId = `header-${panelId}`;
         transparent 100%);
     }
 
-    .panel-default .panel-header:hover {
-      background: linear-gradient(135deg, 
-        color-mix(in srgb, var(--panel-bg-hover) 97%, var(--panel-accent) 3%) 0%, 
-        color-mix(in srgb, var(--panel-bg-hover) 94%, var(--panel-accent) 6%) 100%);
-      color: var(--panel-text-hover);
-    }
 
     /* Outline variant - uses Starlight variables with fallbacks. */
     .panel-outline {
@@ -213,11 +208,14 @@ const headerId = `header-${panelId}`;
     }
 
     .panel-outline .panel-header {
-      background: linear-gradient(135deg, 
-        color-mix(in srgb, var(--panel-bg) 15%, transparent) 0%, 
-        color-mix(in srgb, var(--panel-bg) 8%, transparent) 100%);
+      background: var(--sl-color-gray-6, #f8f9fa);
       color: var(--panel-text);
       position: relative;
+    }
+
+    .panel-outline .panel-header:hover {
+      background: var(--panel-bg-hover) !important;
+      color: var(--panel-text-hover) !important;
     }
 
     .panel-outline .panel-header::before {
@@ -233,12 +231,6 @@ const headerId = `header-${panelId}`;
         transparent 100%);
     }
 
-    .panel-outline .panel-header:hover {
-      background: linear-gradient(135deg, 
-        color-mix(in srgb, var(--panel-bg-hover) 20%, transparent) 0%, 
-        color-mix(in srgb, var(--panel-bg-hover) 12%, transparent) 100%);
-      color: var(--panel-text-hover);
-    }
 
     /* Ghost variant - uses Starlight variables with fallbacks. */
     .panel-ghost {
@@ -248,19 +240,17 @@ const headerId = `header-${panelId}`;
       backdrop-filter: none;
     }
 
-    .panel-ghost:hover {
-      background: color-mix(in srgb, var(--panel-bg) 3%, transparent);
-      box-shadow: 
-        0 1px 3px rgba(0, 0, 0, 0.02),
-        0 0 0 1px color-mix(in srgb, var(--panel-border) 20%, transparent);
-      transform: translateY(-1px);
-    }
 
     .panel-ghost .panel-header {
-      background: transparent;
+      background: var(--sl-color-gray-6, #f8f9fa);
       color: color-mix(in srgb, var(--panel-text) 75%, transparent);
       position: relative;
       font-weight: 600;
+    }
+
+    .panel-ghost .panel-header:hover {
+      background: var(--panel-bg-hover) !important;
+      color: var(--panel-text-hover) !important;
     }
 
     .panel-ghost .panel-header::before {
@@ -276,17 +266,13 @@ const headerId = `header-${panelId}`;
         transparent 100%);
     }
 
-    .panel-ghost .panel-header:hover {
-      background: color-mix(in srgb, var(--panel-bg-hover) 8%, transparent);
-      color: var(--panel-text);
-    }
 
     /* Fallback for non-Starlight environments - Dark theme support.   */
     .theme-dark .collapsible-panel {
       --panel-bg: #0f172a;
-      --panel-bg-hover: #1e293b;
+      --panel-bg-hover: #475569;
       --panel-text: #f8fafc;
-      --panel-text-hover: #ffffff;
+      --panel-text-hover: #cbd5e1;
       --panel-border: rgba(51, 65, 85, 0.25);
       --panel-accent: #60a5fa;
       --panel-shadow: rgba(0, 0, 0, 0.4);
@@ -295,12 +281,26 @@ const headerId = `header-${panelId}`;
       --panel-gradient: linear-gradient(135deg, var(--panel-bg) 0%, color-mix(in srgb, var(--panel-bg) 92%, var(--panel-accent) 8%) 100%);
     }
 
+    .theme-dark .panel-default .panel-header,
+    .theme-dark .panel-outline .panel-header,
+    .theme-dark .panel-ghost .panel-header {
+      background: var(--sl-color-gray-6, #1e293b);
+    }
+
+    .theme-dark .panel-default .panel-header:hover,
+    .theme-dark .panel-outline .panel-header:hover,
+    .theme-dark .panel-ghost .panel-header:hover {
+      background: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+
+
     .theme-auto .collapsible-panel,
     @media (prefers-color-scheme: dark) {
       .theme-auto .collapsible-panel,
       .collapsible-panel {
         --panel-bg: var(--sl-color-bg, #0f172a);
-        --panel-bg-hover: var(--sl-color-gray-6, #1e293b);
+        --panel-bg-hover: #475569;
         --panel-text: var(--sl-color-text, #f8fafc);
         --panel-text-hover: var(--sl-color-text, #ffffff);
         --panel-border: var(--sl-color-gray-5, rgba(51, 65, 85, 0.25));
@@ -309,6 +309,25 @@ const headerId = `header-${panelId}`;
         --panel-shadow-hover: rgba(0, 0, 0, 0.6);
         --panel-shadow-depth: rgba(0, 0, 0, 0.2);
         --panel-gradient: linear-gradient(135deg, var(--panel-bg) 0%, color-mix(in srgb, var(--panel-bg) 92%, var(--panel-accent) 8%) 100%);
+      }
+
+      .theme-auto .panel-default .panel-header,
+      .theme-auto .panel-outline .panel-header,
+      .theme-auto .panel-ghost .panel-header,
+      .panel-default .panel-header,
+      .panel-outline .panel-header,
+      .panel-ghost .panel-header {
+        background: var(--sl-color-gray-6, #1e293b);
+      }
+
+      .theme-auto .panel-default .panel-header:hover,
+      .theme-auto .panel-outline .panel-header:hover,
+      .theme-auto .panel-ghost .panel-header:hover,
+      .panel-default .panel-header:hover,
+      .panel-outline .panel-header:hover,
+      .panel-ghost .panel-header:hover {
+        background: #334155 !important;
+        color: #cbd5e1 !important;
       }
     }
 
@@ -335,18 +354,6 @@ const headerId = `header-${panelId}`;
     const headers = document.querySelectorAll('.panel-header');
     
     headers.forEach(header => {
-      // Add subtle interaction feedback
-      header.addEventListener('mousedown', () => {
-        header.style.transform = 'scale(0.995)';
-      });
-      
-      header.addEventListener('mouseup', () => {
-        header.style.transform = '';
-      });
-      
-      header.addEventListener('mouseleave', () => {
-        header.style.transform = '';
-      });
       
       header.addEventListener('click', () => {
         const isExpanded = header.getAttribute('aria-expanded') === 'true';
