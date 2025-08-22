@@ -1,0 +1,12 @@
+---
+// Since this component is used as the Head component in astro.config.mjs,
+// we need to ensure it properly sets the character encoding
+const { head } = Astro.props;
+import { TelescopeProvider } from "astro-nebula-ui";
+---
+
+<!-- Ensure proper character encoding -->
+<meta charset="UTF-8" />
+{head}
+
+<TelescopeProvider />

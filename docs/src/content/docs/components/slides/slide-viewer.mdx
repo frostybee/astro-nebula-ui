@@ -1,20 +1,20 @@
 ---
-title: Slide Viewer
+title: NebulaSlider
 description: A comprehensive presentation system that transforms your content into interactive slides with advanced navigation, search, and customization features.
 sidebar:
-  label: 'Slide Viewer'
+  label: 'NebulaSlider'
   order: 6
 ---
 
-import {SlideViewer} from 'astro-nebula-ui';
+import {NebulaSlider} from 'astro-nebula-ui';
 
-<SlideViewer />
+<NebulaSlider />
 
 ---
 
-# Slide Viewer Component
+# NebulaSlider Component
 
-The **Slide Viewer** is an Astro component that automatically converts a website's page content into an interactive slide presentation system. It provides a rich set of features for navigation, customization, and content interaction through a modular architecture.
+The **NebulaSlider** is an Astro component that turns your web content into an interactive slide presentation. It includes navigation controls, customization options, and content interaction features built with a clean, modular design.
 
 ---
 ## Getting Started
@@ -23,16 +23,16 @@ The **Slide Viewer** is an Astro component that automatically converts a website
 Simply add the component to any MDX page:
 
 ```astro
-import {SlideViewer} from 'astro-nebula-ui';
+import {NebulaSlider} from 'astro-nebula-ui';
 
-<SlideViewer triggerText="Open Slides" title="Content Slides"/>
+<NebulaSlider triggerText="Open Slides" title="Content Slides"/>
 ```
 
 ---
 
 ## Configuration Options
 
-The SlideViewer component supports extensive configuration for different Astro site layouts and content structures beyond Starlight.
+The NebulaSlider component supports extensive configuration for different Astro site layouts and content structures beyond Starlight.
 
 ### Container Selection
 
@@ -40,16 +40,16 @@ Control which part of your page gets converted into slides:
 
 ```astro
 <!-- Default: Works with Starlight and common layouts -->
-<SlideViewer />
+<NebulaSlider />
 
 <!-- Custom container selector -->
-<SlideViewer containerSelector=".my-content-area" />
+<NebulaSlider containerSelector=".my-content-area" />
 
 <!-- Multiple possible containers -->
-<SlideViewer containerSelector=".main-content, .article-body, #content" />
+<NebulaSlider containerSelector=".main-content, .article-body, #content" />
 
 <!-- Custom Astro site layout -->
-<SlideViewer 
+<NebulaSlider 
   containerSelector=".post-content"
   includeStarlight={false}
 />
@@ -62,16 +62,16 @@ Customize which elements create new slides:
 
 ```astro
 <!-- Default: HR elements and H1-H3 headings -->
-<SlideViewer />
+<NebulaSlider />
 
 <!-- Only H2 headings create slides -->
-<SlideViewer slideBreakers="h2" />
+<NebulaSlider slideBreakers="h2" />
 
 <!-- Custom class-based breaks -->
-<SlideViewer slideBreakers="h2, .slide-break, .new-slide" />
+<NebulaSlider slideBreakers="h2, .slide-break, .new-slide" />
 
 <!-- Multiple element types -->
-<SlideViewer slideBreakers="hr, h1, h2, .chapter-break" />
+<NebulaSlider slideBreakers="hr, h1, h2, .chapter-break" />
 ```
 
 ---
@@ -82,16 +82,16 @@ Exclude unwanted elements from slides:
 
 ```astro
 <!-- Default: Excludes scripts, styles, noscript -->
-<SlideViewer />
+  <NebulaSlider />
 
 <!-- Custom exclusions -->
-<SlideViewer excludeElements="script, style, .sidebar, .navigation" />
+<NebulaSlider excludeElements="script, style, .sidebar, .navigation" />
 
 <!-- Exclude ads and widgets -->
-<SlideViewer excludeElements="script, style, .ads, .widget, .social-share" />
+<NebulaSlider excludeElements="script, style, .ads, .widget, .social-share" />
 
 <!-- Minimal exclusions -->
-<SlideViewer excludeElements="script, style" />
+<NebulaSlider excludeElements="script, style" />
 ```
 
 ---
@@ -100,7 +100,7 @@ Exclude unwanted elements from slides:
 
 #### Astro Blog Layout
 ```astro
-<SlideViewer 
+<NebulaSlider 
   containerSelector=".post-content, .article-content"
   slideBreakers="h2, h3"
   excludeElements="script, style, .share-buttons, .related-posts"
@@ -114,7 +114,7 @@ Exclude unwanted elements from slides:
 
 #### Custom Astro Documentation Site
 ```astro
-<SlideViewer 
+<NebulaSlider 
   containerSelector=".docs-content, .documentation-body"
   slideBreakers="h2, .section-break"
   excludeElements="script, style, .sidebar, .toc, .edit-page"
@@ -124,7 +124,7 @@ Exclude unwanted elements from slides:
 
 #### Astro Content Collection Layout
 ```astro
-<SlideViewer 
+  <NebulaSlider 
   containerSelector=".content-wrapper, .markdown-content"
   slideBreakers="h1, h2, hr, .slide-separator"
   excludeElements="script, style, .navigation, .footer"

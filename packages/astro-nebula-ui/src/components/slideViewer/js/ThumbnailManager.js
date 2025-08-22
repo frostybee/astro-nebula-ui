@@ -30,18 +30,13 @@ export class ThumbnailManager {
     }
   }
 
-  createPreviewSlide() {
+  createPreviewSlide(slideTitle = 'Slide Viewer Component') {
     const previewContainer = document.createElement('div');
     previewContainer.className = 'fb-slide__preview-container';
 
-    // Create title for preview slide - extract from original article content.
+    // Create title for preview slide using provided parameter or fallback.
     const title = document.createElement('h1');
-    
-    // For now, let's hardcode the correct title to test
-    let titleText = 'Slide Viewer Component';
-    // console.log('ThumbnailManager - using hardcoded titleText:', titleText);
-    
-    title.textContent = titleText;
+    title.textContent = slideTitle;
     previewContainer.appendChild(title);
 
     // Create grid container.

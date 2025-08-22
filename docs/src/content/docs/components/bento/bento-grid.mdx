@@ -1,0 +1,150 @@
+---
+title: Bento Grid Components
+description: A flexible and responsive grid-based layout system for creating beautiful card layouts
+---
+
+# Bento Grid Components
+
+The Bento Grid system provides a flexible and responsive way to create beautiful card-based layouts. It consists of two main components: `BentoGrid` and `BentoCard`.
+
+## BentoGrid
+
+The `BentoGrid` component serves as the container for your bento cards. It creates a responsive grid layout that automatically adjusts based on screen size.
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `columns` | `number` | `4` | Number of columns in the grid |
+| `gap` | `string` | `"1rem"` | Gap between grid items |
+
+### Responsive Behavior
+
+The grid automatically adjusts its columns based on screen size:
+- Large screens (default): 4 columns
+- Medium screens (≤1024px): 3 columns
+- Tablets (≤768px): 2 columns
+- Mobile (≤480px): 1 column
+
+## BentoCard
+
+The `BentoCard` component creates individual cards within the bento grid. Each card can span multiple rows and columns, creating a dynamic layout.
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | Required | The title displayed in the card's badge |
+| `span` | `{ rows?: number, cols?: number }` | `{ rows: 1, cols: 1 }` | Number of rows and columns the card should span |
+| `href` | `string` | `#${title.toLowerCase()}` | Optional link for the card's badge |
+
+### Features
+
+- Elevated appearance with shadow
+- Hover animation with lift effect
+- Rounded corners
+- Badge in the upper right corner
+- Fully responsive
+- Uses Starlight's color variables for consistent theming
+
+## Examples
+
+### Basic Usage
+
+```astro
+---
+import BentoGrid from '../../components/BentoGrid.astro';
+import BentoCard from '../../components/BentoCard.astro';
+---
+
+<BentoGrid columns={4} gap="1.5rem">
+  <BentoCard title="Getting Started">
+    <p>Basic card content</p>
+  </BentoCard>
+</BentoGrid>
+```
+
+### Card Spanning Multiple Rows and Columns
+
+```astro
+<BentoGrid columns={4} gap="1.5rem">
+  <BentoCard title="Large Card" span={{ rows: 2, cols: 2 }}>
+    <h2>Featured Content</h2>
+    <p>This card spans 2 rows and 2 columns</p>
+  </BentoCard>
+  
+  <BentoCard title="Wide Card" span={{ cols: 2 }}>
+    <p>This card spans 2 columns</p>
+  </BentoCard>
+  
+  <BentoCard title="Tall Card" span={{ rows: 2 }}>
+    <p>This card spans 2 rows</p>
+  </BentoCard>
+</BentoGrid>
+```
+
+### Documentation Layout Example
+
+```astro
+<BentoGrid columns={4} gap="1.5rem">
+  <BentoCard title="Getting Started" span={{ rows: 2, cols: 2 }}>
+    <h2>Welcome to Our Documentation</h2>
+    <p>This is a larger card that spans multiple rows and columns.</p>
+  </BentoCard>
+
+  <BentoCard title="Quick Start">
+    <p>Get up and running quickly with our step-by-step guide.</p>
+  </BentoCard>
+
+  <BentoCard title="API Reference" span={{ cols: 2 }}>
+    <p>Comprehensive API documentation for all available endpoints.</p>
+  </BentoCard>
+
+  <BentoCard title="Examples">
+    <p>Real-world examples and use cases.</p>
+  </BentoCard>
+
+  <BentoCard title="Tutorials" span={{ rows: 2 }}>
+    <p>In-depth tutorials for advanced features.</p>
+  </BentoCard>
+
+  <BentoCard title="FAQ">
+    <p>Frequently asked questions and answers.</p>
+  </BentoCard>
+</BentoGrid>
+```
+
+## Best Practices
+
+1. **Content Organization**
+   - Use larger cards for important or featured content
+   - Keep related content in adjacent cards
+   - Maintain visual hierarchy with card sizes
+
+2. **Responsive Design**
+   - Test your layout at different screen sizes
+   - Consider how content will reflow on mobile devices
+   - Use appropriate card spans for different screen sizes
+
+3. **Accessibility**
+   - Ensure card titles are descriptive
+   - Maintain sufficient color contrast
+   - Use semantic HTML within cards
+
+4. **Performance**
+   - Keep card content concise
+   - Optimize images and media within cards
+   - Avoid excessive nesting of components
+
+## Customization
+
+The components use Starlight's CSS variables for theming. You can customize the appearance by overriding these variables in your theme:
+
+```css
+:root {
+  --sl-color-accent: #your-accent-color;
+  --sl-color-white: #your-background-color;
+}
+```
+
+The cards also support custom styling through CSS classes if needed. 

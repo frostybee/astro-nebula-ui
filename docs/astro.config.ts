@@ -6,7 +6,10 @@ export default defineConfig({
     starlight({
       editLink: {
         baseUrl: 'https://github.com/frostybee/astro-nebula-ui/edit/main/docs/',
-      },      
+      }, 
+      // components: {
+      //   Head: './src/components/TelescopeClient.astro',
+      // },
       sidebar: [
         {
           label: 'Start Here',
@@ -19,6 +22,10 @@ export default defineConfig({
             {
               label: 'Callouts',
               autogenerate: { directory: 'components/Callouts' }
+            },
+            {
+              label: 'Bento',
+              autogenerate: { directory: 'components/bento' }
             },
             {
               label: 'Slide Viewer',

@@ -1,0 +1,50 @@
+---
+interface Props {
+  columns?: number;
+  gap?: string;
+}
+
+const { columns = 4, gap = "1" } = Astro.props;
+---
+
+<div class="bento-grid">
+  <slot />
+</div>
+
+<style define:vars={{ columns, gap }}>
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--columns, 4), 1fr);
+    gap: var(--gap, 1rem);
+    width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bento-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script define:vars={{ columns, gap }}>
+  // Set CSS custom properties for grid configuration
+  const grid = document.querySelector(".bento-grid");
+  if (grid) {
+    console.log(columns, gap);
+    // grid.style.setProperty('--columns', columns.toString());
+    grid.style.setProperty("--gap", `${gap}rem`);
+  }
+</script>
+

@@ -1,0 +1,132 @@
+---
+title: Bento Examples
+description: Examples of Bento components in action
+---
+
+import {BentoGrid, BentoCard} from 'astro-nebula-ui';
+
+# Bento Examples
+
+<BentoGrid columns={2} gap="1">
+
+  <BentoCard title="Arrays" category="arrays" span={{ rows: 2, cols: 1 }}>
+    ```php
+    $a1 = ["hello", "world", "!"]
+    $a2 = array("hello", "world", "!");
+    $a3 = explode(",", "apple,pear,peach");    
+    ```
+    Mixed integer and string values.
+    1. a
+    2. b
+    
+    ```php
+    $array = array(
+    "foo" => "bar",
+    "bar" => "foo",
+    100   => -100,
+    -100  => 100,
+    );
+    print_r($array);
+    ```
+  </BentoCard>
+
+  <BentoCard title="Functions" category="functions" span={{ cols: 1 }}>
+    <p>Common PHP functions for arrays and strings.</p>
+     ```php
+    count($array);          // Array length
+    array_push($arr, $val); // Add to end
+    array_pop($array);      // Remove from end
+    ```
+    String functions:
+    ```php
+    strlen($string);        // String length
+    substr($str, 0, 5);     // Substring
+    str_replace($old, $new, $str);
+    ```
+    
+  </BentoCard>
+
+  <BentoCard title="Syntax" category="syntax" span={{ cols: 2 }}>
+    ```php
+    // Variables and basic syntax
+    $variable = "Hello World";
+    $number = 42;
+    $array = ["item1", "item2"];
+    
+    // Control structures
+    if ($condition) {
+        echo "True";
+    } else {
+        echo "False";
+    }
+    
+    for ($i = 0; $i < 10; $i++) {
+        echo $i;
+    }
+    ```
+  </BentoCard>
+
+  <BentoCard title="Classes" category="classes">
+    ```php
+    class Car {
+        public $color;
+        private $engine;
+        
+        public function __construct($color) {
+            $this->color = $color;
+        }
+        
+        public function start() {
+            return "Engine started!";
+        }
+    }
+    
+    $myCar = new Car("red");
+    echo $myCar->start();
+    ```
+  </BentoCard>
+
+  <BentoCard title="Loops" category="syntax" span={{ rows: 2 }}>
+    ```php
+    // For loop
+    for ($i = 0; $i < 5; $i++) {
+        echo $i . " ";
+    }
+    
+    // While loop
+    $x = 0;
+    while ($x < 5) {
+        echo $x++;
+    }
+    
+    // Foreach loop
+    foreach ($array as $value) {
+        echo $value;
+    }
+    
+    // Foreach with key
+    foreach ($array as $key => $value) {
+        echo "$key: $value";
+    }
+    ```
+  </BentoCard>
+
+  <BentoCard title="Variables" category="syntax">
+    ```php
+    // Variable types
+    $string = "Hello";
+    $integer = 42;
+    $float = 3.14;
+    $boolean = true;
+    $array = [1, 2, 3];
+    
+    // Variable scope
+    global $globalVar;
+    static $staticVar;
+    ```
+  </BentoCard>
+</BentoGrid>
+
+
+
+

@@ -52,6 +52,7 @@ export class SlideViewer {
         this.modal?.dataset.excludeElements || "script, style, noscript",
       includeStarlight: this.modal?.dataset.includeStarlight !== "false",
       contentFilter: this.modal?.dataset.contentFilter || "",
+      slideTitle: this.modal?.dataset.slideTitle || "Slide Viewer Component",
     };
 
     // Validate and normalize configuration
@@ -555,7 +556,7 @@ export class SlideViewer {
 
     // Create and insert preview slide as the first slide.
     if (this.slides.length > 0) {
-      const previewSlide = this.thumbnailManager.createPreviewSlide();
+      const previewSlide = this.thumbnailManager.createPreviewSlide(this.config.slideTitle);
       this.slides.unshift(previewSlide);
     }
 
