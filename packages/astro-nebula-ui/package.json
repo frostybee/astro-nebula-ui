@@ -4,6 +4,13 @@
   "license": "MIT",
   "description": "A collection of customized UI components for Astro and Starlight projects with built-in Starlight theme support",
   "author": "frostybee",
+  "keywords": [
+    "starlight",
+    "starlight components",
+    "astro components",
+    "astro ui",
+    "astro"
+  ],
   "type": "module",
   "main": "./index.js",
   "exports": {
@@ -26,6 +33,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,  
   "homepage": "https://github.com/frostybee/astro-nebula-ui",
   "repository": {
     "type": "git",
