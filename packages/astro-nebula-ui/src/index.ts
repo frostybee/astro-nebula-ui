@@ -6,7 +6,6 @@ export { default as CollapsiblePanel } from './components/CollapsiblePanel.astro
 export { default as SlideViewer } from './components/slideViewer/SlideViewer.astro';
 export { default as LearningObjectives } from './components/LearningObjectives.astro';
 export { default as CheatSheet } from './components/CheatSheet.astro';
-export { default as CodeBlock } from './components/CodeBlock.astro';
 export { default as CheatsheetCard } from './components/edu/CheatsheetCard.astro';
 
 

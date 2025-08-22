@@ -5,9 +5,84 @@ description: Comprehensive examples of the enhanced NeoCallout component with al
 
 import { NeoCallout } from 'astro-nebula-ui'
 
-# NewCallout Component Examples
+# NeoCallout Component Examples
 
 The `NewCallout` component is an enhanced version of the basic callout with additional features like collapsible content, multiple variants, custom titles, and improved Starlight theme integration.
+
+## Installation & Usage
+
+### Import the Component
+
+```astro
+---
+import { NeoCallout } from 'astro-nebula-ui'
+---
+```
+
+### Basic Syntax
+
+```astro
+<NeoCallout type="info">
+  Your content here
+</NeoCallout>
+```
+
+### With Title
+
+```astro
+<NeoCallout type="warning" title="Important Notice">
+  Your content here
+</NeoCallout>
+```
+
+### With Variant
+
+```astro
+<NeoCallout type="success" variant="filled" title="Success!">
+  Your content here
+</NeoCallout>
+```
+
+### Collapsible Example
+
+```astro
+<NeoCallout 
+  type="info" 
+  title="Click to expand" 
+  collapsible={true} 
+  expanded={false}
+>
+  This content is hidden by default
+</NeoCallout>
+```
+
+## Component Properties
+
+| Property | Type | Default | Required | Description |
+|----------|------|---------|----------|-------------|
+| `type` | `"info" \| "note" \| "danger" \| "success" \| "warning" \| "tip" \| "quote"` | `"info"` | No | Sets the callout type which determines the icon and color scheme |
+| `title` | `string` | `undefined` | No | Optional title displayed in the header. If not provided, only the icon is shown |
+| `icon` | `string` | `undefined` | No | Custom SVG icon as a string. Overrides the default type-based icon |
+| `variant` | `"default" \| "minimal" \| "filled" \| "outline"` | `"default"` | No | Visual variant that controls the overall appearance and styling |
+| `collapsible` | `boolean` | `false` | No | Makes the callout expandable/collapsible with a toggle button |
+| `expanded` | `boolean` | `true` | No | Initial expanded state. Only applies when `collapsible` is `true` |
+
+### Type Details
+
+- **info**: Blue color scheme with info icon
+- **note**: Purple color scheme with note icon  
+- **danger**: Red color scheme with warning triangle icon
+- **success**: Green color scheme with checkmark icon
+- **warning**: Orange color scheme with warning triangle icon
+- **tip**: Teal color scheme with lightbulb-style icon
+- **quote**: Gray color scheme with quote marks icon
+
+### Variant Details
+
+- **default**: Gradient background with left accent border and shadow
+- **minimal**: Clean design with just a left border, no background
+- **filled**: Bold design with full accent color background
+- **outline**: Outlined design with border but no background fill
 
 ## Basic Usage
 
