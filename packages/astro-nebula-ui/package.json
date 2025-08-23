@@ -15,8 +15,14 @@
   "main": "./index.js",
   "exports": {
     ".": "./src/index.ts",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./src/components/slideViewer/*.js": "./src/components/slideViewer/*.js"
   },
+  "files": [
+    "src/**/*",
+    "index.js",
+    "README.md"
+  ],
   "dependencies": {
     "fuse.js": "^7.1.0"
   },
