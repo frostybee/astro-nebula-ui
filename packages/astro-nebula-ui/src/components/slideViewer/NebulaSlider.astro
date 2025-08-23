@@ -883,60 +883,44 @@ const title = entry?.data.title || "Documentation Slides";
 
 <!-- Load SlideViewer -->
 <script>
-  console.log('[DEBUG] SlideViewer script loaded');
+  // console.log('[DEBUG] SlideViewer script loaded');
   
   // Simple script to load the module when DOM is ready
   document.addEventListener('DOMContentLoaded', async function() {
-    console.log('[DEBUG] DOM content loaded, attempting to load SlideViewer module');
+    // console.log('[DEBUG] DOM content loaded, attempting to load SlideViewer module');
     
     try {
-      console.log('[DEBUG] Importing ./SlideViewer.js');
+      // console.log('[DEBUG] Importing ./SlideViewer.js');
       const module = await import('./SlideViewer.js');
-      console.log('[DEBUG] SlideViewer module imported successfully:', module);
+      // console.log('[DEBUG] SlideViewer module imported successfully:', module);
       
       // Check if the start button exists
       const startButton = document.getElementById('start-slideshow');
       if (startButton) {
-        console.log('[DEBUG] Start slideshow button found');
+        // console.log('[DEBUG] Start slideshow button found');
       } else {
-        console.log('[DEBUG] WARNING: Start slideshow button not found');
+        // console.log('[DEBUG] WARNING: Start slideshow button not found');
       }
       
       // Check if modal exists
       const modal = document.getElementById('slide-viewer-modal');
       if (modal) {
-        console.log('[DEBUG] Slide viewer modal found');
+        // console.log('[DEBUG] Slide viewer modal found');
       } else {
-        console.log('[DEBUG] WARNING: Slide viewer modal not found');
+        // console.log('[DEBUG] WARNING: Slide viewer modal not found');
       }
       
     } catch (error) {
-      console.error('[DEBUG] Failed to load SlideViewer:', error);
-      console.error('[DEBUG] Error details:', error.message);
-      console.error('[DEBUG] Error stack:', error.stack);
+      console.error('Failed to load SlideViewer:', error);
+      // console.error('[DEBUG] Error details:', error.message);
+      // console.error('[DEBUG] Error stack:', error.stack);
     }
   });
-  
-  // Also try immediate execution if DOM is already loaded
-  if (document.readyState === 'loading') {
-    console.log('[DEBUG] Document still loading, waiting for DOMContentLoaded');
-  } else {
-    console.log('[DEBUG] Document already loaded, executing immediately');
-    (async function() {
-      try {
-        console.log('[DEBUG] Importing ./SlideViewer.js (immediate execution)');
-        const module = await import('./SlideViewer.js');
-        console.log('[DEBUG] SlideViewer module imported successfully (immediate):', module);
-      } catch (error) {
-        console.error('[DEBUG] Failed to load SlideViewer (immediate):', error);
-      }
-    })();
-  }
 </script>
 
 <!-- Keyboard shortcut handler -->
 <script define:vars={{ keyboardShortcut }}>
-  console.log('[DEBUG] Keyboard shortcut handler loaded, shortcut:', keyboardShortcut);
+  // console.log('[DEBUG] Keyboard shortcut handler loaded, shortcut:', keyboardShortcut);
   
   // Parse keyboard shortcut configuration.
   function parseKeyboardShortcut(shortcut) {
@@ -962,24 +946,24 @@ const title = entry?.data.title || "Documentation Slides";
     const keyMatch = event.key.toLowerCase() === shortcutConfig.key;
     
     if (ctrlMatch && altMatch && shiftMatch && metaMatch && keyMatch) {
-      console.log('[DEBUG] Keyboard shortcut matched!');
+      // console.log('[DEBUG] Keyboard shortcut matched!');
       
       // Don't trigger if user is typing in an input field.
       if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.isContentEditable) {
-        console.log('[DEBUG] Ignoring shortcut - user is typing in input field');
+        // console.log('[DEBUG] Ignoring shortcut - user is typing in input field');
         return;
       }
       
       event.preventDefault();
       const startButton = document.getElementById('start-slideshow');
       if (startButton) {
-        console.log('[DEBUG] Clicking start slideshow button');
+        // console.log('[DEBUG] Clicking start slideshow button');
         startButton.click();
       } else {
-        console.log('[DEBUG] ERROR: Start slideshow button not found for keyboard shortcut');
+        console.error('Start slideshow button not found for keyboard shortcut');
       }
     }
   });
   
-  console.log('[DEBUG] Keyboard shortcut event listener added');
+  // console.log('[DEBUG] Keyboard shortcut event listener added');
 </script>
