@@ -1,5 +1,11 @@
 # astro-nebula-ui
 
+## 0.2.0
+
+### Minor Changes
+
+- [`1e20b29`](https://github.com/frostybee/astro-nebula-ui/commit/1e20b29c8f74ca3c0ee2e171ee6f4ca669a61a94) Thanks [@frostybee](https://github.com/frostybee)! - Fix broken JS path in the NebulaSlider component
+
 ## 0.1.0
 
 ### Minor Changes

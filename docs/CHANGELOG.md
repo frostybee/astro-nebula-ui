@@ -1,5 +1,12 @@
 # astro-nebula-ui-docs
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`1e20b29`](https://github.com/frostybee/astro-nebula-ui/commit/1e20b29c8f74ca3c0ee2e171ee6f4ca669a61a94)]:
+  - astro-nebula-ui@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes
