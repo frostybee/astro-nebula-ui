@@ -6,9 +6,10 @@ export default defineConfig({
   base: '/astro-nebula-ui',
   integrations: [
     starlight({
+      title: 'Astro Nebula UI',
       editLink: {
         baseUrl: 'https://github.com/frostybee/astro-nebula-ui/edit/main/docs/',
-      }, 
+      },
       // components: {
       //   Head: './src/components/TelescopeClient.astro',
       // },
@@ -37,13 +38,12 @@ export default defineConfig({
               label: 'UI Components',
               autogenerate: { directory: 'components/ui' }
             }
-          ]          
+          ]
         }
       ],
       social: [
         { href: 'https://github.com/frostybee/astro-nebula-ui', icon: 'github', label: 'GitHub' },
       ],
-      title: 'astro-nebula-ui',
     }),
   ],
 })
