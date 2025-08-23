@@ -11,12 +11,13 @@ The Bento Grid system provides a flexible and responsive way to create beautiful
 
 The `BentoGrid` component serves as the container for your bento cards. It creates a responsive grid layout that automatically adjusts based on screen size.
 
+
 ### Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `columns` | `number` | `4` | Number of columns in the grid |
-| `gap` | `string` | `"1rem"` | Gap between grid items |
+| `gap` | `string` | `"1"` | Gap between grid items (value will be converted to rem units) |
 
 ### Responsive Behavior
 
@@ -35,17 +36,26 @@ The `BentoCard` component creates individual cards within the bento grid. Each c
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `title` | `string` | Required | The title displayed in the card's badge |
+| `category` | `"arrays" \| "functions" \| "classes" \| "syntax" \| "default"` | `"default"` | Category for badge styling and color |
 | `span` | `{ rows?: number, cols?: number }` | `{ rows: 1, cols: 1 }` | Number of rows and columns the card should span |
-| `href` | `string` | `#${title.toLowerCase()}` | Optional link for the card's badge |
 
 ### Features
 
 - Elevated appearance with shadow
 - Hover animation with lift effect
 - Rounded corners
-- Badge in the upper right corner
+- Categorized badge in the upper right corner with color coding
 - Fully responsive
 - Uses Starlight's color variables for consistent theming
+
+### Category Colors
+
+Each category has its own distinct color:
+- `arrays`: Blue badge
+- `functions`: Green badge  
+- `classes`: Purple badge
+- `syntax`: Orange badge
+- `default`: Accent color badge
 
 ## Examples
 
@@ -57,8 +67,8 @@ import BentoGrid from '../../components/BentoGrid.astro';
 import BentoCard from '../../components/BentoCard.astro';
 ---
 
-<BentoGrid columns={4} gap="1.5rem">
-  <BentoCard title="Getting Started">
+<BentoGrid columns={4} gap="1.5">
+  <BentoCard title="Getting Started" category="default">
     <p>Basic card content</p>
   </BentoCard>
 </BentoGrid>
@@ -67,17 +77,17 @@ import BentoCard from '../../components/BentoCard.astro';
 ### Card Spanning Multiple Rows and Columns
 
 ```astro
-<BentoGrid columns={4} gap="1.5rem">
-  <BentoCard title="Large Card" span={{ rows: 2, cols: 2 }}>
+<BentoGrid columns={4} gap="1.5">
+  <BentoCard title="Large Card" category="classes" span={{ rows: 2, cols: 2 }}>
     <h2>Featured Content</h2>
     <p>This card spans 2 rows and 2 columns</p>
   </BentoCard>
   
-  <BentoCard title="Wide Card" span={{ cols: 2 }}>
+  <BentoCard title="Wide Card" category="functions" span={{ cols: 2 }}>
     <p>This card spans 2 columns</p>
   </BentoCard>
   
-  <BentoCard title="Tall Card" span={{ rows: 2 }}>
+  <BentoCard title="Tall Card" category="arrays" span={{ rows: 2 }}>
     <p>This card spans 2 rows</p>
   </BentoCard>
 </BentoGrid>
@@ -86,29 +96,29 @@ import BentoCard from '../../components/BentoCard.astro';
 ### Documentation Layout Example
 
 ```astro
-<BentoGrid columns={4} gap="1.5rem">
-  <BentoCard title="Getting Started" span={{ rows: 2, cols: 2 }}>
+<BentoGrid columns={4} gap="1.5">
+  <BentoCard title="Getting Started" category="default" span={{ rows: 2, cols: 2 }}>
     <h2>Welcome to Our Documentation</h2>
     <p>This is a larger card that spans multiple rows and columns.</p>
   </BentoCard>
 
-  <BentoCard title="Quick Start">
+  <BentoCard title="Quick Start" category="functions">
     <p>Get up and running quickly with our step-by-step guide.</p>
   </BentoCard>
 
-  <BentoCard title="API Reference" span={{ cols: 2 }}>
+  <BentoCard title="API Reference" category="syntax" span={{ cols: 2 }}>
     <p>Comprehensive API documentation for all available endpoints.</p>
   </BentoCard>
 
-  <BentoCard title="Examples">
+  <BentoCard title="Examples" category="arrays">
     <p>Real-world examples and use cases.</p>
   </BentoCard>
 
-  <BentoCard title="Tutorials" span={{ rows: 2 }}>
+  <BentoCard title="Tutorials" category="classes" span={{ rows: 2 }}>
     <p>In-depth tutorials for advanced features.</p>
   </BentoCard>
 
-  <BentoCard title="FAQ">
+  <BentoCard title="FAQ" category="default">
     <p>Frequently asked questions and answers.</p>
   </BentoCard>
 </BentoGrid>

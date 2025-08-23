@@ -7,23 +7,6 @@ import { Callout } from 'astro-nebula-ui';
 
 The Callout component allows you to display single line callouts with different styles and icons for various types of information or alerts.
 
-## Basic Usage
-
-Import the Callout component in your Astro page or component:
-
-```astro
----
-import { Callout } from 'astro-nebula-ui';
----
-```
-
-Then use it to create callouts:
-
-```astro
-<Callout type="info">
-  This is an informational callout.
-</Callout>
-```
 
 ## Examples
 
@@ -51,6 +34,35 @@ Then use it to create callouts:
     This is a note callout with additional information. <a href="#" target="_blank" rel="noopener noreferrer">View notes</a>
 </Callout>
 
+
+## Basic Usage
+
+Import the Callout component in your Astro page or component:
+
+```astro
+---
+import { Callout } from 'astro-nebula-ui';
+---
+```
+
+Then use it to create callouts:
+
+```astro
+<Callout type="info">
+  This is an informational callout.
+</Callout>
+```
+
+## Properties
+
+The Callout component accepts the following properties:
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `type` | `"info" \| "note" \| "danger" \| "success" \| "warning" \| "tip"` | `"info"` | The type of callout which determines the styling, icon, and color scheme |
+| `title` | `string` | `undefined` | Optional title text displayed in the callout header alongside the icon |
+
+
 ## Callout Types
 
 The component supports the following callout types:
@@ -72,6 +84,8 @@ Each type has its own icon and color scheme with modern gradient backgrounds:
 <Callout type="warning">Warning callout</Callout>
 <Callout type="tip">Tip callout</Callout>
 ```
+
+
 
 ## Adding Titles
 

@@ -41,14 +41,19 @@ const title = entry?.data.title || "Documentation Slides";
 ---
 
 <div id="slide-viewer-trigger">
-  <button 
-    id="start-slideshow" 
-    class="fb-slide__button fb-slide__button--compact" 
-    onclick="this.blur()"
-    title={`View as Slides (${keyboardShortcut.replace(/\+/g, '+').replace(/ctrl/i, 'Ctrl').replace(/alt/i, 'Alt').replace(/shift/i, 'Shift').replace(/cmd/i, 'Cmd')})`}
-  >
-    📽️ {triggerText}
-  </button>
+  <div class="fb-slide__tooltip-container">
+    <button 
+      id="start-slideshow" 
+      class="fb-slide__button fb-slide__button--compact" 
+      onclick="this.blur()"
+      data-tooltip={`View as Slides (${keyboardShortcut.replace(/\+/g, '+').replace(/ctrl/i, 'Ctrl').replace(/alt/i, 'Alt').replace(/shift/i, 'Shift').replace(/cmd/i, 'Cmd')})`}
+    >
+      📽️ {triggerText}
+    </button>
+    <div class="fb-slide__tooltip" role="tooltip">
+      View as Slides ({keyboardShortcut.replace(/\+/g, '+').replace(/ctrl/i, 'Ctrl').replace(/alt/i, 'Alt').replace(/shift/i, 'Shift').replace(/cmd/i, 'Cmd')})
+    </div>
+  </div>
 </div>
 
 <div

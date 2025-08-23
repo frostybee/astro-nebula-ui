@@ -8,7 +8,7 @@ sidebar:
 
 import {NebulaSlider} from 'astro-nebula-ui';
 
-<NebulaSlider />
+<NebulaSlider/>
 
 ---
 
@@ -101,11 +101,14 @@ Exclude unwanted elements from slides:
 #### Astro Blog Layout
 ```astro
 <NebulaSlider 
+  triggerText="View as Presentation"
+  title="Blog Post Slides"
   containerSelector=".post-content, .article-content"
   slideBreakers="h2, h3"
   excludeElements="script, style, .share-buttons, .related-posts"
   includeStarlight={false}
-  triggerText="View as Presentation"
+  contentFilter=""
+  keyboardShortcut="ctrl+alt+p"
 />
 ```
 
@@ -115,21 +118,28 @@ Exclude unwanted elements from slides:
 #### Custom Astro Documentation Site
 ```astro
 <NebulaSlider 
+  triggerText="View Documentation as Slides"
+  title="Documentation Slides"
   containerSelector=".docs-content, .documentation-body"
   slideBreakers="h2, .section-break"
   excludeElements="script, style, .sidebar, .toc, .edit-page"
   includeStarlight={false}
+  contentFilter=""
+  keyboardShortcut="ctrl+shift+d"
 />
 ```
 
 #### Astro Content Collection Layout
 ```astro
-  <NebulaSlider 
+<NebulaSlider 
+  triggerText="View as Slides"
+  title="Content Collection Slides"
   containerSelector=".content-wrapper, .markdown-content"
   slideBreakers="h1, h2, hr, .slide-separator"
   excludeElements="script, style, .navigation, .footer"
-  contentFilter=""
   includeStarlight={true}
+  contentFilter=""
+  keyboardShortcut="ctrl+shift+s"
 />
 ```
 ---
@@ -414,3 +424,8 @@ Independent light/dark toggle system:
 - **Local Storage API** for preference persistence
 - **Canvas API** for laser pointer functionality
 - **Fullscreen API** for immersive presentations
+
+---
+
+## Image Example
+![Houston](../../../../assets/houston.webp)

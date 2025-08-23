@@ -27,6 +27,18 @@ import { NeoCallout } from 'astro-nebula-ui'
 </NeoCallout>
 ```
 
+## Component Properties
+
+| Property | Type | Default | Required | Description |
+|----------|------|---------|----------|-------------|
+| `type` | `"info" \| "note" \| "danger" \| "success" \| "warning" \| "tip" \| "quote"` | `"info"` | No | Sets the callout type which determines the icon and color scheme |
+| `title` | `string` | `undefined` | No | Optional title displayed in the header. If not provided, only the icon is shown |
+| `icon` | `string` | `undefined` | No | Custom SVG icon as a string. Overrides the default type-based icon |
+| `variant` | `"default" \| "minimal" \| "filled" \| "outline"` | `"default"` | No | Visual variant that controls the overall appearance and styling |
+| `collapsible` | `boolean` | `false` | No | Makes the callout expandable/collapsible with a toggle button |
+| `expanded` | `boolean` | `true` | No | Initial expanded state. Only applies when `collapsible` is `true` |
+
+
 ### With Title
 
 ```astro
@@ -56,16 +68,30 @@ import { NeoCallout } from 'astro-nebula-ui'
 </NeoCallout>
 ```
 
-## Component Properties
+### Complete Properties Example
 
-| Property | Type | Default | Required | Description |
-|----------|------|---------|----------|-------------|
-| `type` | `"info" \| "note" \| "danger" \| "success" \| "warning" \| "tip" \| "quote"` | `"info"` | No | Sets the callout type which determines the icon and color scheme |
-| `title` | `string` | `undefined` | No | Optional title displayed in the header. If not provided, only the icon is shown |
-| `icon` | `string` | `undefined` | No | Custom SVG icon as a string. Overrides the default type-based icon |
-| `variant` | `"default" \| "minimal" \| "filled" \| "outline"` | `"default"` | No | Visual variant that controls the overall appearance and styling |
-| `collapsible` | `boolean` | `false` | No | Makes the callout expandable/collapsible with a toggle button |
-| `expanded` | `boolean` | `true` | No | Initial expanded state. Only applies when `collapsible` is `true` |
+```astro
+<NeoCallout 
+  type="warning"
+  title="Advanced Configuration Settings"
+  variant="filled"
+  collapsible={true}
+  expanded={false}
+  icon="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z'/></svg>"
+>
+  This example demonstrates all available NeoCallout properties:
+  
+  - **type**: "warning" (orange color scheme with warning styling)
+  - **title**: "Advanced Configuration Settings" (custom header text)
+  - **variant**: "filled" (bold background variant for maximum visibility)
+  - **collapsible**: true (allows expanding/collapsing content)
+  - **expanded**: false (content starts collapsed by default)
+  - **icon**: Custom triangle warning SVG (overrides default warning icon)
+  
+  You can combine any or all of these properties to create the perfect callout for your content needs.
+</NeoCallout>
+```
+
 
 ### Type Details
 
@@ -317,6 +343,225 @@ This section demonstrates how callouts can contain rich content including code b
 | `collapsible` | `boolean` | `false` | Whether the callout can be collapsed |
 | `expanded` | `boolean` | `true` | Initial expanded state (only applies if collapsible) |
 
+</NeoCallout>
+
+## Complete Property Examples
+
+This section demonstrates all available properties and their combinations to give you a comprehensive understanding of the NeoCallout component's capabilities.
+
+### All Properties Showcase
+
+#### Basic Properties (type, title, variant)
+
+```astro
+<!-- Info type with all variants -->
+<NeoCallout type="info" title="Default Info" variant="default">
+  Information callout with default styling and gradient background.
+</NeoCallout>
+
+<NeoCallout type="info" title="Minimal Info" variant="minimal">
+  Information callout with minimal styling - just a left border.
+</NeoCallout>
+
+<NeoCallout type="info" title="Filled Info" variant="filled">
+  Information callout with bold filled background for maximum attention.
+</NeoCallout>
+
+<NeoCallout type="info" title="Outline Info" variant="outline">
+  Information callout with clean outline design and no background.
+</NeoCallout>
+```
+
+<NeoCallout type="info" title="Default Info" variant="default">
+Information callout with default styling and gradient background.
+</NeoCallout>
+
+<NeoCallout type="info" title="Minimal Info" variant="minimal">
+Information callout with minimal styling - just a left border.
+</NeoCallout>
+
+<NeoCallout type="info" title="Filled Info" variant="filled">
+Information callout with bold filled background for maximum attention.
+</NeoCallout>
+
+<NeoCallout type="info" title="Outline Info" variant="outline">
+Information callout with clean outline design and no background.
+</NeoCallout>
+
+#### Collapsible Properties (collapsible, expanded)
+
+```astro
+<!-- Collapsible expanded by default -->
+<NeoCallout 
+  type="note" 
+  title="Collapsible Expanded (Default)" 
+  variant="default"
+  collapsible={true} 
+  expanded={true}
+>
+  This callout starts expanded and can be collapsed by clicking the header.
+</NeoCallout>
+
+<!-- Collapsible collapsed by default -->
+<NeoCallout 
+  type="warning" 
+  title="Collapsible Collapsed (Click to expand)" 
+  variant="filled"
+  collapsible={true} 
+  expanded={false}
+>
+  This content is hidden by default and reveals when clicked.
+</NeoCallout>
+```
+
+<NeoCallout 
+  type="note" 
+  title="Collapsible Expanded (Default)" 
+  variant="default"
+  collapsible={true} 
+  expanded={true}
+>
+This callout starts expanded and can be collapsed by clicking the header. You can include any content here including lists, code blocks, and formatted text.
+</NeoCallout>
+
+<NeoCallout 
+  type="warning" 
+  title="Collapsible Collapsed (Click to expand)" 
+  variant="filled"
+  collapsible={true} 
+  expanded={false}
+>
+This content is hidden by default and reveals when clicked. Perfect for optional details or advanced configuration that doesn't clutter the main content.
+</NeoCallout>
+
+#### Custom Icon Property
+
+```astro
+<!-- Custom SVG icon override -->
+<NeoCallout 
+  type="success" 
+  title="Custom Icon Example" 
+  variant="outline"
+  icon="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/></svg>"
+>
+  This callout uses a custom star icon instead of the default success checkmark.
+</NeoCallout>
+```
+
+<NeoCallout 
+  type="success" 
+  title="Custom Icon Example" 
+  variant="outline"
+  icon="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/></svg>"
+>
+This callout uses a custom star icon instead of the default success checkmark.
+</NeoCallout>
+
+### Maximum Property Combination
+
+Here's an example using all properties together:
+
+```astro
+<NeoCallout 
+  type="tip"
+  title="Complete Property Example"
+  variant="filled"
+  collapsible={true}
+  expanded={false}
+  icon="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'/></svg>"
+>
+  This example demonstrates all available properties:
+  - **Type**: tip (teal color scheme)
+  - **Title**: Custom descriptive title
+  - **Variant**: filled (bold background)
+  - **Collapsible**: true (can be expanded/collapsed)
+  - **Expanded**: false (starts collapsed)
+  - **Icon**: Custom lightbulb SVG icon
+  
+  You can include any content here including code blocks, lists, and rich formatting.
+</NeoCallout>
+```
+
+<NeoCallout 
+  type="tip"
+  title="Complete Property Example"
+  variant="filled"
+  collapsible={true}
+  expanded={false}
+  icon="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'/></svg>"
+>
+This example demonstrates all available properties:
+- **Type**: tip (teal color scheme)
+- **Title**: Custom descriptive title  
+- **Variant**: filled (bold background)
+- **Collapsible**: true (can be expanded/collapsed)
+- **Expanded**: false (starts collapsed)
+- **Icon**: Custom lightbulb SVG icon
+
+You can include any content here including code blocks, lists, and rich formatting.
+</NeoCallout>
+
+### Real-World Scenarios
+
+#### Documentation Warning with Custom Icon
+```astro
+<NeoCallout 
+  type="danger"
+  title="Breaking Changes in v3.0"
+  variant="filled"
+  collapsible={true}
+  expanded={true}
+  icon="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17.02' x2='12.01' y2='17'/></svg>"
+>
+  Review these breaking changes before upgrading...
+</NeoCallout>
+```
+
+<NeoCallout 
+  type="danger"
+  title="Breaking Changes in v3.0"
+  variant="filled"
+  collapsible={true}
+  expanded={true}
+  icon="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17.02' x2='12.01' y2='17'/></svg>"
+>
+Review these breaking changes before upgrading:
+
+- API endpoint changes require URL updates
+- Authentication method has been updated  
+- Configuration file format has changed
+- Legacy browser support has been dropped
+</NeoCallout>
+
+#### Minimal Configuration Note
+```astro
+<NeoCallout 
+  type="note"
+  title="Optional: Advanced Configuration"
+  variant="minimal"
+  collapsible={true}
+  expanded={false}
+>
+  These settings are optional for most users...
+</NeoCallout>
+```
+
+<NeoCallout 
+  type="note"
+  title="Optional: Advanced Configuration"
+  variant="minimal"
+  collapsible={true}
+  expanded={false}
+>
+These settings are optional for most users but provide additional customization:
+
+```javascript
+const config = {
+  advanced: true,
+  caching: 'aggressive',
+  optimization: 'max'
+};
+```
 </NeoCallout>
 
 ## Best Practices
