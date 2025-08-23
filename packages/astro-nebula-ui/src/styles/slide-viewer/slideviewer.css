@@ -34,6 +34,19 @@
     box-shadow: var(--fb-shadow-md);    
   }
 
+  .fb-slide__button--compact {
+    padding: var(--fb-space-xs) var(--fb-space-lg);
+    font-size: var(--fb-font-size-sm);
+    margin: var(--fb-space-sm) 0;
+    gap: var(--fb-space-xs);
+    background: #2563eb;
+    color: white;
+  }
+
+  .fb-slide__button--compact:hover {
+    background: #1d4ed8;
+  }
+
   /* Slide container Styles  */
   .fb-slide__container {
     width: 98%;

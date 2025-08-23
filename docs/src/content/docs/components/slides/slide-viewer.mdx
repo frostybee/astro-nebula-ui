@@ -134,6 +134,44 @@ Exclude unwanted elements from slides:
 ```
 ---
 
+### Keyboard Shortcut Configuration
+
+Customize the keyboard shortcut used to open the slide viewer:
+
+```astro
+<!-- Default shortcut: Ctrl+Shift+S -->
+<NebulaSlider />
+
+<!-- Custom shortcut: Ctrl+Alt+S -->
+<NebulaSlider keyboardShortcut="ctrl+alt+s" />
+
+<!-- Mac-style shortcut: Cmd+Shift+S -->
+<NebulaSlider keyboardShortcut="cmd+shift+s" />
+
+<!-- Simple Alt+S shortcut -->
+<NebulaSlider keyboardShortcut="alt+s" />
+
+<!-- Function key shortcut -->
+<NebulaSlider keyboardShortcut="f9" />
+```
+
+**Supported Modifiers:**
+- `ctrl` - Control key (Windows/Linux)
+- `cmd` or `meta` - Command key (Mac)
+- `alt` - Alt/Option key
+- `shift` - Shift key
+
+**Examples:**
+- `"ctrl+shift+s"` - Ctrl + Shift + S
+- `"ctrl+alt+p"` - Ctrl + Alt + P  
+- `"cmd+shift+s"` - Cmd + Shift + S (Mac)
+- `"alt+f"` - Alt + F
+- `"f8"` - F8 key only
+
+The shortcut is displayed in the button's tooltip and works from anywhere on the page (except when typing in input fields).
+
+---
+
 ### Configuration Properties
 
 | Property | Type | Default | Description |
@@ -145,6 +183,7 @@ Exclude unwanted elements from slides:
 | `excludeElements` | string | `"script, style, noscript"` | Elements to exclude from slides |
 | `includeStarlight` | boolean | `true` | Whether to include Starlight fallback selectors |
 | `contentFilter` | string | `""` | Additional content filtering (future use) |
+| `keyboardShortcut` | string | `"ctrl+shift+s"` | Custom keyboard shortcut to open slides |
 
 ---
 
@@ -321,6 +360,10 @@ Independent light/dark toggle system:
 ## Accessibility & Keyboard Support
 
 ### Comprehensive Keyboard Shortcuts
+
+#### Opening Slideshow
+- `Ctrl+Shift+S` - Open slide viewer (default, configurable)
+- Custom shortcuts supported via `keyboardShortcut` prop
 
 #### Navigation
 - `←` `→` - Previous/Next slide

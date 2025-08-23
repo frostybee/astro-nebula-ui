@@ -1,7 +1,7 @@
 @layer Starlight, fbSlideViewer;
 
-@import 'slideviewer-themes.css' layer(fbSlideViewer);
-@import 'slideviewer-modals.css' layer(fbSlideViewer);
-@import 'slideviewer-bookmarks.css' layer(fbSlideViewer);
-@import 'slideviewer.css' layer(fbSlideViewer);
-@import 'slideviewer-toc.css' layer(fbSlideViewer);
+@import 'slideviewer-themes.css';
+@import 'slideviewer-modals.css';
+@import 'slideviewer-bookmarks.css';
+@import 'slideviewer.css';
+@import 'slideviewer-toc.css';
