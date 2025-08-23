@@ -15,8 +15,7 @@
   "main": "./index.js",
   "exports": {
     ".": "./src/index.ts",
-    "./package.json": "./package.json",
-    "./src/components/slideViewer/*.js": "./src/components/slideViewer/*.js"
+    "./package.json": "./package.json"
   },
   "files": [
     "src/**/*",
