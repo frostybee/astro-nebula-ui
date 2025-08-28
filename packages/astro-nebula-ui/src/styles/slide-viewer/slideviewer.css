@@ -918,6 +918,20 @@
   color: var(--fb-text-primary);
 }
 
+/* Reduce margin for nested list items */
+.fb-slide__content ul ul li,
+.fb-slide__content ol ol li,
+.fb-slide__content ul ol li,
+.fb-slide__content ol ul li {
+  margin: 0;
+}
+
+/* Add proper indentation for nested list items */
+.fb-slide__content ol ul li {
+  /* padding-left: 3em; */
+  position: relative;
+}
+
 .fb-slide__content ul,
 .fb-slide__content ol {
   font-size: calc(1.8rem * var(--font-scale));
@@ -937,10 +951,53 @@
   counter-reset: list-counter;
 }
 
+/* Nested lists styling */
+.fb-slide__content ul ul,
+.fb-slide__content ol ol,
+.fb-slide__content ul ol,
+.fb-slide__content ol ul {
+  margin: 0;
+  padding-left: 1.5em;
+}
+
+.fb-slide__content ul ul ul,
+.fb-slide__content ol ol ol,
+.fb-slide__content ul ol ol,
+.fb-slide__content ol ul ul {
+  padding-left: 4.5em;
+}
+
 .fb-slide__content ol li {
   counter-increment: list-counter;
   position: relative;
   padding-left: 2em;
+}
+
+/* Reset counter for nested ordered lists */
+.fb-slide__content ol ol,
+.fb-slide__content ul ol {
+  counter-reset: nested-counter;
+}
+
+.fb-slide__content ol ol li,
+.fb-slide__content ul ol li {
+  counter-increment: nested-counter;
+}
+
+.fb-slide__content ol ol li::before {
+  content: counter(nested-counter, lower-alpha) ".";
+}
+
+.fb-slide__content ol ol ol {
+  counter-reset: nested-nested-counter;
+}
+
+.fb-slide__content ol ol ol li {
+  counter-increment: nested-nested-counter;
+}
+
+.fb-slide__content ol ol ol li::before {
+  content: counter(nested-nested-counter, lower-roman) ".";
 }
 
 .fb-slide__content ol li::before {
@@ -952,7 +1009,6 @@
   font-weight: 700;
   color: var(--fb-interactive-primary);
   line-height: 1;
-  /* min-width: 2.5em; */
   text-align: left;
 }
 
@@ -965,6 +1021,60 @@
   margin-right: 0.8em;
   vertical-align: middle;
   flex-shrink: 0;
+}
+
+/* Override bullet styling for ordered lists nested in unordered lists */
+.fb-slide__content ul ol li::before {
+  content: counter(nested-counter) ".";
+  background-color: transparent;
+  width: auto;
+  height: auto;
+  display: block;
+  margin-right: 0;
+  vertical-align: baseline;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: calc(2.5rem * var(--font-scale));
+  font-weight: 700;
+  color: var(--fb-interactive-primary);
+  line-height: 1;
+  text-align: left;
+}
+
+/* Fix bullet alignment for unordered lists nested in ordered lists */
+.fb-slide__content ol ul li::before {
+  content: "";
+  background-color: var(--fb-interactive-primary);
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  margin-right: 0.8em;
+  vertical-align: baseline;
+  flex-shrink: 0;
+  border-radius: 0;
+  position: static;
+  top: auto;
+  left: auto;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  transform: translateY(0.2em);
+}
+
+/* Different bullet styles for nested unordered lists */
+.fb-slide__content ul ul li::before {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.fb-slide__content ul ul ul li::before {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+  border: 2px solid var(--fb-interactive-primary);
 }
 
 .fb-slide__content strong {
@@ -982,7 +1092,8 @@
   height: auto;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  margin: 2rem 0;
+  margin: 2rem auto;
+  display: block;
 }
 
 .fb-slide__content pre {
