@@ -1,5 +1,5 @@
 ---
-title: Slider Test
+title: Slide Examples
 ---
 
 import {NebulaSlider} from 'astro-nebula-ui';
@@ -9,10 +9,6 @@ import {NebulaSlider} from 'astro-nebula-ui';
 
 ---
 
-## Image Example
-![Houston](../../../../assets/nebula.svg) 
-
----
 
 ## Nested Lists
 
@@ -26,6 +22,12 @@ import {NebulaSlider} from 'astro-nebula-ui';
 - Item 4: this is a test
 
 ---
+
+## Image Example
+![Houston](../../../../assets/nebula.svg) 
+
+---
+
 ## Nested Lists
 
 - Item 1: this is a test
@@ -50,3 +52,35 @@ import {NebulaSlider} from 'astro-nebula-ui';
     - Item 2.2: this is a test
 3. Item 3: this is a test
 4. Item 4: this is a test
+
+---
+
+## Table Example
+
+| Feature | Description | Status |
+|---------|-------------|--------|
+| Navigation | Arrow key navigation between slides | ✅ Working |
+| Buttons | Click buttons to change slides | ✅ Working |
+| Keyboard | Shortcut keys for various functions | ✅ Working |
+| Search | Find content within slides | ✅ Working |
+| Fullscreen | Toggle fullscreen presentation mode | ✅ Working |
+| Themes | Multiple theme options available | ✅ Working |
+
+--- 
+
+## Code Block Example
+
+This is a code block example.
+
+```astro
+<NebulaSlider 
+  triggerText="View Documentation as Slides"
+  title="Documentation Slides"
+  containerSelector=".docs-content, .documentation-body"
+  slideBreakers="h2, .section-break"
+  excludeElements="script, style, .sidebar, .toc, .edit-page"
+  includeStarlight={false}
+  contentFilter=""
+  keyboardShortcut="ctrl+shift+d"
+/>
+```

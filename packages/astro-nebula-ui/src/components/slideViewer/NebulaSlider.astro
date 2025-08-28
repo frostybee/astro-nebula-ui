@@ -23,21 +23,7 @@ const {
   contentFilter = "",
   keyboardShortcut = "ctrl+shift+s",
 } = Astro.props;
-/*
----
-const pageTitle = Astro.props.frontmatter?.title || "Default Title";
----
-<NebulaSlider title={pageTitle} />
 
-3. From Starlight page data:
-
----
-import { getEntry } from 'astro:content';
-const entry = await getEntry('docs', Astro.params.slug);
-const title = entry?.data.title || "Documentation Slides";
----
-<NebulaSlider title={title} />
-*/
 ---
 
 <div id="slide-viewer-trigger">

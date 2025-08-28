@@ -1088,12 +1088,14 @@
 }
 
 .fb-slide__content img {
-  max-width: 80%;
+  max-width: calc(80% * var(--font-scale)) !important;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   margin: 2rem auto;
   display: block;
+  transform: scale(var(--font-scale));
+  transform-origin: center;
 }
 
 .fb-slide__content pre {

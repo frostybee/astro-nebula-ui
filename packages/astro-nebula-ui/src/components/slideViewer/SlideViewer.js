@@ -647,13 +647,6 @@ export class SlideViewer {
       this.nextSlide();
     });
 
-    // Fallback: Also add event listener using direct onclick.
-    this.nextBtn.onclick = (event) => {
-      // console.log("Next button onclick fired");
-      event.preventDefault();
-      event.stopPropagation();
-      this.nextSlide();
-    };
 
     // Laser pointer button events
     if (this.laserPointerBtn) {
